@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D5263C771375DAFC00B7B213 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5263C761375DAFC00B7B213 /* UIKit.framework */; };
+		D5263C791375DAFC00B7B213 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5263C781375DAFC00B7B213 /* Foundation.framework */; };
+		D5263C7B1375DAFC00B7B213 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5263C7A1375DAFC00B7B213 /* CoreGraphics.framework */; };
+		D5263C811375DAFC00B7B213 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5263C7F1375DAFC00B7B213 /* InfoPlist.strings */; };
+		D5263C841375DAFC00B7B213 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5263C831375DAFC00B7B213 /* main.m */; };
+		D5263C871375DAFC00B7B213 /* PoopWormsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5263C861375DAFC00B7B213 /* PoopWormsAppDelegate.m */; };
+		D5263C8A1375DAFC00B7B213 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5263C881375DAFC00B7B213 /* MainWindow.xib */; };
+		D5263C8D1375DAFC00B7B213 /* PoopWormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5263C8C1375DAFC00B7B213 /* PoopWormsViewController.m */; };
+		D5263C901375DAFC00B7B213 /* PoopWormsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5263C8E1375DAFC00B7B213 /* PoopWormsViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D5263C721375DAFC00B7B213 /* PoopWorms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoopWorms.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5263C761375DAFC00B7B213 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D5263C781375DAFC00B7B213 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D5263C7A1375DAFC00B7B213 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D5263C7E1375DAFC00B7B213 /* PoopWorms-Info.plist */ = {isa = PBXFileReference; path = "PoopWorms-Info.plist"; sourceTree = "<group>"; };
+		D5263C801375DAFC00B7B213 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D5263C821375DAFC00B7B213 /* PoopWorms-Prefix.pch */ = {isa = PBXFileReference; path = "PoopWorms-Prefix.pch"; sourceTree = "<group>"; };
+		D5263C831375DAFC00B7B213 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D5263C851375DAFC00B7B213 /* PoopWormsAppDelegate.h */ = {isa = PBXFileReference; path = PoopWormsAppDelegate.h; sourceTree = "<group>"; };
+		D5263C861375DAFC00B7B213 /* PoopWormsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PoopWormsAppDelegate.m; sourceTree = "<group>"; };
+		D5263C891375DAFC00B7B213 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		D5263C8B1375DAFC00B7B213 /* PoopWormsViewController.h */ = {isa = PBXFileReference; path = PoopWormsViewController.h; sourceTree = "<group>"; };
+		D5263C8C1375DAFC00B7B213 /* PoopWormsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PoopWormsViewController.m; sourceTree = "<group>"; };
+		D5263C8F1375DAFC00B7B213 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PoopWormsViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D5263C6F1375DAFC00B7B213 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5263C771375DAFC00B7B213 /* UIKit.framework in Frameworks */,
+				D5263C791375DAFC00B7B213 /* Foundation.framework in Frameworks */,
+				D5263C7B1375DAFC00B7B213 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D5263C671375DAFC00B7B213 = {
+			isa = PBXGroup;
+			children = (
+				D5263C7C1375DAFC00B7B213 /* PoopWorms */,
+				D5263C751375DAFC00B7B213 /* Frameworks */,
+				D5263C731375DAFC00B7B213 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5263C731375DAFC00B7B213 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5263C721375DAFC00B7B213 /* PoopWorms.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5263C751375DAFC00B7B213 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5263C761375DAFC00B7B213 /* UIKit.framework */,
+				D5263C781375DAFC00B7B213 /* Foundation.framework */,
+				D5263C7A1375DAFC00B7B213 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5263C7C1375DAFC00B7B213 /* PoopWorms */ = {
+			isa = PBXGroup;
+			children = (
+				D5263C851375DAFC00B7B213 /* PoopWormsAppDelegate.h */,
+				D5263C861375DAFC00B7B213 /* PoopWormsAppDelegate.m */,
+				D5263C881375DAFC00B7B213 /* MainWindow.xib */,
+				D5263C8B1375DAFC00B7B213 /* PoopWormsViewController.h */,
+				D5263C8C1375DAFC00B7B213 /* PoopWormsViewController.m */,
+				D5263C8E1375DAFC00B7B213 /* PoopWormsViewController.xib */,
+				D5263C7D1375DAFC00B7B213 /* Supporting Files */,
+			);
+			path = PoopWorms;
+			sourceTree = "<group>";
+		};
+		D5263C7D1375DAFC00B7B213 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5263C7E1375DAFC00B7B213 /* PoopWorms-Info.plist */,
+				D5263C7F1375DAFC00B7B213 /* InfoPlist.strings */,
+				D5263C821375DAFC00B7B213 /* PoopWorms-Prefix.pch */,
+				D5263C831375DAFC00B7B213 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D5263C711375DAFC00B7B213 /* PoopWorms */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5263C931375DAFC00B7B213 /* Build configuration list for PBXNativeTarget "PoopWorms" */;
+			buildPhases = (
+				D5263C6E1375DAFC00B7B213 /* Sources */,
+				D5263C6F1375DAFC00B7B213 /* Frameworks */,
+				D5263C701375DAFC00B7B213 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PoopWorms;
+			productName = PoopWorms;
+			productReference = D5263C721375DAFC00B7B213 /* PoopWorms.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D5263C691375DAFC00B7B213 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = Stanford;
+			};
+			buildConfigurationList = D5263C6C1375DAFC00B7B213 /* Build configuration list for PBXProject "PoopWorms" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D5263C671375DAFC00B7B213;
+			productRefGroup = D5263C731375DAFC00B7B213 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D5263C711375DAFC00B7B213 /* PoopWorms */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D5263C701375DAFC00B7B213 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5263C811375DAFC00B7B213 /* InfoPlist.strings in Resources */,
+				D5263C8A1375DAFC00B7B213 /* MainWindow.xib in Resources */,
+				D5263C901375DAFC00B7B213 /* PoopWormsViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D5263C6E1375DAFC00B7B213 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5263C841375DAFC00B7B213 /* main.m in Sources */,
+				D5263C871375DAFC00B7B213 /* PoopWormsAppDelegate.m in Sources */,
+				D5263C8D1375DAFC00B7B213 /* PoopWormsViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D5263C7F1375DAFC00B7B213 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5263C801375DAFC00B7B213 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D5263C881375DAFC00B7B213 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5263C891375DAFC00B7B213 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		D5263C8E1375DAFC00B7B213 /* PoopWormsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5263C8F1375DAFC00B7B213 /* en */,
+			);
+			name = PoopWormsViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D5263C911375DAFC00B7B213 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		D5263C921375DAFC00B7B213 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		D5263C941375DAFC00B7B213 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PoopWorms/PoopWorms-Prefix.pch";
+				INFOPLIST_FILE = "PoopWorms/PoopWorms-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D5263C951375DAFC00B7B213 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PoopWorms/PoopWorms-Prefix.pch";
+				INFOPLIST_FILE = "PoopWorms/PoopWorms-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D5263C6C1375DAFC00B7B213 /* Build configuration list for PBXProject "PoopWorms" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5263C911375DAFC00B7B213 /* Debug */,
+				D5263C921375DAFC00B7B213 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5263C931375DAFC00B7B213 /* Build configuration list for PBXNativeTarget "PoopWorms" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5263C941375DAFC00B7B213 /* Debug */,
+				D5263C951375DAFC00B7B213 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D5263C691375DAFC00B7B213 /* Project object */;
+}

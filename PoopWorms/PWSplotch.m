@@ -14,15 +14,20 @@ static NSMutableDictionary* imageCache;
 @implementation PWSplotch
 @synthesize delegate, itemId, isFood;
 
-- (UIImage*)createParticle:(UIImage*)maskImage withColor:(UIColor*)_color
+- (UIImage*)createParticle:(NSString*)maskImageFileName withColor:(UIColor*)_color
 {
     if (imageCache == nil) {
         imageCache = [[NSMutableDictionary alloc] initWithCapacity:20];
     }
-    NSUInteger hash = [maskImage hash] ^ [_color hash];
+    
+    NSUInteger hash = [maskImageFileName hash] ^ [_color hash];
     UIImage* image = [imageCache objectForKey:[NSNumber numberWithUnsignedInt:hash]];
     if (image != nil)
+    {
         return image;
+    }
+    
+    UIImage *maskImage = [UIImage imageNamed:maskImageFileName];
     
     [self setBackgroundColor:_color];
     UIGraphicsBeginImageContext(self.bounds.size);
@@ -59,7 +64,7 @@ static NSMutableDictionary* imageCache;
     {
         self.frame = CGRectMake(10.0, 10.0, _size.width, _size.height);
         inAlpha = _alpha;
-        self.image = [self createParticle:[UIImage imageNamed:_imageName] withColor:_color];
+        self.image = [self createParticle:_imageName withColor:_color];
         
         //[sview addSubview:self];
         [layer addSublayer:self.layer];

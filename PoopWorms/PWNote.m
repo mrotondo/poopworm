@@ -10,7 +10,7 @@
 
 
 @implementation PWNote
-@synthesize beatIndex, lengthInBeats, pitchPercent, layer;
+@synthesize beatIndex, lengthInBeats, pitchPercent, layer, splotch;
 
 - (id) initWithBeatIndex:(int)beat andPitchPercent:(float)pitch
 {
@@ -22,6 +22,8 @@
         self.layer = [CAShapeLayer layer];
         UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(10, 10) radius:10 startAngle:0 endAngle:2 * M_PI clockwise:NO];
         self.layer.path = path.CGPath;
+        
+        self.splotch = nil;
     }
     return self;
 }

@@ -11,7 +11,7 @@
 @class PWSplotchHandler;
 
 
-@interface PWViewController : UIViewController <UIGestureRecognizerDelegate> {
+@interface PWViewController : UIViewController <PWSplotchWormDelegate> {
 }
 
 @property BOOL creatingWorm;

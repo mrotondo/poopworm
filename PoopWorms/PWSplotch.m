@@ -35,7 +35,6 @@
     UIImage* retImage= [UIImage imageWithCGImage:masked];
     CGImageRelease(masked);
     return retImage;
-    
 }
 
 // override init to include setting the IP and port for OSC
@@ -127,6 +126,27 @@
                                           completion:^(BOOL finished){
                                               [self.delegate killMe:self];
                                           }];
+                     }];
+}
+
+- (void) flash
+{
+    self.transform = CGAffineTransformMakeScale(0.5, 0.5);
+    [UIView animateWithDuration:0.03
+                          delay:0.0
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{ 
+                         self.transform = CGAffineTransformMakeScale(2.0, 2.0);
+                     } 
+                     completion:^(BOOL finished){
+                         [UIView animateWithDuration:0.4
+                                               delay:0.0
+                                             options:UIViewAnimationOptionAllowUserInteraction
+                                          animations:^{ 
+                                              self.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                          } 
+                                          completion:nil
+                          ];
                      }];
 }
 

@@ -9,6 +9,9 @@
 #import "PWWorm.h"
 #import "PWNote.h"
 #import "EWTiming.h"
+#import "PWSplotch.h"
+#import "PoopWormsAppDelegate.h"
+#import "PWViewController.h"
 
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age;
@@ -24,6 +27,7 @@
         
         self.creating = YES;
         self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view] autorelease];
+        self.splotchWorm.delegate = ((PoopWormsAppDelegate*)[UIApplication sharedApplication].delegate).viewController;
         [self.splotchWorm startWorm:CGPointMake(0, 400)];
         self.beatsSinceLastNote = 0;
         
@@ -44,7 +48,8 @@
     int beatIndex = self.sequence.pos;
     PWNote* note = [[PWNote alloc] initWithBeatIndex:beatIndex andPitchPercent:pitchPercent];
     [self.notes addObject:note];
-    [self.splotchWorm addToWorm:CGPointMake(note.beatIndex * 20, 400 + note.pitchPercent * 200) tapped:YES];
+    PWSplotch* splotch = [self.splotchWorm addToWorm:CGPointMake(note.beatIndex * 20, 400 + note.pitchPercent * 200) tapped:YES];
+    note.splotch = splotch;
     self.beatsSinceLastNote = 0;
     [self.sequence addEvent:[[[EWPitchEvent alloc] initWithPitch:pitchPercent] autorelease]];
 }
@@ -61,10 +66,18 @@
         PWNote* lastNote = [self.notes lastObject];
         if (lastNote.beatIndex != self.sequence.pos)
         {
-            [self.splotchWorm addToWorm:CGPointMake((lastNote.beatIndex + beatsSinceLastNote) * 20, 
+            [self.splotchWorm addToWorm:CGPointMake((lastNote.beatIndex + beatsSinceLastNote) * 20,
                                                     400 + lastNote.pitchPercent * 200) tapped:NO];
         }
         self.beatsSinceLastNote++;
+    }
+    
+    for (PWNote* note in self.notes)
+    {
+        if (note.beatIndex == self.sequence.pos)
+        {
+            [note.splotch flash];
+        }
     }
     
     [self.splotchWorm moveWorm];

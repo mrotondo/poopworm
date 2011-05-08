@@ -121,4 +121,10 @@
     }
 }
 
+// HERE'S WHERE THE WORM HEAD GETS HANDLED AND THINGS GET EATEN
+- (void)wormHeadLocation:(CGPoint)head
+{
+    [splotchHandler handleWormPoint:head];
+}
+
 @end

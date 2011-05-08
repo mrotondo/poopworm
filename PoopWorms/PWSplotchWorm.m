@@ -136,7 +136,7 @@
 
 - (bool)jumpTooBigBetween:(CGPoint)pt1 and:(CGPoint)pt2
 {
-    if ( (fabs(pt1.x - pt2.x) > 700.0) || (fabs(pt1.y - pt2.y) > 900.0) ) return YES;
+    if ( (fabs(pt1.x - pt2.x) > 500.0) || (fabs(pt1.y - pt2.y) > 600.0) ) return YES;
     return NO;
 }
 
@@ -153,10 +153,15 @@
     yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
      
     // oops i can't figure out fmodf
-    if ( x < 0.0 ) x += 768.0;
-    if ( x > 768.0 ) x -= 768.0;
-    if ( y < 0.0 ) y += 1024.0;
-    if ( y > 1024.0 ) y -= 1024.0;
+    // TODO: Fix to use view bounds in case screen is rotated
+    while (x < 0) {
+        x += 768;
+    }
+    x = fmodf(x, 768.0);
+    while (y < 0) {
+        y += 1024;
+    }
+    y = fmodf(y, 1024.0);
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -172,6 +177,7 @@
         tempCenter = tempCenter2;
     }
     [UIView commitAnimations];
+    [self.delegate wormHeadLocation:[[wormSplotches lastObject] center]];
 }
 
 - (void)startWorm:(CGPoint)start
@@ -185,17 +191,20 @@
 
 }
 
-- (void)addToWorm:(CGPoint)point tapped:(bool)tapped
+- (PWSplotch*)addToWorm:(CGPoint)point tapped:(bool)tapped
 {
     PWSplotch* s = [wormSplotches lastObject];
-    if ( s.center.x == point.x && s.center.y == point.y ) return;
+    if ( s.center.x == point.x && s.center.y == point.y ) return nil;
     
     UIColor * color = (tapped) ? [self getGreenColor] : [UIColor redColor];
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];
     
-    [wormSplotches addObject: piece];}
+    [wormSplotches addObject: piece];
+    
+    return piece;
+}
 
 - (void)endWorm:(CGPoint)end
 {

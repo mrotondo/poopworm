@@ -27,6 +27,8 @@
 }
 
 @property (nonatomic,assign) id <PWSplotchWormDelegate>delegate;
+@property float xOffset;
+@property float yOffset;
 
 - (id)initWithView:(UIView*)_view;
 

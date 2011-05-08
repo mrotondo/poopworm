@@ -11,6 +11,8 @@
 #import "PWSplotch.h"
 #import "PoopWormsAppDelegate.h"
 #import "PWViewController.h"
+#import "AKSCSynth.h"
+#import "VVOSC.h"
 
 @interface PWWorm () {
 @private
@@ -23,6 +25,7 @@
 
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
+@synthesize groupID, busID, outputNodeID;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
 {
@@ -42,14 +45,45 @@
 
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
+        
+        // Synthesis stuff
+        self.groupID = [[AKSCSynth sharedSynth] group];
+        self.busID = [[AKSCSynth sharedSynth] bus];
+        NSArray *outArgs = [NSArray arrayWithObjects:
+                            [OSCValue createWithString:@"inBus"], 
+                            [OSCValue createWithInt:[self.busID intValue]], 
+                            nil];
+        self.outputNodeID = [[AKSCSynth sharedSynth] synthWithName:@"OutConnector"
+                                                      andArguments:outArgs
+                                                         addAction:AKAddToTailAction
+                                                          targetID:self.groupID];
+        
+        // give SCSynth time to create groups
+        [self performSelector:@selector(eatEffect:) withObject:@"AllpassDelay" afterDelay:0.1];
     }
     return self;
+}
+
+- (void)eatEffect:(NSString *)effectName
+{
+    NSArray *args = [NSArray arrayWithObjects:
+                     [OSCValue createWithString:@"inBus"], 
+                     [OSCValue createWithInt:[self.busID intValue]],
+                     nil];
+    [[AKSCSynth sharedSynth] synthWithName:effectName 
+                              andArguments:args 
+                                 addAction:AKAddBeforeAction 
+                                  targetID:self.outputNodeID];
+    
+    [[AKSCSynth sharedSynth] dumpTree];
+    NSLog(@"***************");
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+    [groupID release];
+    [busID release];
     [super dealloc];
 }
 

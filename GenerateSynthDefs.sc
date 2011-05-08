@@ -3,6 +3,10 @@ SynthDef.synthDefDir = synthDefPath;
 ~synthPath = "~/poopworm/Synths/*".standardizePath;
 ~effectPath = "~/poopworm/Effects/*".standardizePath;
 
+SynthDef(\OutConnector, {|inBus|
+	Out.ar(0, In.ar(inBus));
+}).load(s);
+
 ~soundWormSynthCreator = {|name, synthUGen|
     // Creates appropriately enveloped synths for percussion sounds
     SynthDef(name, {|outBus=0, pitch=440, duration=0.01|
@@ -23,13 +27,13 @@ SynthDef.synthDefDir = synthDefPath;
 
 ~soundWormEffectCreator = {|name, synthUGen|
     // Creates appropriately enveloped synths for percussion sounds
-    SynthDef(name, {|inBus=0, outBus=0, gate=1, pitch=0|
+    SynthDef(name, {|inBus=0, pitch=0|
 	    var input = In.ar(inBus, 1);
         var synth = Pan2.ar(
-            synthUGen.(pitch, input),
+            synthUGen.(input),
             pos:0
         );
-        Out.ar(outBus, synth);
+        ReplaceOut.ar(inBus, synth);
     }).load(s);
 };
 

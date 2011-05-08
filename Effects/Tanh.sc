@@ -1,1 +1,1 @@
-{|pitch, input| (input * 10).tanh / 5};
+{|input| (input * 10).tanh / 5};

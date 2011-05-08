@@ -24,6 +24,10 @@
 @property (nonatomic, retain) EWSequence *sequence;
 @property (nonatomic, readonly) long long age;
 @property (nonatomic, retain) EWPitchEvent *lastEvent;
+// Synthesis Stuffs
+@property (nonatomic, retain) NSNumber *groupID;
+@property (nonatomic, retain) NSNumber *busID;
+@property (nonatomic, retain) NSNumber *outputNodeID;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle;
 - (void) addNoteWithPitch:(float)yPercent;

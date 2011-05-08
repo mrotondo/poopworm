@@ -12,8 +12,10 @@
 
 
 @interface PWViewController : UIViewController <PWSplotchWormDelegate> {
+    UILabel *CPULabel;
 }
 
+@property (nonatomic, retain) IBOutlet UILabel *CPULabel;
 @property BOOL creatingWorm;
 @property (nonatomic, retain) PWWorm* currentWorm;
 @property (nonatomic, retain) NSMutableSet* worms;

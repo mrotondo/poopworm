@@ -63,9 +63,6 @@
                               andArguments:args 
                                  addAction:AKAddBeforeAction 
                                   targetID:self.outputNodeID];
-    
-    [[AKSCSynth sharedSynth] dumpTree];
-    NSLog(@"***************");
 }
 
 - (void)dealloc

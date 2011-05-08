@@ -11,12 +11,15 @@
 #import "PWWormFieldView.h"
 #import "PWSplotchHandler.h"
 #import "EWTiming.h"
+#import "AKSCSynth.h"
 
 @implementation PWViewController
+@synthesize CPULabel;
 @synthesize creatingWorm, currentWorm, worms, splotchHandler;
 
 - (void)dealloc
 {
+    [CPULabel release];
     [super dealloc];
 }
 
@@ -41,22 +44,15 @@
     
     ((PWWormFieldView*) self.view).controller = self;
     
-    NSTimer* mockTimer = [NSTimer timerWithTimeInterval:0.1
-                                                 target:self
-                                               selector:@selector(tick:)
-                                               userInfo:nil
-                                                repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:mockTimer forMode:NSDefaultRunLoopMode];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCPU:) userInfo:nil repeats:YES];
 }
 
-- (void) tick:(NSTimer*)sender
+- (void)updateCPU:(NSTimer*)sender
 {
-//    for (PWWorm* worm in self.worms)
-//    {
-//        [worm tick];
-//    }
-    
-    [self.view setNeedsDisplay];
+    self.CPULabel.text = [NSString stringWithFormat:@"^%.02f, ~%.02f", 
+                          [[AKSCSynth sharedSynth] peakCPU],
+                          [[AKSCSynth sharedSynth] averageCPU],
+                          nil];
 }
 
 - (void) startCreatingWorm
@@ -92,6 +88,7 @@
 
 - (void)viewDidUnload
 {
+    [self setCPULabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

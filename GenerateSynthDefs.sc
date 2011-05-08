@@ -21,7 +21,7 @@ SynthDef(\OutConnector, {|inBus|
             synthUGen.(pitch),
             pos:Rand(-1, 1)
         );
-        Out.ar(outBus, volumeEnvelope * synth * volume);
+        Out.ar(outBus, volumeEnvelope * synth * volume*volume);
     }).load(s);
 };
 

@@ -213,7 +213,6 @@ static EWTicker *g_ticker = nil;
         {
             if( (arc4random() % 1000) / 1000.0 < amount )
             {
-                NSLog(@"removed one");
                 [events removeObject:event];
             }
         }

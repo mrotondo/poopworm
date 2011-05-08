@@ -182,7 +182,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                     center:start size:CGSizeMake(wormSize,wormSize) 
-                                     color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
+                                     color:[UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
     startPoint = start;
@@ -194,7 +194,7 @@
     PWSplotch* s = [wormSplotches lastObject];
     if ( s.center.x == point.x && s.center.y == point.y ) return nil;
     
-    UIColor * color = (tapped) ? [self getGreenColor] : [UIColor redColor];
+    UIColor * color = (tapped) ? [self getGreenColor] : [UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0];
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];
@@ -208,7 +208,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                                         center:end size:CGSizeMake(wormSize,wormSize) 
-                                                         color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
+                                                         color:[UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];    
     endPoint = end;

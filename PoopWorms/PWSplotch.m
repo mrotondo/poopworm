@@ -34,6 +34,8 @@
     CGImageRelease(mask);
     UIImage* retImage= [UIImage imageWithCGImage:masked];
     CGImageRelease(masked);
+    
+    
     return retImage;
 }
 
@@ -45,7 +47,18 @@
         self.frame = CGRectMake(10.0, 10.0, _size.width, _size.height);
         inAlpha = _alpha;
         self.image = [self createParticle:[UIImage imageNamed:_imageName] withColor:_color];
+        
         [sview addSubview:self];
+        
+        CAShapeLayer* ringLayer = [CAShapeLayer layer];
+        UIBezierPath* ringPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_size.width / 2, _size.height / 2) radius:1.5 * _size.width / 2 startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        //ringLayer.lineWidth = 4;
+        ringLayer.fillColor = [UIColor colorWithRed:0.4 green:0.8 blue:0.6 alpha:0.2].CGColor;
+        ringLayer.path = ringPath.CGPath;
+        ringLayer.strokeColor = nil;
+        [self.layer addSublayer:ringLayer];
+
+        
         self.center = _center;
         //[self animateMe];
         //float randy = rand() % 3000 / 1000.0;

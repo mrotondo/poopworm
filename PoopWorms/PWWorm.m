@@ -7,7 +7,6 @@
 //
 
 #import "PWWorm.h"
-#import "PWNote.h"
 #import "EWTiming.h"
 #import "PWSplotch.h"
 #import "PoopWormsAppDelegate.h"
@@ -67,7 +66,7 @@
     {
         if (self.beatsSinceLastNote != 0)
         {
-            [self.splotchWorm addToWorm:CGPointMake((self.sequence.pos + beatsSinceLastNote) * 20,
+            [self.splotchWorm addToWorm:CGPointMake((self.sequence.pos) * 20,
                                                     400 + self.lastEvent.pitch * 200) tapped:NO];
         }
         self.beatsSinceLastNote++;

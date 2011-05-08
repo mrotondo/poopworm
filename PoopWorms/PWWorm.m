@@ -25,7 +25,7 @@
 @end
 
 @implementation PWWorm
-@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
+@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset, mating;
 // Synthesis stuffs
 @synthesize groupID, busID, outputNodeID;
 @synthesize foodInBelly, activeEffectID, volume;

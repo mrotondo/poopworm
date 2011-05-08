@@ -167,12 +167,28 @@
         CGRect bbox1 = worm1.boundingBox;
         bbox1 = CGRectApplyAffineTransform( bbox1, [worm1.splotchWorm extracted_method] );
         
+        BOOL foundMate = NO;
+        
         for( int j = i + 1; j < self.worms.count; j++ )
         {
             PWWorm *worm2 = [self.worms objectAtIndex:j];
             CGRect bbox2 = worm2.boundingBox;
             bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm extracted_method] );
+  
+            if( CGRectIntersectsRect( bbox1, bbox2 ) )
+            {
+                if( !worm1.mating || !worm2.mating )
+                {
+                    NSLog( @"I would mate %@ and %@", worm1, worm2 );
+                }
+                worm1.mating = YES;
+                worm2.mating = YES;
+                foundMate = YES;
+            }
         }
+        
+        if( !foundMate )
+            worm1.mating = NO;
     }
 }
 

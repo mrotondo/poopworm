@@ -7,11 +7,11 @@
 //
 
 #import "PoopWormsAppDelegate.h"
-
 #import "PWViewController.h"
+#import "EWTiming.h"
+
 
 @implementation PoopWormsAppDelegate
-
 
 @synthesize window=_window;
 
@@ -23,6 +23,9 @@
      
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    [[EWTicker sharedTicker] start];
+    
     return YES;
 }
 

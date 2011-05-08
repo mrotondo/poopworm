@@ -36,7 +36,7 @@
 		D5A5F3821375E87D007F9D54 /* PWNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A5F3811375E87D007F9D54 /* PWNote.m */; };
 		D5A5F3851375EDD7007F9D54 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5A5F3841375EDD7007F9D54 /* QuartzCore.framework */; };
 		D5A5F3881375F365007F9D54 /* PWWormFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A5F3871375F365007F9D54 /* PWWormFieldView.m */; };
-		D5A5F38B1375FEE1007F9D54 /* PWMockBeatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A5F38A1375FEE1007F9D54 /* PWMockBeatManager.m */; };
+		E23A23E61376455C00A8CE82 /* EWTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = E23A23E51376455C00A8CE82 /* EWTiming.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +80,8 @@
 		D5A5F3841375EDD7007F9D54 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D5A5F3861375F365007F9D54 /* PWWormFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWWormFieldView.h; sourceTree = "<group>"; };
 		D5A5F3871375F365007F9D54 /* PWWormFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWWormFieldView.m; sourceTree = "<group>"; };
-		D5A5F3891375FEE1007F9D54 /* PWMockBeatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWMockBeatManager.h; sourceTree = "<group>"; };
-		D5A5F38A1375FEE1007F9D54 /* PWMockBeatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMockBeatManager.m; sourceTree = "<group>"; };
+		E23A23E41376455C00A8CE82 /* EWTiming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWTiming.h; sourceTree = "<group>"; };
+		E23A23E51376455C00A8CE82 /* EWTiming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWTiming.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				B2D56F24137637F3009B77EF /* pics */,
-				D5A5F3841375EDD7007F9D54 /* QuartzCore.framework */,
 				D5263C7C1375DAFC00B7B213 /* PoopWorms */,
 				D5263C751375DAFC00B7B213 /* Frameworks */,
 				D5263C731375DAFC00B7B213 /* Products */,
@@ -142,6 +141,7 @@
 		D5263C751375DAFC00B7B213 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5A5F3841375EDD7007F9D54 /* QuartzCore.framework */,
 				D5263C761375DAFC00B7B213 /* UIKit.framework */,
 				D5263C781375DAFC00B7B213 /* Foundation.framework */,
 				D5263C7A1375DAFC00B7B213 /* CoreGraphics.framework */,
@@ -152,6 +152,8 @@
 		D5263C7C1375DAFC00B7B213 /* PoopWorms */ = {
 			isa = PBXGroup;
 			children = (
+				E23A23E41376455C00A8CE82 /* EWTiming.h */,
+				E23A23E51376455C00A8CE82 /* EWTiming.m */,
 				D5263C7D1375DAFC00B7B213 /* Supporting Files */,
 				D5263C851375DAFC00B7B213 /* PoopWormsAppDelegate.h */,
 				D5263C861375DAFC00B7B213 /* PoopWormsAppDelegate.m */,
@@ -166,8 +168,6 @@
 				D5A5F3831375E8AC007F9D54 /* PWTimeEvent.h */,
 				D5A5F3861375F365007F9D54 /* PWWormFieldView.h */,
 				D5A5F3871375F365007F9D54 /* PWWormFieldView.m */,
-				D5A5F3891375FEE1007F9D54 /* PWMockBeatManager.h */,
-				D5A5F38A1375FEE1007F9D54 /* PWMockBeatManager.m */,
 				B2D56F1D13763668009B77EF /* PWSplotch.h */,
 				B2D56F1E13763668009B77EF /* PWSplotch.m */,
 				B2D56F1F13763668009B77EF /* PWSplotchWorm.h */,
@@ -270,9 +270,9 @@
 				D5A5F37E1375E4A3007F9D54 /* PWWorm.m in Sources */,
 				D5A5F3821375E87D007F9D54 /* PWNote.m in Sources */,
 				D5A5F3881375F365007F9D54 /* PWWormFieldView.m in Sources */,
-				D5A5F38B1375FEE1007F9D54 /* PWMockBeatManager.m in Sources */,
 				B2D56F2113763669009B77EF /* PWSplotch.m in Sources */,
 				B2D56F2213763669009B77EF /* PWSplotchWorm.m in Sources */,
+				E23A23E61376455C00A8CE82 /* EWTiming.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

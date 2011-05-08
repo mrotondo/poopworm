@@ -8,35 +8,47 @@
 
 #import "PWWorm.h"
 #import "PWNote.h"
-
-#import "PWMockBeatManager.h"
+#import "EWTiming.h"
 
 @implementation PWWorm
-@synthesize notes, startBeat, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote;
+@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence;
 
 - (id) initWithView:(UIView*)view
 {
     self = [super init];
     if (self) {
         self.notes = [NSMutableArray arrayWithCapacity:10];
-        self.startBeat = [PWMockBeatManager getBeatClosestToNow];
+        
+        self.sequence = [[EWSequence new] autorelease];
+        [self.sequence record];
+        
 //        self.layer = [CAShapeLayer layer];
         self.creating = YES;
-        self.splotchWorm = [[PWSplotchWorm alloc] initWithView:view];
+        self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view] autorelease];
         [self.splotchWorm startWorm:CGPointMake(0, 400)];
         self.beatsSinceLastNote = 0;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
     }
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super dealloc];
+}
+
 - (void) addNoteWithPitch:(float)pitchPercent
 {
-    int beatIndex = [PWMockBeatManager getBeatClosestToNow] - self.startBeat;
+    int beatIndex = self.sequence.pos;
     PWNote* note = [[PWNote alloc] initWithBeatIndex:beatIndex andPitchPercent:pitchPercent];
     [self.notes addObject:note];
 //    [self.layer addSublayer:note.layer];
     [self.splotchWorm addToWorm:CGPointMake(note.beatIndex * 20, 400 + note.pitchPercent * 200) tapped:YES];
     self.beatsSinceLastNote = 0;
+    [self.sequence addEvent:[[EWPitchEvent alloc] initWithPitch:pitchPercent]];
 }
 
 - (void) tick
@@ -44,7 +56,7 @@
     if (self.creating)
     {
         PWNote* lastNote = [self.notes lastObject];
-        if (lastNote.beatIndex != [PWMockBeatManager getBeatClosestToNow])
+        if (lastNote.beatIndex != self.sequence.pos)
         {
             [self.splotchWorm addToWorm:CGPointMake((lastNote.beatIndex + beatsSinceLastNote) * 20, 
                                                     400 + lastNote.pitchPercent * 200) tapped:NO];
@@ -57,7 +69,8 @@
 
 - (void) stopCreating
 {
-    self.durationInBeats = [PWMockBeatManager getBeatClosestToNow] - self.startBeat;
+    self.durationInBeats = self.sequence.length;
+    [self.sequence play];
     self.creating = NO;
     
 //    //NSLog(@"framez %@", NSStringFromCGRect(self.layer.frame));

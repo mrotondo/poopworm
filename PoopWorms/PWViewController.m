@@ -9,7 +9,7 @@
 #import "PWViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "PWWormFieldView.h"
-#import "PWMockBeatManager.h"
+#import "EWTiming.h"
 
 @implementation PWViewController
 @synthesize creatingWorm, currentWorm, worms;
@@ -49,10 +49,10 @@
 
 - (void) tick:(NSTimer*)sender
 {
-    for (PWWorm* worm in self.worms)
-    {
-        [worm tick];
-    }
+//    for (PWWorm* worm in self.worms)
+//    {
+//        [worm tick];
+//    }
     
     [self.view setNeedsDisplay];
 }
@@ -86,8 +86,6 @@
 //    {
 //        [worm updatePath];
 //    }
-    
-    [PWMockBeatManager incrementBeat];
 }
 
 - (void)viewDidUnload

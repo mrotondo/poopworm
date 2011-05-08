@@ -40,5 +40,6 @@
 //- (void) updatePath;
 - (void) clearWorm;
 - (void)eatEffect:(NSString *)effectName;
+- (void) updateDisplay;
 
 @end

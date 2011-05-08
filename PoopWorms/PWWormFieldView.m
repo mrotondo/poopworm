@@ -32,7 +32,10 @@
 {
     if ( [[event allTouches] count] == 1 )
     {
-        [controller startCreatingWorm];
+        UITouch* touch = [touches anyObject];
+        CGPoint loc = [touch locationInView:self];
+        float angle = atan2f((self.bounds.size.height - loc.y) - self.bounds.size.height / 2.0, (self.bounds.size.width - loc.x) - self.bounds.size.width / 2.0);
+        [controller startCreatingWormWithAngle:angle];
     }
     else if ( controller.creatingWorm)
     {

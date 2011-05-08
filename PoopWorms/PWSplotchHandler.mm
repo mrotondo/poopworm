@@ -113,12 +113,13 @@ const float density = 30.0;
 
 - (void)handleTouchPoint:(CGPoint)touchPoint
 {    
+    // TODO: FIX FOOD!
     // perform this randy thing and also make sure nothing is too near, yeah!
     if ( (rand() % 1000) > 0 && [self nothingNearMe:touchPoint] )
     {
-        [splotchArray addObject: [[PWSplotch alloc] initWithImageNamed:[self getShapeName] superview:view 
-                                       center:touchPoint size:CGSizeMake(40.0,40.0) 
-                                        color:[self getShapeColor] alpha:1.0 delegate:self]];
+        [splotchArray addObject: [[PWSplotch alloc] initWithImageNamed:[self getShapeName] superlayer:view.layer /*superview:view */
+                                                                center:touchPoint size:CGSizeMake(40.0,40.0) 
+                                                                 color:[self getShapeColor] alpha:1.0 delegate:self]];
     }
 }
 

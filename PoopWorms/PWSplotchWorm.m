@@ -9,11 +9,18 @@
 #import "PWSplotchWorm.h"
 #import "PWSplotch.h"
 #import "EWTiming.h"
+#import <QuartzCore/QuartzCore.h>
+
+@interface PWSplotchWorm() {
+@private
+}
+@property int numPathPoints;
+@end
 
 @implementation PWSplotchWorm
-@synthesize delegate, xOffset, yOffset;
+@synthesize delegate, xOffset, yOffset, layer, numPathPoints, scalingFactor, entranceAngle;
 
-- (id)initWithView:(UIView*)_view
+- (id)initWithView:(UIView*)_view andAngle:(float)angle
 {
     if ( (self = [super init]) )
     {
@@ -24,8 +31,16 @@
         speed = 0.2;
         moveTime = NO;
         
-        xOffset = 0.0;
-        yOffset = 0.0;
+        self.xOffset = 0.0;
+        self.yOffset = 0.0;
+        
+        self.layer = [CAShapeLayer layer];
+        self.layer.frame = view.bounds;
+        [view.layer addSublayer:self.layer];
+        self.layer.transform = CATransform3DMakeRotation(angle, 0, 0, 1.0);
+        
+        self.entranceAngle = angle;
+        self.scalingFactor = 0.2;
     }
     return self;
 }
@@ -152,14 +167,14 @@
     xOffset += -5 + 10 * ((float)rand() / RAND_MAX);
     yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
      
-    while (x < 0) {
-        x += view.bounds.size.width;
-    }
-    x = fmodf(x, view.bounds.size.width);
-    while (y < 0) {
-        y += view.bounds.size.height;
-    }
-    y = fmodf(y, view.bounds.size.height);
+//    while (x < 0) {
+//        x += view.bounds.size.width;
+//    }
+//    x = fmodf(x, view.bounds.size.width);
+//    while (y < 0) {
+//        y += view.bounds.size.height;
+//    }
+//    y = fmodf(y, view.bounds.size.height);
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -175,18 +190,80 @@
         tempCenter = tempCenter2;
     }
     [UIView commitAnimations];
-    [self.delegate wormHeadLocation:[[wormSplotches lastObject] center]];
+    
+    CGPoint headCenter = [[wormSplotches lastObject] center];
+    CGAffineTransform relativeCenter = CGAffineTransformMakeTranslation(view.bounds.size.width / 2, view.bounds.size.height / 2);
+    CGAffineTransform rotatedRelativeCenter = CGAffineTransformRotate(relativeCenter, self.entranceAngle);
+    CGAffineTransform scaledRotatedRelativeCenter = CGAffineTransformScale(rotatedRelativeCenter, self.scalingFactor, self.scalingFactor);
+    CGAffineTransform scaledRotatedAbsoluteCenter = CGAffineTransformTranslate(scaledRotatedRelativeCenter, -view.bounds.size.width / 2, -view.bounds.size.height / 2);
+    [self.delegate wormHeadLocation: CGPointApplyAffineTransform(headCenter, scaledRotatedAbsoluteCenter)];
+    
+    [self updatePath];
+}
+
+- (void) updatePath
+{
+    if ( [wormSplotches count] > 0 )
+    {
+        UIBezierPath* path = [UIBezierPath bezierPath];
+        PWSplotch* head = [wormSplotches lastObject];
+        [path addArcWithCenter:head.center radius:wormSize startAngle:M_PI / 2 endAngle:-M_PI / 2 clockwise:NO];
+        CGPoint topPoint = CGPointMake(head.center.x, head.center.y - wormSize);
+        CGPoint newTopPoint, controlPoint1, controlPoint2;
+        for (PWSplotch* part in [wormSplotches reverseObjectEnumerator])
+        {
+            if (part == head)
+                continue;
+            
+            newTopPoint = CGPointMake(part.center.x, part.center.y - wormSize);
+            controlPoint1 = CGPointMake(topPoint.x - 4, topPoint.y);
+            controlPoint2 = CGPointMake(newTopPoint.x + 4, newTopPoint.y);
+            [path addCurveToPoint:newTopPoint controlPoint1:controlPoint1 controlPoint2:controlPoint2];
+            
+            topPoint = newTopPoint;
+        }
+        
+        PWSplotch* tail = [wormSplotches objectAtIndex:0];
+        [path addArcWithCenter:tail.center radius:wormSize startAngle:-M_PI / 2 endAngle:M_PI / 2 clockwise:NO];
+        CGPoint bottomPoint = CGPointMake(tail.center.x, tail.center.y + wormSize);
+        CGPoint newBottomPoint;
+        for (PWSplotch* part in wormSplotches)
+        {
+            if (part == tail)
+                continue;
+            
+            newBottomPoint = CGPointMake(part.center.x, part.center.y + wormSize);
+            controlPoint1 = CGPointMake(bottomPoint.x + 4, bottomPoint.y);
+            controlPoint2 = CGPointMake(newBottomPoint.x - 4, newBottomPoint.y);
+            [path addCurveToPoint:newBottomPoint controlPoint1:controlPoint1 controlPoint2:controlPoint2];
+            
+            bottomPoint = newBottomPoint;
+        }
+        
+        self.layer.fillColor = nil;
+        self.layer.lineWidth = 4;
+        self.layer.strokeColor = [self getGreenColor].CGColor;
+        
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
+        animation.duration = 1.0 / [EWTicker sharedTicker].ticksPerSecond;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+        animation.fromValue = (id)self.layer.path;
+        animation.toValue = (id)path.CGPath;
+        [self.layer addAnimation:animation forKey:@"animatePath"];
+        self.layer.path = path.CGPath;        
+    }
 }
 
 - (void)startWorm:(CGPoint)start
 {
-    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
+    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                     center:start size:CGSizeMake(wormSize,wormSize) 
                                      color:[UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
     startPoint = start;
-
+    
+    [self updatePath];
 }
 
 - (PWSplotch*)addToWorm:(CGPoint)point tapped:(bool)tapped
@@ -195,18 +272,20 @@
     if ( s.center.x == point.x && s.center.y == point.y ) return nil;
     
     UIColor * color = (tapped) ? [self getGreenColor] : [UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0];
-    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
+    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
+
+    [self updatePath];
     
     return piece;
 }
 
 - (void)endWorm:(CGPoint)end
 {
-    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
+    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:end size:CGSizeMake(wormSize,wormSize) 
                                                          color:[UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0] alpha:1.0 delegate:self]autorelease];
     
@@ -214,6 +293,14 @@
     endPoint = end;
     //[self move];
     moveTime = YES;
+    [self updatePath];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration: 2.0];
+    self.layer.transform = CATransform3DConcat(self.layer.transform, CATransform3DMakeScale(self.scalingFactor, self.scalingFactor, 1.0));
+    [UIView commitAnimations];
+    //[self.delegate wormHeadLocation:[[wormSplotches lastObject] center]];
 }
 
 - (void)stopWorm

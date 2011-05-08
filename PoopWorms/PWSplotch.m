@@ -40,7 +40,7 @@
 }
 
 // override init to include setting the IP and port for OSC
-- (id)initWithImageNamed:(NSString*)_imageName superview:(UIView*)sview center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate
+- (id)initWithImageNamed:(NSString*)_imageName superlayer:(CALayer*)layer /*superview:(UIView*)sview*/ center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate
 {
     if ( (self = [super init]) )
     {
@@ -48,7 +48,8 @@
         inAlpha = _alpha;
         self.image = [self createParticle:[UIImage imageNamed:_imageName] withColor:_color];
         
-        [sview addSubview:self];
+        //[sview addSubview:self];
+        [layer addSublayer:self.layer];
         
         CAShapeLayer* ringLayer = [CAShapeLayer layer];
         UIBezierPath* ringPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_size.width / 2, _size.height / 2) radius:1.5 * _size.width / 2 startAngle:0 endAngle:2 * M_PI clockwise:NO];
@@ -73,24 +74,6 @@
 {
     self.image = nil;
     self.image = [self createParticle:[UIImage imageNamed:_imageName] withColor:_color];
-}
-
-- (id)initWithSpecificImageNamed:(NSString*)_imageName superview:(UIView*)sview center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate
-{
-    if ( (self = [super init]) )
-    {
-        self.frame = CGRectMake(10.0, 10.0, _size.width, _size.height);
-        inAlpha = _alpha;
-        self.image = [UIImage imageNamed:_imageName];
-        [sview addSubview:self];
-        self.center = _center;
-        //[self animateMe];
-        float randy = rand() % 3000 / 1000.0;
-        [self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
-        delegate = _delegate;
-    }
-    
-    return self;
 }
 
 - (void) animateMe

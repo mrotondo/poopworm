@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSMutableSet* worms;
 @property (nonatomic, retain) PWSplotchHandler * splotchHandler;
 
-- (void) startCreatingWorm;
+- (void) startCreatingWormWithAngle:(float)angle;
 - (void) stopCreatingWorm;
 - (void) addNoteWithYPercent:(float)yPercent;
 - (void) drawWorms;

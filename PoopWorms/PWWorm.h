@@ -25,7 +25,7 @@
 @property (nonatomic, readonly) long long age;
 @property (nonatomic, retain) EWPitchEvent *lastEvent;
 
-- (id) initWithView:(UIView*)view;
+- (id) initWithView:(UIView*)view andAngle:(float)angle;
 - (void) addNoteWithPitch:(float)yPercent;
 - (void) stopCreating;
 //- (void) updatePath;

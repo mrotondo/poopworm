@@ -186,6 +186,14 @@
     [self.splotchWorm moveWorm];
 }
 
+- (void) updateDisplay
+{
+    for (PWSplotch* splotch in self.splotchWorm.wormSplotches)
+    {
+        
+    }
+}
+
 - (void) stopCreating
 {
     self.durationInBeats = self.sequence.length;

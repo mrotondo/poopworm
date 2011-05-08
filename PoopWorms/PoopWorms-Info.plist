@@ -34,6 +34,8 @@
 	<true/>
 	<key>UILaunchImageFile~ipad</key>
 	<string>splash.png</string>
+	<key>UIApplicationExitsOnSuspend</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

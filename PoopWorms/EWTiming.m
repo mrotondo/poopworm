@@ -47,10 +47,10 @@ static EWTicker *g_ticker = nil;
 
 - (void)fire
 {
-    [[AKSCSynth sharedSynth] synthWithName:@"PitchSine" 
+    [[AKSCSynth sharedSynth] synthWithName:@"PitchSine"
                               andArguments:[NSArray arrayWithObjects:
-                                            [OSCValue createWithString:@"pitch"], 
-                                            [OSCValue createWithInt:(1 - self.pitch) * 10000 + 50], 
+                                            [OSCValue createWithString:@"pitch"],
+                                            [OSCValue createWithInt:(1 - self.pitch) * 2000 + 200],
                                             nil]];
 }
 

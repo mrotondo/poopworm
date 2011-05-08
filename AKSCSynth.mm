@@ -121,7 +121,7 @@ int vpost(const char *fmt, va_list ap)
 - (void)sendMessageInBundle:(OSCMessage *)message
 {
     OSCBundle *bundle = [OSCBundle createWithElement:message];
-    bundle.timeStamp = [NSDate dateWithTimeIntervalSinceNow:1];
+    bundle.timeStamp = [NSDate dateWithTimeIntervalSinceNow:0.1];
     [self sendBundle:bundle];
 }
 
@@ -189,11 +189,13 @@ int vpost(const char *fmt, va_list ap)
 
     NSInteger nodeID = ++lastNodeID;
     *nodeIDDestination = nodeID;
-
+    
     [message addString:synthName];
     [message addInt:nodeID];
-    [message addInt:0]; // Add action (not implemented)
-    [message addInt:0]; // Add target ID (not implemented)
+    // Add action. 0=addToHead, 1=addToTail, 2=addBefore(target), 3=addAfter(target), 4=replace(and free target)
+    [message addInt:0];
+    // Target ID.
+    [message addInt:0]; // 0 = default group.
 
     [message addArguments:arguments];
 

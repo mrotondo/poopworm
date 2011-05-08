@@ -1,22 +1,35 @@
-var synthDefPath = "~/Dropbox/Soundfood/synthdefs".standardizePath;
+var synthDefPath = "~/poopworm/synthdefs".standardizePath;
 SynthDef.synthDefDir = synthDefPath;
-~synthPath = "~/Dropbox/Soundfood/Synths/*".standardizePath;
-~effectPath = "~/Dropbox/Soundfood/Effects/*".standardizePath;
+~synthPath = "~/poopworm/Synths/*".standardizePath;
+~effectPath = "~/poopworm/Effects/*".standardizePath;
 
 ~soundWormSynthCreator = {|name, synthUGen|
     // Creates appropriately enveloped synths for percussion sounds
-    SynthDef(name, {|inBus=0, outBus=0, gate=1, pitch=0|
-	    var input = In.ar(inBus, 1);
-        var volumeEnvelope = EnvGen.ar(
-            envelope:Env.perc,
+    SynthDef(name, {|outBus=0, pitch=440, duration=0.01|
+	    var gate = Trig.kr(1, duration);
+        var volumeEnvelope = Linen.kr(
+	        attackTime:0.01,
             gate:gate,
+            releaseTime:0.2,
             doneAction:2
         );
         var synth = Pan2.ar(
-            synthUGen.(pitch, input),
+            synthUGen.(pitch),
             pos:Rand(-1, 1)
         );
-        Out.ar(outBus, volumeEnvelope * synth)
+        Out.ar(outBus, volumeEnvelope * synth);
+    }).load(s);
+};
+
+~soundWormEffectCreator = {|name, synthUGen|
+    // Creates appropriately enveloped synths for percussion sounds
+    SynthDef(name, {|inBus=0, outBus=0, gate=1, pitch=0|
+	    var input = In.ar(inBus, 1);
+        var synth = Pan2.ar(
+            synthUGen.(pitch, input),
+            pos:0
+        );
+        Out.ar(outBus, synth);
     }).load(s);
 };
 
@@ -31,6 +44,12 @@ fork {
 	    "loading ".post; filePath.postln;
         ~soundWormSynthCreator.(synthName, filePath.load);
     };
-    // Exit SuperCollider at end of compile script
-    0.exit;
+    
+    ~effectPath.pathMatch.do{|filePath|
+	    var synthName = filePath.basename.splitext[0];
+	    "loading ".post; filePath.postln;
+        ~soundWormEffectCreator.(synthName, filePath.load);
+    };
+    
+    //0.exit; // Exit SuperCollider at end of compile script
 }

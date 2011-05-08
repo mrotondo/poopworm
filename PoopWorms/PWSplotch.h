@@ -13,9 +13,16 @@
 @interface PWSplotch : UIImageView {
     id <PWSplotchDelegate> delegate;
     float inAlpha;
+    
 }
 
 @property (nonatomic,assign) id <PWSplotchDelegate> delegate;
+@property (nonatomic,retain) UIColor * originalColor;
+@property (nonatomic,retain) NSString * originalString;
+@property (nonatomic,retain) UIImage * originalImage;
+@property (nonatomic,retain) UIImage * flashImage;
+
+
 @property int itemId;
 @property bool isFood;
 

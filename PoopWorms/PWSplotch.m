@@ -12,7 +12,7 @@
 static NSMutableDictionary* imageCache;
 
 @implementation PWSplotch
-@synthesize delegate, itemId, isFood;
+@synthesize delegate, itemId, isFood, originalColor, originalString, originalImage, flashImage;
 
 - (UIImage*)createParticle:(NSString*)maskImageFileName withColor:(UIColor*)_color
 {
@@ -57,6 +57,31 @@ static NSMutableDictionary* imageCache;
     return retImage;
 }
 
+- (UIColor*)getPurpleColor
+{
+    int which = rand() % 5;
+    switch (which) {
+        case 0:
+            return [UIColor colorWithRed:81.0/255.0 green:45.0/255.0 blue:130.0/255.0 alpha:1.0];
+            break;
+        case 1:
+            return [UIColor colorWithRed:85.0/255.0 green:30.0/255.0 blue:150.0/255.0 alpha:1.0];
+            break;
+        case 2:
+            return [UIColor colorWithRed:90.0/255.0 green:15.0/255.0 blue:120.0/255.0 alpha:1.0];
+            break;
+        case 3:
+            return [UIColor colorWithRed:80.0/255.0 green:30.0/255.0 blue:145.0/255.0 alpha:1.0];
+            break;
+        case 4:
+            return [UIColor colorWithRed:90.0/255.0 green:30.0/255.0 blue:140.0/255.0 alpha:1.0];
+            break;
+        default:
+            break;
+    }
+    return [UIColor blackColor];
+}
+
 // override init to include setting the IP and port for OSC
 - (id)initWithImageNamed:(NSString*)_imageName superlayer:(CALayer*)layer /*superview:(UIView*)sview*/ center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate
 {
@@ -64,6 +89,8 @@ static NSMutableDictionary* imageCache;
     {
         self.frame = CGRectMake(10.0, 10.0, _size.width, _size.height);
         inAlpha = _alpha;
+        
+        self.flashImage = [self createParticle:_imageName withColor:[self getPurpleColor]];
         self.image = [self createParticle:_imageName withColor:_color];
         
         //[sview addSubview:self];
@@ -76,7 +103,10 @@ static NSMutableDictionary* imageCache;
         ringLayer.path = ringPath.CGPath;
         ringLayer.strokeColor = nil;
         [self.layer addSublayer:ringLayer];
-
+        
+        self.originalColor = _color;
+        self.originalString = _imageName;
+        self.originalImage = self.image;
         
         self.center = _center;
         //[self animateMe];
@@ -86,6 +116,15 @@ static NSMutableDictionary* imageCache;
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    self.originalColor = nil;
+    self.originalString = nil;
+    self.originalImage = nil;
+    self.flashImage = nil;
+    [super dealloc];
 }
 
 - (void)changeImageTo:(NSString*)_imageName withColor:_color
@@ -150,7 +189,8 @@ static NSMutableDictionary* imageCache;
                           delay:0.0
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{ 
-                         self.transform = CGAffineTransformMakeScale(2.0, 2.0);
+                         self.transform = CGAffineTransformMakeScale(3.0, 3.0);
+                         self.image = self.flashImage;
                      } 
                      completion:^(BOOL finished){
                          [UIView animateWithDuration:0.4
@@ -158,8 +198,12 @@ static NSMutableDictionary* imageCache;
                                              options:UIViewAnimationOptionAllowUserInteraction
                                           animations:^{ 
                                               self.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                              
+
                                           } 
-                                          completion:nil
+                                          completion:^(BOOL finished){
+                                              self.image = self.originalImage;
+                                          }
                           ];
                      }];
 }

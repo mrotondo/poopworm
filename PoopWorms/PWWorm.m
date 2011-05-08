@@ -7,14 +7,13 @@
 //
 
 #import "PWWorm.h"
-#import "PWNote.h"
 #import "EWTiming.h"
 #import "PWSplotch.h"
 #import "PoopWormsAppDelegate.h"
 #import "PWViewController.h"
 
 @implementation PWWorm
-@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence;
+@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent;
 
 - (id) initWithView:(UIView*)view
 {
@@ -45,34 +44,37 @@
 
 - (void) addNoteWithPitch:(float)pitchPercent
 {
-    int beatIndex = self.sequence.pos;
-    PWNote* note = [[PWNote alloc] initWithBeatIndex:beatIndex andPitchPercent:pitchPercent];
-    [self.notes addObject:note];
-    PWSplotch* splotch = [self.splotchWorm addToWorm:CGPointMake(note.beatIndex * 20, 400 + note.pitchPercent * 200) tapped:YES];
-    note.splotch = splotch;
+    EWPitchEvent *event = [[[EWPitchEvent alloc] initWithPitch:pitchPercent] autorelease];
+    event.worm = self;
+    event.splotch = [self.splotchWorm addToWorm:CGPointMake(self.sequence.pos * 20, 400 + event.pitch * 200) tapped:YES];
+    
+    [self.sequence addEvent:event];
+    
+    self.lastEvent = event;
+    
     self.beatsSinceLastNote = 0;
-    [self.sequence addEvent:[[EWPitchEvent alloc] initWithPitch:pitchPercent]];
 }
 
 - (void) tick
 {
+    age++;
+    
+//    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
+    [self.sequence decay:1 - exp(-0.0001 * age)];
+    
     if (self.creating)
     {
-        PWNote* lastNote = [self.notes lastObject];
-        if (lastNote.beatIndex != self.sequence.pos)
+        if (self.beatsSinceLastNote != 0)
         {
-            [self.splotchWorm addToWorm:CGPointMake((lastNote.beatIndex + beatsSinceLastNote) * 20,
-                                                    400 + lastNote.pitchPercent * 200) tapped:NO];
+            [self.splotchWorm addToWorm:CGPointMake((self.sequence.pos) * 20,
+                                                    400 + self.lastEvent.pitch * 200) tapped:NO];
         }
         self.beatsSinceLastNote++;
     }
     
-    for (PWNote* note in self.notes)
+    for( EWPitchEvent *event in [self.sequence eventsAtTick:self.sequence.pos] )
     {
-        if (note.beatIndex == self.sequence.pos)
-        {
-            [note.splotch flash];
-        }
+        [event.splotch flash];
     }
     
     [self.splotchWorm moveWorm];

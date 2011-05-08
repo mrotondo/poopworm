@@ -25,7 +25,15 @@
     [self.window makeKeyAndVisible];
     
     [[EWTicker sharedTicker] start];
-    [AKSCSynth sharedSynth];
+    [AKSCSynth sharedSynth]; // luke says this makes sure the audio is ready but tom is skeptical
+    
+//    EWSequence *seq = [EWSequence new];
+//    seq.length = 16;
+//    [seq addEvent:[[EWPitchEvent alloc] initWithPitch:0.5] atTick:0];
+//    [seq addEvent:[[EWPitchEvent alloc] initWithPitch:0] atTick:4];
+//    [seq addEvent:[[EWPitchEvent alloc] initWithPitch:0] atTick:8];
+//    [seq addEvent:[[EWPitchEvent alloc] initWithPitch:0] atTick:12];
+//    [seq play];
     
     [[AKSCSynth sharedSynth] synthWithName:@"Tanh" andArguments:nil];
     

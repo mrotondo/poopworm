@@ -206,6 +206,17 @@
     }
     [worm stopCreating];
     
+    if( arc4random() % 2 == 0 && mother.effectInBelly )
+    {
+        worm.effectInBelly = mother.effectInBelly;
+        [worm eatEffect:mother.activeEffectName];
+    }
+    else if( father.effectInBelly )
+    {
+        worm.effectInBelly = father.effectInBelly;
+        [worm eatEffect:father.activeEffectName];
+    }
+    
     return worm;
 }
 

@@ -26,7 +26,7 @@
 @end
 
 @implementation PWWorm
-@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset, mating, lastDate;
+@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, activeEffectName, lastEvent, negativeStartOffset, mating, lastDate;
 // Synthesis stuffs
 @synthesize groupID, busID, outputNodeID, effectInBelly;
 @synthesize foodInBelly, activeEffectID, volume;
@@ -61,7 +61,8 @@
                      [OSCValue createWithString:@"inBus"], 
                      [OSCValue createWithInt:[self.busID intValue]],
                      nil];
-    if (self.activeEffectID) 
+    
+    if (self.activeEffectID)
     {
         // TODO: poop active effect
         self.activeEffectID = [[AKSCSynth sharedSynth] synthWithName:effectName 
@@ -82,6 +83,8 @@
     {
         if ( !splotch.active ) [splotch changeImageTo:[SoundFood imageForEffectId:self.effectInBelly] all:YES];
     }
+    
+    self.activeEffectName = effectName;
 }
 
 - (void)mantleSynths

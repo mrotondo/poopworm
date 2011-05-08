@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2B5271F13766750007EF0A8 /* PWSplotchHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = B2B5271E13766750007EF0A8 /* PWSplotchHandler.mm */; };
 		C26581CF1375F4310080B599 /* AKSCSynth.mm in Sources */ = {isa = PBXBuildFile; fileRef = C26581CE1375F4310080B599 /* AKSCSynth.mm */; };
 		C26581DC1375F75C0080B599 /* libsndfile_iphone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581DB1375F75C0080B599 /* libsndfile_iphone.a */; };
 		C26581EF1375F8730080B599 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581EE1375F8730080B599 /* AudioToolbox.framework */; };
@@ -32,7 +33,6 @@
 		C265824C137656AF0080B599 /* PWViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2658226137656AF0080B599 /* PWViewController.xib */; };
 		C265824D137656AF0080B599 /* EWTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = C2658229137656AF0080B599 /* EWTiming.m */; };
 		C265824E137656AF0080B599 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C265822A137656AF0080B599 /* main.m */; };
-		C265824F137656AF0080B599 /* PoopWorms-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C265822B137656AF0080B599 /* PoopWorms-Info.plist */; };
 		C2658250137656AF0080B599 /* PoopWormsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C265822E137656AF0080B599 /* PoopWormsAppDelegate.m */; };
 		C2658251137656AF0080B599 /* PWNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C2658230137656AF0080B599 /* PWNote.m */; };
 		C2658252137656AF0080B599 /* PWSplotch.m in Sources */ = {isa = PBXBuildFile; fileRef = C2658232137656AF0080B599 /* PWSplotch.m */; };
@@ -103,6 +103,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2B5270C137662D1007EF0A8 /* PoopWormsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoopWormsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2B5271D13766750007EF0A8 /* PWSplotchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWSplotchHandler.h; sourceTree = "<group>"; };
+		B2B5271E13766750007EF0A8 /* PWSplotchHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PWSplotchHandler.mm; sourceTree = "<group>"; };
 		C26581BC1375EE750080B599 /* iPhone_Synth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iPhone_Synth.xcodeproj; path = SuperCollider/platform/iphone/iPhone_Synth.xcodeproj; sourceTree = "<group>"; };
 		C26581CD1375F4310080B599 /* AKSCSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSCSynth.h; sourceTree = "<group>"; };
 		C26581CE1375F4310080B599 /* AKSCSynth.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSCSynth.mm; sourceTree = "<group>"; };
@@ -149,7 +152,6 @@
 		C265823A137656AF0080B599 /* PWWormFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWWormFieldView.h; sourceTree = "<group>"; };
 		C265823B137656AF0080B599 /* PWWormFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWWormFieldView.m; sourceTree = "<group>"; };
 		C26582571376586D0080B599 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C265826D13765E1B0080B599 /* PoopWormsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PoopWormsTests.octest; path = "/Users/lukexi/poopworm/build/Release-iphoneos/PoopWormsTests.octest"; sourceTree = "<absolute>"; };
 		C2BD7FFD13765FC400D07A89 /* scUBlibsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = scUBlibsndfile.a; path = SuperCollider/platform/mac/lib/scUBlibsndfile.a; sourceTree = "<group>"; };
 		C2CDA6A31375D9F100D70643 /* PoopWorms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoopWorms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CDA6A71375D9F100D70643 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -300,6 +302,8 @@
 				C2658233137656AF0080B599 /* PWSplotchWorm.h */,
 				C2658234137656AF0080B599 /* PWSplotchWorm.m */,
 				C2658235137656AF0080B599 /* PWTimeEvent.h */,
+				B2B5271D13766750007EF0A8 /* PWSplotchHandler.h */,
+				B2B5271E13766750007EF0A8 /* PWSplotchHandler.mm */,
 				C2658236137656AF0080B599 /* PWViewController.h */,
 				C2658237137656AF0080B599 /* PWViewController.m */,
 				C2658238137656AF0080B599 /* PWWorm.h */,
@@ -326,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				C2CDA6A31375D9F100D70643 /* PoopWorms.app */,
+				B2B5270C137662D1007EF0A8 /* PoopWormsTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -454,7 +459,7 @@
 			);
 			name = PoopWormsTests;
 			productName = SoundfoodTests;
-			productReference = C265826D13765E1B0080B599 /* PoopWormsTests.octest */;
+			productReference = B2B5270C137662D1007EF0A8 /* PoopWormsTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -530,7 +535,6 @@
 				C265824A137656AF0080B599 /* InfoPlist.strings in Resources */,
 				C265824B137656AF0080B599 /* MainWindow.xib in Resources */,
 				C265824C137656AF0080B599 /* PWViewController.xib in Resources */,
-				C265824F137656AF0080B599 /* PoopWorms-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +599,7 @@
 				C2658254137656AF0080B599 /* PWViewController.m in Sources */,
 				C2658255137656AF0080B599 /* PWWorm.m in Sources */,
 				C2658256137656AF0080B599 /* PWWormFieldView.m in Sources */,
+				B2B5271F13766750007EF0A8 /* PWSplotchHandler.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

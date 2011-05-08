@@ -10,6 +10,8 @@
 #import "PWNote.h"
 #import "EWTiming.h"
 #import "PWSplotch.h"
+#import "PoopWormsAppDelegate.h"
+#import "PWViewController.h"
 
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence;
@@ -25,6 +27,7 @@
         
         self.creating = YES;
         self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view] autorelease];
+        self.splotchWorm.delegate = ((PoopWormsAppDelegate*)[UIApplication sharedApplication].delegate).viewController;
         [self.splotchWorm startWorm:CGPointMake(0, 400)];
         self.beatsSinceLastNote = 0;
         

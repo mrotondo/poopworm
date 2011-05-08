@@ -147,11 +147,11 @@
     PWSplotch * splotch = [wormSplotches objectAtIndex:0];
 
     float x = endPoint.x + splotch.center.x - startPoint.x + xOffset;
-    float y = endPoint.y - startPoint.y + splotch.center.y + xOffset;
+    float y = endPoint.y - startPoint.y + splotch.center.y + yOffset;
 
     xOffset += -5 + 10 * ((float)rand() / RAND_MAX);
     yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
-    
+     
     // oops i can't figure out fmodf
     if ( x < 0.0 ) x += 768.0;
     if ( x > 768.0 ) x -= 768.0;
@@ -172,13 +172,14 @@
         tempCenter = tempCenter2;
     }
     [UIView commitAnimations];
+    [self.delegate wormHeadLocation:[[wormSplotches lastObject] center]];
 }
 
 - (void)startWorm:(CGPoint)start
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                     center:start size:CGSizeMake(wormSize,wormSize) 
-                                     color:[self getGreenColor] alpha:1.0 delegate:self]autorelease];
+                                     color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
     startPoint = start;
@@ -204,7 +205,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                                         center:end size:CGSizeMake(wormSize,wormSize) 
-                                                         color:[self getGreenColor] alpha:1.0 delegate:self]autorelease];
+                                                         color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];    
     endPoint = end;

@@ -9,10 +9,11 @@
 #import "PWViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "PWWormFieldView.h"
+#import "PWSplotchHandler.h"
 #import "EWTiming.h"
 
 @implementation PWViewController
-@synthesize creatingWorm, currentWorm, worms;
+@synthesize creatingWorm, currentWorm, worms, splotchHandler;
 
 - (void)dealloc
 {
@@ -36,6 +37,7 @@
     [super viewDidLoad];
 
     self.worms = [NSMutableArray arrayWithCapacity:10];
+    self.splotchHandler = [[PWSplotchHandler alloc] initWithView:self.view];
     
     ((PWWormFieldView*) self.view).controller = self;
     
@@ -97,13 +99,32 @@
 
 - (IBAction) clearStuff
 {
-    [self.currentWorm clearWorm];
+    for ( PWWorm * worm in self.worms )
+        [worm clearWorm];
+    
+    [self.worms removeAllObjects];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return YES;
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if ( [[event allTouches] count] == 1 )
+    {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
+        [self.splotchHandler handleTouchPoint:touchPoint];
+    }
+}
+
+// HERE'S WHERE THE WORM HEAD GETS HANDLED AND THINGS GET EATEN
+- (void)wormHeadLocation:(CGPoint)head
+{
+    [splotchHandler handleWormPoint:head];
 }
 
 @end

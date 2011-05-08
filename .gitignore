@@ -3,5 +3,10 @@
 *.xcodeproj/*.perspectivev3
 *.xcodeproj/project.xcworkspace/xcuserdata
 *.xcodeproj/xcuserdata
+SuperCollider/platform/iphone/*.xcodeproj/*.mode1v3
+SuperCollider/platform/iphone/*.xcodeproj/*.pbxuser
+SuperCollider/platform/iphone/*.xcodeproj/*.perspectivev3
+SuperCollider/platform/iphone/*.xcodeproj/project.xcworkspace/xcuserdata
+SuperCollider/platform/iphone/*.xcodeproj/xcuserdata
 .DS_Store
 build

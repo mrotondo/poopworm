@@ -1,1 +1,1 @@
-{|pitch| Pulse.ar(pitch)};
+{|pitch| Pulse.ar(pitch) * 0.5};

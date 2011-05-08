@@ -1,0 +1,1 @@
+{|pitch|  SinOsc.ar(XLine.kr(pitch, pitch/4, 0.1))+SinOsc.ar(XLine.kr(pitch/2, pitch/4, 0.3))}

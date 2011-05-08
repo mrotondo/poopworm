@@ -90,6 +90,7 @@
                              @"BasicSine",
                              @"WavyPulse",
                              @"ResonNoise",
+                             @"SineKick",
                              nil];
     NSArray *possibleDrugs = [NSArray arrayWithObjects:
                               @"Tanh", 

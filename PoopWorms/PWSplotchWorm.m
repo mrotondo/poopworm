@@ -11,7 +11,7 @@
 #import "EWTiming.h"
 
 @implementation PWSplotchWorm
-@synthesize delegate;
+@synthesize delegate, xOffset, yOffset;
 
 - (id)initWithView:(UIView*)_view
 {
@@ -23,6 +23,9 @@
         wormSize = 60.0;
         speed = 0.2;
         moveTime = NO;
+        
+        xOffset = 0.0;
+        yOffset = 0.0;
     }
     return self;
 }
@@ -131,30 +134,6 @@
     [splotch release];
 }
 
-- (void)moveForward:(NSTimer*)timer
-{
-    PWSplotch * splotch = [wormSplotches objectAtIndex:0];
-  
-    float x = endPoint.x + splotch.center.x - startPoint.x;
-    float y = endPoint.y - startPoint.y + splotch.center.y;
-    
-    // oops i can't figure out fmodf
-    if ( x < 0.0 ) x += 768.0;
-    if ( x > 768.0 ) x -= 768.0;
-    if ( y < 0.0 ) y += 1024.0;
-    if ( y > 1024.0 ) y -= 1024.0;
-    
-    splotch.center = CGPointMake(x,y);
-    
-    [self.delegate wormHeadLocation:splotch.center];
-    //[splotch setImage:[UIImage imageNamed:@"head.png"]];
-    
-    // now swap to the front
-    [wormSplotches removeObjectAtIndex:0];
-    //[[wormSplotches lastObject] changeImageTo:@"caterscale.png" withColor:[self getGreenColor]];
-    [wormSplotches addObject:splotch];
-}
-
 - (bool)jumpTooBigBetween:(CGPoint)pt1 and:(CGPoint)pt2
 {
     if ( (fabs(pt1.x - pt2.x) > 700.0) || (fabs(pt1.y - pt2.y) > 900.0) ) return YES;
@@ -167,9 +146,12 @@
     
     PWSplotch * splotch = [wormSplotches objectAtIndex:0];
 
-    float x = endPoint.x + splotch.center.x - startPoint.x;
-    float y = endPoint.y - startPoint.y + splotch.center.y;
+    float x = endPoint.x + splotch.center.x - startPoint.x + xOffset;
+    float y = endPoint.y - startPoint.y + splotch.center.y + yOffset;
 
+    xOffset += -5 + 10 * ((float)rand() / RAND_MAX);
+    yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
+     
     // oops i can't figure out fmodf
     if ( x < 0.0 ) x += 768.0;
     if ( x > 768.0 ) x -= 768.0;
@@ -196,7 +178,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                     center:start size:CGSizeMake(wormSize,wormSize) 
-                                     color:[self getGreenColor] alpha:1.0 delegate:self]autorelease];
+                                     color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
     startPoint = start;
@@ -219,7 +201,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                                         center:end size:CGSizeMake(wormSize,wormSize) 
-                                                         color:[self getGreenColor] alpha:1.0 delegate:self]autorelease];
+                                                         color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];    
     endPoint = end;

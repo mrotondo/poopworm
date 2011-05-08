@@ -9,11 +9,21 @@
 #import "PWSplotch.h"
 #import "QuartzCore/QuartzCore.h"
 
+static NSMutableDictionary* imageCache;
+
 @implementation PWSplotch
 @synthesize delegate, itemId, isFood, originalColor, originalString, originalImage, flashImage;
 
 - (UIImage*)createParticle:(UIImage*)maskImage withColor:(UIColor*)_color
 {
+    if (imageCache == nil) {
+        imageCache = [[NSMutableDictionary alloc] initWithCapacity:20];
+    }
+    NSUInteger hash = [maskImage hash] ^ [_color hash];
+    UIImage* image = [imageCache objectForKey:[NSNumber numberWithUnsignedInt:hash]];
+    if (image != nil)
+        return image;
+    
     [self setBackgroundColor:_color];
     UIGraphicsBeginImageContext(self.bounds.size);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -37,6 +47,7 @@
     UIImage* retImage= [UIImage imageWithCGImage:masked];
     CGImageRelease(masked);
     
+    [imageCache setObject:retImage forKey:[NSNumber numberWithUnsignedInt:hash]];
     
     return retImage;
 }

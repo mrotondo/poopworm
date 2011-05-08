@@ -50,6 +50,9 @@ extern NSString *tickNotification;
 - (void)stop;
 - (void)reset;
 
+// don't call this
+- (void)tick;
+
 @end
 
 

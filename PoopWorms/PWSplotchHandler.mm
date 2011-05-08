@@ -152,6 +152,7 @@ const float density = 20.0;
         {
             [worm eatEffect:[SoundFood effectNameForEffectId:hit.itemId]];
         }
+        [worm updateDisplay];
         [splotchArray removeObject:hit];
         [hit explodeMe];
     }

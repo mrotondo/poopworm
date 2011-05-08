@@ -182,20 +182,13 @@
 //    }
 //    y = fmodf(y, view.bounds.size.height);
     
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationDuration: 1.0 / [EWTicker sharedTicker].ticksPerSecond ];
     CGPoint tempCenter = CGPointMake(x, y); 
     for (int i = [wormSplotches count] - 1; i >= 0 ; i--) 
     {
-        if ([self jumpTooBigBetween:[[wormSplotches objectAtIndex:i] center] and:tempCenter])
-            [UIView setAnimationsEnabled:NO];
-        else [UIView setAnimationsEnabled:YES];
         CGPoint tempCenter2 = [[wormSplotches objectAtIndex:i] center];
         [[wormSplotches objectAtIndex:i] setCenter:tempCenter];
         tempCenter = tempCenter2;
     }
-    [UIView commitAnimations];
     
     CGPoint headCenter = [[wormSplotches lastObject] center];
     [self.delegate wormHeadLocation:CGPointApplyAffineTransform(headCenter, [self extracted_method]) withWorm:self.worm];
@@ -205,6 +198,7 @@
 
 - (void) updatePath
 {
+    return;
     if ( [wormSplotches count] > 0 )
     {        
         UIBezierPath* path = [UIBezierPath bezierPath];

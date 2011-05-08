@@ -40,6 +40,7 @@
 		C2658255137656AF0080B599 /* PWWorm.m in Sources */ = {isa = PBXBuildFile; fileRef = C2658239137656AF0080B599 /* PWWorm.m */; };
 		C2658256137656AF0080B599 /* PWWormFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = C265823B137656AF0080B599 /* PWWormFieldView.m */; };
 		C26582581376586E0080B599 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C26582571376586D0080B599 /* QuartzCore.framework */; };
+		C29D95551377065600F3872A /* CALayer+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C29D95541377065600F3872A /* CALayer+Additions.m */; };
 		C2BD7FFE13765FC400D07A89 /* scUBlibsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BD7FFD13765FC400D07A89 /* scUBlibsndfile.a */; };
 		C2CDA6A81375D9F100D70643 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDA6A71375D9F100D70643 /* UIKit.framework */; };
 		C2CDA6AA1375D9F100D70643 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDA6A91375D9F100D70643 /* Foundation.framework */; };
@@ -160,6 +161,8 @@
 		C265823A137656AF0080B599 /* PWWormFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWWormFieldView.h; sourceTree = "<group>"; };
 		C265823B137656AF0080B599 /* PWWormFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWWormFieldView.m; sourceTree = "<group>"; };
 		C26582571376586D0080B599 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C29D95531377065600F3872A /* CALayer+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Additions.h"; sourceTree = "<group>"; };
+		C29D95541377065600F3872A /* CALayer+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Additions.m"; sourceTree = "<group>"; };
 		C2BD7FFD13765FC400D07A89 /* scUBlibsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = scUBlibsndfile.a; path = SuperCollider/platform/mac/lib/scUBlibsndfile.a; sourceTree = "<group>"; };
 		C2CDA6A31375D9F100D70643 /* PoopWorms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoopWorms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CDA6A71375D9F100D70643 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -340,6 +343,8 @@
 				C265823B137656AF0080B599 /* PWWormFieldView.m */,
 				D5F102CF1376D6F8008FFD75 /* SoundFood.h */,
 				D5F102D01376D6F8008FFD75 /* SoundFood.m */,
+				C29D95531377065600F3872A /* CALayer+Additions.h */,
+				C29D95541377065600F3872A /* CALayer+Additions.m */,
 			);
 			path = PoopWorms;
 			sourceTree = "<group>";
@@ -640,6 +645,7 @@
 				C2658256137656AF0080B599 /* PWWormFieldView.m in Sources */,
 				B2B5271F13766750007EF0A8 /* PWSplotchHandler.mm in Sources */,
 				D5F102D11376D6F8008FFD75 /* SoundFood.m in Sources */,
+				C29D95551377065600F3872A /* CALayer+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

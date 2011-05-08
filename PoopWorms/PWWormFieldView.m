@@ -9,24 +9,44 @@
 #import "PWWormFieldView.h"
 
 
-@implementation PWWormFieldView
-@synthesize controller;
+@interface PWWormFieldView() {
+@private
+}
+@property int borderWidth;
+@end
 
-- (id)initWithFrame:(CGRect)frame
+@implementation PWWormFieldView
+@synthesize controller, borderWidth;
+
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithCoder:aDecoder];
     if (self) {
         // Initialization code
+        self.borderWidth = 50;
+        CAShapeLayer* layer = [CAShapeLayer layer];
+        UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:self.frame cornerRadius:self.borderWidth];
+        layer.path = path.CGPath;
+        layer.fillColor = nil;
+        layer.lineWidth = 4;
+        layer.strokeColor = [UIColor blackColor].CGColor;
+        float scalingFactorX = (self.bounds.size.width - borderWidth * 2) / self.bounds.size.width;
+        float scalingFactorY = (self.bounds.size.height - borderWidth * 2) / self.bounds.size.height;
+        NSLog(@"Scaling factors: %f, %f", scalingFactorX, scalingFactorY);
+        layer.frame = self.bounds;
+        layer.transform = CATransform3DMakeScale(scalingFactorX, scalingFactorY, 1.0);
+        [self.layer addSublayer:layer];
     }
     return self;
 }
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
+/*
 - (void)drawRect:(CGRect)rect
 {
-    [self.controller drawWorms];
 }
+*/
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

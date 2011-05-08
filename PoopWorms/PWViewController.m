@@ -78,14 +78,6 @@
     }
 }
 
-- (void) drawWorms
-{
-//    for (PWWorm* worm in self.worms)
-//    {
-//        [worm updatePath];
-//    }
-}
-
 - (void)viewDidUnload
 {
     [self setCPULabel:nil];
@@ -100,7 +92,6 @@
         [worm clearWorm];
     
     [self.worms removeAllObjects];
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

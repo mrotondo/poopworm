@@ -198,6 +198,7 @@
 
 - (void) updatePath
 {
+    return;
     if ( [wormSplotches count] > 0 )
     {        
         UIBezierPath* path = [UIBezierPath bezierPath];

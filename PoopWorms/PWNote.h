@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PWTimeEvent.h"
 
+@class PWSplotch;
+
 @interface PWNote : NSObject <PWTimeEvent> {
     
 }
@@ -18,6 +20,7 @@
 @property int lengthInBeats;
 @property float pitchPercent;
 @property (nonatomic, retain) CAShapeLayer* layer;
+@property (nonatomic, retain) PWSplotch* splotch;
 
 - (id) initWithBeatIndex:(int)beat andPitchPercent:(float)pitchPercent;
 

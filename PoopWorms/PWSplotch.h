@@ -23,6 +23,7 @@
 
 - (void)animateMe;
 - (void)explodeMe;
+- (void)flash;
 
 
 @end

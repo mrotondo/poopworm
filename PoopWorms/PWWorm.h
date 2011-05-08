@@ -29,6 +29,6 @@
 - (void) stopCreating;
 //- (void) updatePath;
 - (void) clearWorm;
-//- (void) tick;
+- (void) tick;
 
 @end

@@ -34,7 +34,7 @@
 
 - (void)removeSplotch:(PWSplotch*)splotch;
 - (void)startWorm:(CGPoint)start;
-- (void)addToWorm:(CGPoint)point tapped:(bool)tapped;
+- (PWSplotch*)addToWorm:(CGPoint)point tapped:(bool)tapped;
 - (void)endWorm:(CGPoint)end;
 
 - (void)stopWorm;

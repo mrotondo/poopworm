@@ -41,7 +41,7 @@
         [self.sequence record];
         
         self.creating = YES;
-        self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view andAngle:angle] autorelease];
+        self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view andAngle:angle andWorm:self] autorelease];
         self.splotchWorm.delegate = ((PoopWormsAppDelegate*)[UIApplication sharedApplication].delegate).viewController;
         self.negativeStartOffset = -100;
         [self.splotchWorm startWorm:CGPointMake(self.negativeStartOffset, 400)];
@@ -81,26 +81,16 @@
                                                      addAction:AKAddToTailAction
                                                       targetID:self.groupID];
     
-    self.foodInBelly = [NSMutableArray array];
+    self.foodInBelly = 0;
     self.activeDrugIDs = [NSMutableArray array];
     
-    NSArray *possibleFood = [NSArray arrayWithObjects:
-                             @"BasicPulse",
-                             @"BasicSaw",
-                             @"BasicSine",
-                             @"WavyPulse",
-                             @"ResonNoise",
-                             @"SineKick",
-                             nil];
     NSArray *possibleDrugs = [NSArray arrayWithObjects:
                               @"Tanh", 
                               @"CombNDelay", 
                               @"Flanger", 
                               @"PitchShift", nil];
-    NSString *randomFood = [possibleFood objectAtIndex:arc4random() % [possibleFood count]];
-    [self.foodInBelly addObject:randomFood];
     NSString *randomDrug = [possibleDrugs objectAtIndex:arc4random() % [possibleDrugs count]];
-    NSLog(@"Spawing %@ => %@", randomFood, randomDrug);
+    NSLog(@"Spawing %@", randomDrug);
     // give SCSynth time to create groups
     [self performSelector:@selector(eatEffect:) withObject:randomDrug afterDelay:0.1];
 }
@@ -117,7 +107,6 @@
     
     [groupID release];
     [busID release];
-    [foodInBelly release];
     [activeDrugIDs release];
     
     [self.splotchWorm cleanup];

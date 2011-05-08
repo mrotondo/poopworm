@@ -9,6 +9,7 @@
 #import "EWTiming.h"
 #import "AKSCSynth.h"
 #import "PWWorm.h"
+#import "SoundFood.h"
 
 NSString *tickNotification = @"Nobody will ever see the contents of this string";
 
@@ -53,14 +54,11 @@ static EWTicker *g_ticker = nil;
                      [OSCValue createWithString:@"outBus"], 
                      [OSCValue createWithInt:[self.worm.busID intValue]],
                      nil];
-    
-    for (NSString *synthName in self.worm.foodInBelly) 
-    {
-        [[AKSCSynth sharedSynth] synthWithName:synthName 
-                                  andArguments:args 
-                                     addAction:AKAddToHeadAction 
-                                      targetID:self.worm.groupID];
-    }
+
+    [[AKSCSynth sharedSynth] synthWithName:[SoundFood synthNameForFoodId:self.worm.foodInBelly]
+                              andArguments:args 
+                                 addAction:AKAddToHeadAction 
+                                  targetID:self.worm.groupID];
 }
 
 @end

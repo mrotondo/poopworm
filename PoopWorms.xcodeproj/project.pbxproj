@@ -69,6 +69,9 @@
 		C2CDA7231375DD0100D70643 /* OSCZeroConfManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CDA70E1375DD0100D70643 /* OSCZeroConfManager.m */; };
 		C2E604651375ED3600C9CC45 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E604641375ED3600C9CC45 /* Accelerate.framework */; };
 		D5F102C71376C4B6008FFD75 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F102C61376C4B6008FFD75 /* triangle.png */; };
+		D5F102CD1376D398008FFD75 /* noise.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F102CB1376D398008FFD75 /* noise.png */; };
+		D5F102CE1376D398008FFD75 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F102CC1376D398008FFD75 /* square.png */; };
+		D5F102D11376D6F8008FFD75 /* SoundFood.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F102D01376D6F8008FFD75 /* SoundFood.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +204,10 @@
 		C2CDA70F1375DD0100D70643 /* VVOSC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VVOSC.h; sourceTree = "<group>"; };
 		C2E604641375ED3600C9CC45 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D5F102C61376C4B6008FFD75 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle.png; sourceTree = "<group>"; };
+		D5F102CB1376D398008FFD75 /* noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noise.png; sourceTree = "<group>"; };
+		D5F102CC1376D398008FFD75 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		D5F102CF1376D6F8008FFD75 /* SoundFood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundFood.h; sourceTree = "<group>"; };
+		D5F102D01376D6F8008FFD75 /* SoundFood.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundFood.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +270,8 @@
 		C2658212137656AE0080B599 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				D5F102CB1376D398008FFD75 /* noise.png */,
+				D5F102CC1376D398008FFD75 /* square.png */,
 				D5F102C61376C4B6008FFD75 /* triangle.png */,
 				C2658213137656AE0080B599 /* caterscale.png */,
 				C2658214137656AE0080B599 /* circle.png */,
@@ -308,6 +317,8 @@
 				C2658239137656AF0080B599 /* PWWorm.m */,
 				C265823A137656AF0080B599 /* PWWormFieldView.h */,
 				C265823B137656AF0080B599 /* PWWormFieldView.m */,
+				D5F102CF1376D6F8008FFD75 /* SoundFood.h */,
+				D5F102D01376D6F8008FFD75 /* SoundFood.m */,
 			);
 			path = PoopWorms;
 			sourceTree = "<group>";
@@ -534,6 +545,8 @@
 				C265824B137656AF0080B599 /* MainWindow.xib in Resources */,
 				C265824C137656AF0080B599 /* PWViewController.xib in Resources */,
 				D5F102C71376C4B6008FFD75 /* triangle.png in Resources */,
+				D5F102CD1376D398008FFD75 /* noise.png in Resources */,
+				D5F102CE1376D398008FFD75 /* square.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +611,7 @@
 				C2658255137656AF0080B599 /* PWWorm.m in Sources */,
 				C2658256137656AF0080B599 /* PWWormFieldView.m in Sources */,
 				B2B5271F13766750007EF0A8 /* PWSplotchHandler.mm in Sources */,
+				D5F102D11376D6F8008FFD75 /* SoundFood.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

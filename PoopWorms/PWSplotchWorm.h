@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 @class PWSplotch;
 @class CAShapeLayer;
+@class PWWorm;
 
 @protocol PWSplotchWormDelegate
 
-- (void)wormHeadLocation:(CGPoint)head;
+- (void)wormHeadLocation:(CGPoint)head withWorm:(PWWorm*)worm;
 
 @end
 
@@ -33,8 +34,9 @@
 @property (nonatomic, retain) CAShapeLayer* layer;
 @property float scalingFactor;
 @property float entranceAngle;
+@property (nonatomic, retain) PWWorm* worm;
 
-- (id)initWithView:(UIView*)_view andAngle:(float)angle;
+- (id)initWithView:(UIView*)_view andAngle:(float)angle andWorm:(PWWorm*)worm;
 
 - (void)removeSplotch:(PWSplotch*)splotch;
 - (void)startWorm:(CGPoint)start;

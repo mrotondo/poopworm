@@ -8,6 +8,8 @@
 
 #import "PWSplotchHandler.h"
 #import "PWSplotch.h"
+#import "PWWorm.h"
+#import "SoundFood.h"
 
 @implementation PWSplotchHandler
 
@@ -111,24 +113,26 @@ const float density = 20.0;
     [splotch release];
 }
 
-- (void)handleTouchPoint:(CGPoint)touchPoint
+- (void)handleTouchPoint:(CGPoint)touchPoint withFoodId:(int)foodId
 {    
     // TODO: FIX FOOD!
     // perform this randy thing and also make sure nothing is too near, yeah!
     if ( (rand() % 1000) > 0 && [self nothingNearMe:touchPoint] )
     {
-        [splotchArray addObject: [[PWSplotch alloc] initWithImageNamed:@"triangle.png"/*[self getShapeName]*/ superlayer:view.layer /*superview:view */
-                                                                center:touchPoint size:CGSizeMake(20.0,20.0) 
-                                                                 color:[self getShapeColor] alpha:1.0 delegate:self]];
+        PWSplotch* splotch = [[PWSplotch alloc] initWithImageNamed:[SoundFood imageForFoodId:foodId] superlayer:view.layer
+                                                            center:touchPoint size:CGSizeMake(20.0,20.0) 
+                                                             color:[self getShapeColor] alpha:1.0 delegate:self];
+        splotch.foodId = foodId;
+        [splotchArray addObject: splotch];
     }
 }
 
-
-- (void)handleWormPoint:(CGPoint)_wormPoint
+- (void)handleWormPoint:(CGPoint)_wormPoint withWorm:(PWWorm*)worm
 {
     PWSplotch * hit = [self hitSplotch:_wormPoint];
     if ( hit ) 
     {
+        worm.foodInBelly = hit.foodId;
         [splotchArray removeObject:hit];
         [hit explodeMe];
     }

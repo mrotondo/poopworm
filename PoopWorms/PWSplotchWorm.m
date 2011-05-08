@@ -8,6 +8,7 @@
 
 #import "PWSplotchWorm.h"
 #import "PWSplotch.h"
+#import "EWTiming.h"
 
 @implementation PWSplotchWorm
 @synthesize delegate;
@@ -177,7 +178,7 @@
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationDuration:0.1];
+    [UIView setAnimationDuration: 1.0 / [EWTicker sharedTicker].ticksPerSecond ];
     CGPoint tempCenter = CGPointMake(x, y); 
     for (int i = [wormSplotches count] - 1; i >= 0 ; i--) 
     {

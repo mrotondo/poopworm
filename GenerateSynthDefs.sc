@@ -9,7 +9,7 @@ SynthDef(\OutConnector, {|inBus|
 
 ~soundWormSynthCreator = {|name, synthUGen|
     // Creates appropriately enveloped synths for percussion sounds
-    SynthDef(name, {|outBus=0, pitch=440, duration=0.01|
+    SynthDef(name, {|outBus=0, pitch=440, volume=1, duration=0.01|
 	    var gate = Trig.kr(1, duration);
         var volumeEnvelope = Linen.kr(
 	        attackTime:0.01,
@@ -21,7 +21,7 @@ SynthDef(\OutConnector, {|inBus|
             synthUGen.(pitch),
             pos:Rand(-1, 1)
         );
-        Out.ar(outBus, volumeEnvelope * synth);
+        Out.ar(outBus, volumeEnvelope * synth * volume*volume);
     }).load(s);
 };
 

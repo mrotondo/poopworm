@@ -18,7 +18,6 @@
 @end
 
 @interface PWSplotchWorm : NSObject {
-    NSMutableArray * wormSplotches;
     UIView * view;
     float wormSize;
     float speed;
@@ -29,6 +28,7 @@
 }
 
 @property (nonatomic,assign) id <PWSplotchWormDelegate>delegate;
+@property (nonatomic, readonly) NSMutableArray *wormSplotches;
 @property float xOffset;
 @property float yOffset;
 @property (nonatomic, retain) CAShapeLayer* layer;
@@ -48,5 +48,9 @@
 - (void)moveWorm;
 
 - (void)cleanup;
+
+- (CGAffineTransform)extracted_method;
+
+- (void)setAlpha:(float)value;
 
 @end

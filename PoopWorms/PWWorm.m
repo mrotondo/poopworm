@@ -16,7 +16,7 @@
 
 @interface PWWorm ()
 
-@property (nonatomic, retain) NSMutableArray *activeDrugIDs;
+@property (nonatomic, retain) NSNumber *activeEffectID;
 @property int negativeStartOffset;
 
 - (void)mantleSynths;
@@ -28,7 +28,7 @@
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
 // Synthesis stuffs
 @synthesize groupID, busID, outputNodeID;
-@synthesize foodInBelly, activeDrugIDs;
+@synthesize foodInBelly, activeEffectID, volume;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
 {
@@ -60,16 +60,27 @@
                      [OSCValue createWithString:@"inBus"], 
                      [OSCValue createWithInt:[self.busID intValue]],
                      nil];
-    NSNumber *nodeID = [[AKSCSynth sharedSynth] synthWithName:effectName 
-                                                 andArguments:args 
-                                                    addAction:AKAddBeforeAction 
-                                                     targetID:self.outputNodeID];
-    [self.activeDrugIDs addObject:nodeID];
+    if (self.activeEffectID) 
+    {
+        // TODO: poop active effect
+        self.activeEffectID = [[AKSCSynth sharedSynth] synthWithName:effectName 
+                                                        andArguments:args 
+                                                           addAction:AKReplaceAction 
+                                                            targetID:self.activeEffectID];
+    }
+    else
+    {
+        self.activeEffectID = [[AKSCSynth sharedSynth] synthWithName:effectName 
+                                                        andArguments:args 
+                                                           addAction:AKAddBeforeAction 
+                                                            targetID:self.outputNodeID];
+    }
 }
 
 - (void)mantleSynths
 {
     // Synthesis stuff
+    self.volume = 1;
     self.groupID = [[AKSCSynth sharedSynth] group];
     self.busID = [[AKSCSynth sharedSynth] bus];
     NSArray *outArgs = [NSArray arrayWithObjects:
@@ -80,9 +91,8 @@
                                                   andArguments:outArgs
                                                      addAction:AKAddToTailAction
                                                       targetID:self.groupID];
-    
     self.foodInBelly = 0;
-    self.activeDrugIDs = [NSMutableArray array];
+    self.activeEffectID = nil;
     
     NSArray *possibleDrugs = [NSArray arrayWithObjects:
                               @"Tanh", 
@@ -107,7 +117,7 @@
     
     [groupID release];
     [busID release];
-    [activeDrugIDs release];
+    [activeEffectID release];
     
     [self.splotchWorm cleanup];
     self.splotchWorm = nil;
@@ -133,10 +143,31 @@
 
 - (void)tick
 {
-    age++;
-    
 //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
     [self.sequence decay:1 - exp(-0.00001 * age)];
+    self.volume = exp(-0.001 * age);
+    
+    UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
+    BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
+    
+    BOOL dead = self.sequence.allEvents.count == 0;
+    
+    if( offScreen || dead )
+    {
+        age += 40;
+    }
+    else
+    {
+        age++;
+    }
+    
+    if( offScreen && dead )
+    {
+        [self clearWorm];
+        return;
+    }
+    
+    [self.splotchWorm setAlpha:exp(-0.002 * age)];
     
     if (self.creating)
     {

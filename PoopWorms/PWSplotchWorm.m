@@ -139,6 +139,31 @@
     return [UIColor blackColor];
 }
 
+- (UIColor*)getPathColor
+{
+    int which = rand() % 5;
+    switch (which) {
+        case 0:
+            return [UIColor colorWithRed:76.0/255.0 green:124.0/255.0 blue:82.0/255.0 alpha:1.0];
+            break;
+        case 1:
+            return [UIColor colorWithRed:86.0/255.0 green:134.0/255.0 blue:87.0/255.0 alpha:1.0];
+            break;
+        case 2:
+            return [UIColor colorWithRed:66.0/255.0 green:122.0/255.0 blue:81.0/255.0 alpha:1.0];
+            break;
+        case 3:
+            return [UIColor colorWithRed:80.0/255.0 green:128.0/255.0 blue:89.0/255.0 alpha:1.0];
+            break;
+        case 4:
+            return [UIColor colorWithRed:76.0/255.0 green:110.0/255.0 blue:76.0/255.0 alpha:1.0];
+            break;
+        default:
+            break;
+    }
+    return [UIColor blackColor];
+}
+
 - (void)removeSplotch:(PWSplotch*)splotch
 {
     [wormSplotches removeObject:splotch];
@@ -198,7 +223,35 @@
 
 - (void) updatePath
 {
+    if( wormSplotches.count > 0 )
+    {
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        
+        [path moveToPoint:[[wormSplotches objectAtIndex:0] center]];
+        
+        BOOL first = YES;
+        for( PWSplotch *splotch in wormSplotches )
+        {
+            if( !first )
+            {
+                [path addLineToPoint:splotch.center];
+            }
+            
+            first = NO;
+        }
+        
+        path.lineCapStyle = kCGLineCapRound;
+        path.lineJoinStyle = kCGLineJoinRound;
+        
+        self.layer.fillColor = nil;
+        self.layer.lineWidth = 30;
+        self.layer.strokeColor = [self getPathColor].CGColor;
+        
+        self.layer.path = path.CGPath;
+    }
+    
     return;
+    
     if ( [wormSplotches count] > 0 )
     {        
         UIBezierPath* path = [UIBezierPath bezierPath];
@@ -267,7 +320,7 @@
     PWSplotch* s = [wormSplotches lastObject];
     if ( s.center.x == point.x && s.center.y == point.y ) return nil;
     
-    UIColor * color = (tapped) ? [self getGreenColor] : [UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0];
+    UIColor * color = (tapped) ? [self getGreenColor] : [UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:tapped ? 1.0 : 0.0];
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];

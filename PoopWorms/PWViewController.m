@@ -154,6 +154,9 @@
 
 - (PWWorm *)offspringOf:(PWWorm *)mother and:(PWWorm *)father
 {
+    if( arc4random() % 2 == 0 )
+        return nil;
+    
     float angle = (arc4random() % 1000) / 1000.0 * M_PI * 2;
     
     PWWorm *worm = [[[PWWorm alloc] initWithView:self.view andAngle:angle] autorelease];
@@ -202,11 +205,14 @@
                     
                     PWWorm *baby = [self offspringOf:worm1 and:worm2];
                     
-                    [self.worms addObject:baby];
-                    [self.view.layer addSublayer:baby.layer];
-                    
-                    worm1.lastDate = [NSDate date];
-                    worm2.lastDate = [NSDate date];
+                    if( baby )
+                    {
+                        [self.worms addObject:baby];
+                        [self.view.layer addSublayer:baby.layer];
+                        
+                        worm1.lastDate = [NSDate date];
+                        worm2.lastDate = [NSDate date];
+                    }
                 }
                 
                 worm1.mating = YES;

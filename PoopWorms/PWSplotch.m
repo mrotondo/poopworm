@@ -142,7 +142,7 @@ static NSMutableDictionary* imageCache;
         CAShapeLayer* ringLayer = [CAShapeLayer layer];
         UIBezierPath* ringPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_size.width / 2, _size.height / 2) radius:1.5 * _size.width / 2 startAngle:0 endAngle:2 * M_PI clockwise:NO];
         //ringLayer.lineWidth = 4;
-        ringLayer.fillColor = [UIColor colorWithRed:0.4 green:0.8 blue:0.6 alpha:0.2].CGColor;
+        ringLayer.fillColor = CGColorCreateCopyWithAlpha(_color.CGColor, 0.2); 
         ringLayer.path = ringPath.CGPath;
         ringLayer.strokeColor = nil;
         [self.layer addSublayer:ringLayer];
@@ -252,7 +252,7 @@ static NSMutableDictionary* imageCache;
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{ 
                          self.transform = CGAffineTransformMakeScale(3.0, 3.0);
-                         self.image = self.flashImage;
+                         //self.image = self.flashImage;
                      } 
                      completion:^(BOOL finished){
                          [UIView animateWithDuration:0.4
@@ -264,7 +264,7 @@ static NSMutableDictionary* imageCache;
 
                                           } 
                                           completion:^(BOOL finished){
-                                              self.image = self.originalImage;
+                                              //self.image = self.originalImage;
                                           }
                           ];
                      }];

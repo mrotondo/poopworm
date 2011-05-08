@@ -13,9 +13,13 @@ extern NSString *tickNotification;
 - (void)fire;
 @end
 
+@class PWSplotch;
+@class PWWorm;
 @interface EWPitchEvent : EWEvent
 
 @property (nonatomic, assign) float pitch;
+@property (nonatomic, retain) PWSplotch *splotch;
+@property (nonatomic, assign) PWWorm *worm;
 
 - (id)initWithPitch:(float)pitch;
 
@@ -37,6 +41,7 @@ extern NSString *tickNotification;
 - (void)addEvent:(EWEvent *)event;
 - (void)addEvent:(EWEvent *)event atTick:(int)tick;
 - (void)poopEvent:(EWEvent *)event;
+- (NSSet *)eventsAtTick:(int)tick;
 - (void)drift:(float)amount; // 0-1
 - (void)decay:(float)amount; // 0-1
 - (void)record; // don't do this after you start playing

@@ -11,6 +11,7 @@
 #import "PWSplotchWorm.h"
 
 @class EWSequence;
+@class EWPitchEvent;
 
 @interface PWWorm : NSObject
 
@@ -22,6 +23,7 @@
 @property int beatsSinceLastNote;
 @property (nonatomic, retain) EWSequence *sequence;
 @property (nonatomic, readonly) long long age;
+@property (nonatomic, retain) EWPitchEvent *lastEvent;
 
 - (id) initWithView:(UIView*)view;
 - (void) addNoteWithPitch:(float)yPercent;

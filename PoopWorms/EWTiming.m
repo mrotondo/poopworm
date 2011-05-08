@@ -6,8 +6,9 @@
 //  Copyright 2011 Smule. All rights reserved.
 //
 
-#include "EWTiming.h"
+#import "EWTiming.h"
 #import "AKSCSynth.h"
+
 
 NSString *tickNotification = @"Nobody will ever see the contents of this string";
 
@@ -29,6 +30,8 @@ static EWTicker *g_ticker = nil;
 @implementation EWPitchEvent
 
 @synthesize pitch;
+@synthesize splotch;
+@synthesize worm;
 
 - (id)initWithPitch:(float)aPitch
 {
@@ -168,6 +171,18 @@ static EWTicker *g_ticker = nil;
     {
         [events removeObject:event];
     }
+}
+
+- (NSSet *)eventsAtTick:(int)tick
+{
+    if( tick >= 0 && tick < timeline.count )
+    {
+        return [timeline objectAtIndex:tick];
+    }
+    
+    NSLog(@"wtf is this tick");
+    
+    return nil;
 }
 
 - (void)drift:(float)amount

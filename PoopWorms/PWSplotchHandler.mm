@@ -11,7 +11,7 @@
 
 @implementation PWSplotchHandler
 
-const float density = 30.0;
+const float density = 20.0;
 
 - (id)initWithView:(UIView*)_view
 {
@@ -118,7 +118,7 @@ const float density = 30.0;
     if ( (rand() % 1000) > 0 && [self nothingNearMe:touchPoint] )
     {
         [splotchArray addObject: [[PWSplotch alloc] initWithImageNamed:[self getShapeName] superlayer:view.layer /*superview:view */
-                                                                center:touchPoint size:CGSizeMake(40.0,40.0) 
+                                                                center:touchPoint size:CGSizeMake(20.0,20.0) 
                                                                  color:[self getShapeColor] alpha:1.0 delegate:self]];
     }
 }

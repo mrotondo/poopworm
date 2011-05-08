@@ -199,7 +199,7 @@
 - (void) updatePath
 {
     if ( [wormSplotches count] > 0 )
-    {
+    {        
         UIBezierPath* path = [UIBezierPath bezierPath];
         PWSplotch* head = [wormSplotches lastObject];
         [path addArcWithCenter:head.center radius:wormSize startAngle:M_PI / 2 endAngle:-M_PI / 2 clockwise:NO];

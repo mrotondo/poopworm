@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C26581CF1375F4310080B599 /* AKSCSynth.mm in Sources */ = {isa = PBXBuildFile; fileRef = C26581CE1375F4310080B599 /* AKSCSynth.mm */; };
 		C26581DC1375F75C0080B599 /* libsndfile_iphone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581DB1375F75C0080B599 /* libsndfile_iphone.a */; };
-		C26581DE1375F7660080B599 /* scUBlibsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581DD1375F7660080B599 /* scUBlibsndfile.a */; };
 		C26581EF1375F8730080B599 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581EE1375F8730080B599 /* AudioToolbox.framework */; };
 		C26581FF1375FF0C0080B599 /* OSCMessage+AddArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = C26581FE1375FF0C0080B599 /* OSCMessage+AddArguments.m */; };
 		C26582001375FFEA0080B599 /* libscsynth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581C81375EE750080B599 /* libscsynth.a */; };
@@ -42,6 +41,7 @@
 		C2658255137656AF0080B599 /* PWWorm.m in Sources */ = {isa = PBXBuildFile; fileRef = C2658239137656AF0080B599 /* PWWorm.m */; };
 		C2658256137656AF0080B599 /* PWWormFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = C265823B137656AF0080B599 /* PWWormFieldView.m */; };
 		C26582581376586E0080B599 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C26582571376586D0080B599 /* QuartzCore.framework */; };
+		C2BD7FFE13765FC400D07A89 /* scUBlibsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BD7FFD13765FC400D07A89 /* scUBlibsndfile.a */; };
 		C2CDA6A81375D9F100D70643 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDA6A71375D9F100D70643 /* UIKit.framework */; };
 		C2CDA6AA1375D9F100D70643 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDA6A91375D9F100D70643 /* Foundation.framework */; };
 		C2CDA6AC1375D9F100D70643 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CDA6AB1375D9F100D70643 /* CoreGraphics.framework */; };
@@ -107,7 +107,6 @@
 		C26581CD1375F4310080B599 /* AKSCSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSCSynth.h; sourceTree = "<group>"; };
 		C26581CE1375F4310080B599 /* AKSCSynth.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSCSynth.mm; sourceTree = "<group>"; };
 		C26581DB1375F75C0080B599 /* libsndfile_iphone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile_iphone.a; path = SuperCollider/platform/iphone/lib/libsndfile_iphone.a; sourceTree = "<group>"; };
-		C26581DD1375F7660080B599 /* scUBlibsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = scUBlibsndfile.a; path = ../../Artikulator/SuperCollider/platform/mac/lib/scUBlibsndfile.a; sourceTree = "<group>"; };
 		C26581EE1375F8730080B599 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C26581FD1375FF0C0080B599 /* OSCMessage+AddArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OSCMessage+AddArguments.h"; sourceTree = "<group>"; };
 		C26581FE1375FF0C0080B599 /* OSCMessage+AddArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OSCMessage+AddArguments.m"; sourceTree = "<group>"; };
@@ -150,7 +149,8 @@
 		C265823A137656AF0080B599 /* PWWormFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWWormFieldView.h; sourceTree = "<group>"; };
 		C265823B137656AF0080B599 /* PWWormFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWWormFieldView.m; sourceTree = "<group>"; };
 		C26582571376586D0080B599 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C265826D13765E1B0080B599 /* PoopWormsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoopWormsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C265826D13765E1B0080B599 /* PoopWormsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PoopWormsTests.octest; path = "/Users/lukexi/poopworm/build/Release-iphoneos/PoopWormsTests.octest"; sourceTree = "<absolute>"; };
+		C2BD7FFD13765FC400D07A89 /* scUBlibsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = scUBlibsndfile.a; path = SuperCollider/platform/mac/lib/scUBlibsndfile.a; sourceTree = "<group>"; };
 		C2CDA6A31375D9F100D70643 /* PoopWorms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoopWorms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CDA6A71375D9F100D70643 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C2CDA6A91375D9F100D70643 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -215,7 +215,7 @@
 				C2CDA6AA1375D9F100D70643 /* Foundation.framework in Frameworks */,
 				C2CDA6AC1375D9F100D70643 /* CoreGraphics.framework in Frameworks */,
 				C26581DC1375F75C0080B599 /* libsndfile_iphone.a in Frameworks */,
-				C26581DE1375F7660080B599 /* scUBlibsndfile.a in Frameworks */,
+				C2BD7FFE13765FC400D07A89 /* scUBlibsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +246,7 @@
 			children = (
 				C2CDA6E01375DD0100D70643 /* VVBasics */,
 				C2CDA6F41375DD0100D70643 /* VVOSC */,
-				C26581DD1375F7660080B599 /* scUBlibsndfile.a */,
+				C2BD7FFD13765FC400D07A89 /* scUBlibsndfile.a */,
 				C26581DB1375F75C0080B599 /* libsndfile_iphone.a */,
 				C2E604641375ED3600C9CC45 /* Accelerate.framework */,
 				C26581EE1375F8730080B599 /* AudioToolbox.framework */,
@@ -326,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				C2CDA6A31375D9F100D70643 /* PoopWorms.app */,
-				C265826D13765E1B0080B599 /* PoopWormsTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -711,6 +710,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/SuperCollider/platform/iphone/lib\"",
 					"\"$(SRCROOT)/../../Artikulator/SuperCollider/platform/mac/lib\"",
+					"\"$(SRCROOT)/SuperCollider/platform/mac/lib\"",
 				);
 				PRODUCT_NAME = PoopWorms;
 				USER_HEADER_SEARCH_PATHS = "SuperCollider/include/common SuperCollider/include/plugin_interface SuperCollider/include/server SuperCollider/external_libraries/libsndfile";
@@ -736,6 +736,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/SuperCollider/platform/iphone/lib\"",
 					"\"$(SRCROOT)/../../Artikulator/SuperCollider/platform/mac/lib\"",
+					"\"$(SRCROOT)/SuperCollider/platform/mac/lib\"",
 				);
 				PRODUCT_NAME = PoopWorms;
 				USER_HEADER_SEARCH_PATHS = "SuperCollider/include/common SuperCollider/include/plugin_interface SuperCollider/include/server SuperCollider/external_libraries/libsndfile";

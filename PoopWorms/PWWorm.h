@@ -34,6 +34,7 @@
 @property (nonatomic) CGFloat volume;
 @property int foodInBelly;
 @property int effectInBelly;
+@property (nonatomic, retain) NSString *activeEffectName;
 
 @property (nonatomic, readonly) BOOL dead;
 @property (nonatomic, readonly) CGRect boundingBox;

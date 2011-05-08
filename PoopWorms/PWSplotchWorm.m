@@ -29,7 +29,7 @@
         view = _view;
         // an array, for the splotches
         wormSplotches = [[NSMutableArray alloc] init];
-        wormSize = 80.0;
+        wormSize = 130.0;
         speed = 0.2;
         moveTime = NO;
         
@@ -278,6 +278,8 @@
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];
+    
+    piece.active = tapped;
     
     [wormSplotches addObject: piece];
 

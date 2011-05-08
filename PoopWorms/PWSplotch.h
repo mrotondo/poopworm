@@ -16,7 +16,8 @@
 }
 
 @property (nonatomic,assign) id <PWSplotchDelegate> delegate;
-@property int foodId;
+@property int itemId;
+@property bool isFood;
 
 - (id)initWithImageNamed:(NSString*)_imageName superlayer:(CALayer*)layer /*superview:(UIView*)sview*/ center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate;
 

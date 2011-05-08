@@ -34,9 +34,33 @@
                        @"triangle.png",
                        @"noise.png",
                        @"wavypulse.png",
-                       @"kick",
+                       @"kick.png",
                        nil];
     return [images objectAtIndex:foodId];
 }
+
+
++ effectNameForEffectId:(int)effectId
+{
+    NSArray *effectNames = [NSArray arrayWithObjects:
+                            @"Tanh",
+                            @"PitchShift",
+                            @"Flanger",
+                            @"CombNDelay",
+                            nil];
+    return [effectNames objectAtIndex:effectId];
+}
+
++ imageForEffectId:(int)effectId
+{
+    NSArray *images = [NSArray arrayWithObjects:
+                       @"distortion.png",
+                       @"pitch.png",
+                       @"flange.png",
+                       @"echo.png",
+                       nil];
+    return [images objectAtIndex:effectId];
+}
+
 
 @end

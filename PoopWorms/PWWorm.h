@@ -35,5 +35,6 @@
 - (void) stopCreating;
 //- (void) updatePath;
 - (void) clearWorm;
+- (void)eatEffect:(NSString *)effectName;
 
 @end

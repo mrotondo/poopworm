@@ -113,16 +113,28 @@ const float density = 20.0;
     [splotch release];
 }
 
-- (void)handleTouchPoint:(CGPoint)touchPoint withFoodId:(int)foodId
+- (void)handleTouchPoint:(CGPoint)touchPoint withItemId:(int)itemId isFood:(bool)isFood
 {    
     // TODO: FIX FOOD!
     // perform this randy thing and also make sure nothing is too near, yeah!
     if ( (rand() % 1000) > 0 && [self nothingNearMe:touchPoint] )
     {
-        PWSplotch* splotch = [[PWSplotch alloc] initWithImageNamed:[SoundFood imageForFoodId:foodId] superlayer:view.layer
-                                                            center:touchPoint size:CGSizeMake(20.0,20.0) 
-                                                             color:[self getShapeColor] alpha:1.0 delegate:self];
-        splotch.foodId = foodId;
+        PWSplotch* splotch;
+        NSString* imageName;
+        if (isFood)
+        {
+            imageName = [SoundFood imageForFoodId:itemId];
+        }
+        else
+        {
+            imageName = [SoundFood imageForEffectId:itemId];
+        }
+        
+        splotch = [[PWSplotch alloc] initWithImageNamed:imageName superlayer:view.layer
+                                                 center:touchPoint size:CGSizeMake(20.0,20.0) 
+                                                  color:[self getShapeColor] alpha:1.0 delegate:self];
+        splotch.itemId = itemId;
+        splotch.isFood = isFood;
         [splotchArray addObject: splotch];
     }
 }
@@ -132,7 +144,14 @@ const float density = 20.0;
     PWSplotch * hit = [self hitSplotch:_wormPoint];
     if ( hit ) 
     {
-        worm.foodInBelly = hit.foodId;
+        if (hit.isFood)
+        {
+            worm.foodInBelly = hit.itemId;
+        }
+        else
+        {
+            [worm eatEffect:[SoundFood effectNameForEffectId:hit.itemId]];
+        }
         [splotchArray removeObject:hit];
         [hit explodeMe];
     }

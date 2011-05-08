@@ -49,11 +49,18 @@ static EWTicker *g_ticker = nil;
 {
     NSArray *args = [NSArray arrayWithObjects:
                      [OSCValue createWithString:@"pitch"],
-                     [OSCValue createWithInt:(1 - self.pitch) * 2000 + 200],
+                     [OSCValue createWithInt:(1 - self.pitch) * 1000 + 100],
                      [OSCValue createWithString:@"outBus"], 
                      [OSCValue createWithInt:[self.worm.busID intValue]],
                      nil];
-    [[AKSCSynth sharedSynth] synthWithName:@"PitchSine" andArguments:args addAction:AKAddToHeadAction targetID:self.worm.groupID];
+    
+    for (NSString *synthName in self.worm.foodInBelly) 
+    {
+        [[AKSCSynth sharedSynth] synthWithName:synthName 
+                                  andArguments:args 
+                                     addAction:AKAddToHeadAction 
+                                      targetID:self.worm.groupID];
+    }
 }
 
 @end

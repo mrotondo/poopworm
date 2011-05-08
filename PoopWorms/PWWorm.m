@@ -19,6 +19,7 @@
 
 }
 
+@property (nonatomic, retain) NSMutableArray *activeDrugIDs;
 @property int negativeStartOffset;
 
 @end
@@ -26,6 +27,7 @@
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
 @synthesize groupID, busID, outputNodeID;
+@synthesize foodInBelly, activeDrugIDs;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
 {
@@ -42,7 +44,6 @@
         self.negativeStartOffset = -100;
         [self.splotchWorm startWorm:CGPointMake(self.negativeStartOffset, 400)];
         self.beatsSinceLastNote = 0;
-
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
         
@@ -58,8 +59,25 @@
                                                          addAction:AKAddToTailAction
                                                           targetID:self.groupID];
         
+        self.foodInBelly = [NSMutableArray array];
+        self.activeDrugIDs = [NSMutableArray array];
+        
         // give SCSynth time to create groups
-        [self performSelector:@selector(eatEffect:) withObject:@"AllpassDelay" afterDelay:0.1];
+        
+        NSArray *possibleFood = [NSArray arrayWithObjects:
+                                 @"BasicPulse",
+                                 @"BasicSaw",
+                                 @"BasicSine",
+                                 @"WavyPulse",
+                                 nil];
+        NSArray *possibleDrugs = [NSArray arrayWithObjects:
+                                  @"Tanh", 
+                                  @"AllpassDelay", 
+                                  @"Flanger", nil];
+        NSString *randomFood = [possibleFood objectAtIndex:arc4random() % [possibleFood count]];
+        [self.foodInBelly addObject:randomFood];
+        NSString *randomDrug = [possibleDrugs objectAtIndex:arc4random() % [possibleDrugs count]];
+        [self performSelector:@selector(eatEffect:) withObject:randomDrug afterDelay:0.1];
     }
     return self;
 }
@@ -70,10 +88,11 @@
                      [OSCValue createWithString:@"inBus"], 
                      [OSCValue createWithInt:[self.busID intValue]],
                      nil];
-    [[AKSCSynth sharedSynth] synthWithName:effectName 
-                              andArguments:args 
-                                 addAction:AKAddBeforeAction 
-                                  targetID:self.outputNodeID];
+    NSNumber *nodeID = [[AKSCSynth sharedSynth] synthWithName:effectName 
+                                                 andArguments:args 
+                                                    addAction:AKAddBeforeAction 
+                                                     targetID:self.outputNodeID];
+    [self.activeDrugIDs addObject:nodeID];
 }
 
 - (void)dealloc
@@ -81,6 +100,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [groupID release];
     [busID release];
+    [foodInBelly release];
+    [activeDrugIDs release];
     [super dealloc];
 }
 

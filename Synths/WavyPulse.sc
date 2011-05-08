@@ -1,0 +1,1 @@
+{|pitch| EnvGen.kr(Env.perc) * Pulse.ar(pitch + SinOsc.kr(5, mul:pitch * 0.05))}

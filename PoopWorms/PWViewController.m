@@ -44,7 +44,16 @@
     
     ((PWWormFieldView*) self.view).controller = self;
     
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCPU:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1 
+                                     target:self 
+                                   selector:@selector(updateCPU:) 
+                                   userInfo:nil 
+                                    repeats:YES];
+}
+
+- (IBAction)postTreeAction:(id)sender
+{
+    [[AKSCSynth sharedSynth] dumpTree];
 }
 
 - (void)updateCPU:(NSTimer*)sender

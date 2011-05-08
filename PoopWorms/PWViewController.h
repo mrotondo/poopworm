@@ -25,7 +25,6 @@
 - (void) stopCreatingWorm;
 - (void) addNoteWithYPercent:(float)yPercent;
 - (void) drawWorms;
-- (void) tick:(NSTimer*)sender;
 
 - (IBAction) clearStuff;
 

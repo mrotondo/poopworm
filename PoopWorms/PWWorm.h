@@ -28,6 +28,7 @@
 @property (nonatomic, retain) NSNumber *groupID;
 @property (nonatomic, retain) NSNumber *busID;
 @property (nonatomic, retain) NSNumber *outputNodeID;
+@property (nonatomic, retain) NSMutableArray *foodInBelly;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle;
 - (void) addNoteWithPitch:(float)yPercent;

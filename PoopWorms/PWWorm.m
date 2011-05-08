@@ -53,6 +53,9 @@
 {
     age++;
     
+    [self.sequence drift:1 - exp(-0.001 * age)];
+    [self.sequence decay:1 - exp(-0.001 * age)];
+    
     if (self.creating)
     {
         PWNote* lastNote = [self.notes lastObject];

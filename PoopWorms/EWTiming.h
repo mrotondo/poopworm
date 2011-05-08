@@ -37,6 +37,8 @@ extern NSString *tickNotification;
 - (void)addEvent:(EWEvent *)event;
 - (void)addEvent:(EWEvent *)event atTick:(int)tick;
 - (void)poopEvent:(EWEvent *)event;
+- (void)drift:(float)amount; // 0-1
+- (void)decay:(float)amount; // 0-1
 - (void)record; // don't do this after you start playing
 - (void)play;
 - (void)stop;

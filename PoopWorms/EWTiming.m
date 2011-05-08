@@ -170,6 +170,43 @@ static EWTicker *g_ticker = nil;
     }
 }
 
+- (void)drift:(float)amount
+{
+    NSLog(@"drifting %f", amount);
+    for( int i = 0; i < timeline.count; i++ )
+    {
+        NSMutableSet *events = [timeline objectAtIndex:i];
+        
+        for( id event in [[events copy] autorelease] )
+        {
+            if( (arc4random() % 1000) / 1000.0 < amount )
+            {
+                NSLog(@"moved one");
+                [events removeObject:event];
+                
+                NSMutableSet *otherEvents = [timeline objectAtIndex:(i + 1) % timeline.count];
+                [otherEvents addObject:event];
+            }
+        }
+    }
+}
+
+- (void)decay:(float)amount
+{
+    NSLog(@"decaying %f", amount);
+    for( NSMutableSet *events in timeline )
+    {
+        for( id event in [[events copy] autorelease] )
+        {
+            if( (arc4random() % 1000) / 1000.0 < amount )
+            {
+                NSLog(@"removed one");
+                [events removeObject:event];
+            }
+        }
+    }
+}
+
 - (void)record
 {
     recording = YES;

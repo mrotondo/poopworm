@@ -28,7 +28,7 @@
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
 // Synthesis stuffs
 @synthesize groupID, busID, outputNodeID;
-@synthesize foodInBelly, activeDrugIDs;
+@synthesize foodInBelly, activeDrugIDs, volume;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
 {
@@ -70,6 +70,7 @@
 - (void)mantleSynths
 {
     // Synthesis stuff
+    self.volume = 1;
     self.groupID = [[AKSCSynth sharedSynth] group];
     self.busID = [[AKSCSynth sharedSynth] bus];
     NSArray *outArgs = [NSArray arrayWithObjects:

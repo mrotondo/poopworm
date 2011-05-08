@@ -51,6 +51,8 @@ static EWTicker *g_ticker = nil;
     NSArray *args = [NSArray arrayWithObjects:
                      [OSCValue createWithString:@"pitch"],
                      [OSCValue createWithInt:(1 - self.pitch) * 1000 + 100],
+                     [OSCValue createWithString:@"volume"],
+                     [OSCValue createWithFloat:self.worm.volume],
                      [OSCValue createWithString:@"outBus"], 
                      [OSCValue createWithInt:[self.worm.busID intValue]],
                      nil];

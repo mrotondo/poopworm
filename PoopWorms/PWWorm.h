@@ -28,6 +28,7 @@
 @property (nonatomic, retain) NSNumber *groupID;
 @property (nonatomic, retain) NSNumber *busID;
 @property (nonatomic, retain) NSNumber *outputNodeID;
+@property (nonatomic) CGFloat volume;
 @property int foodInBelly;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle;

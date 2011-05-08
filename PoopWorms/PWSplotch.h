@@ -21,6 +21,7 @@
 @property (nonatomic,retain) NSString * originalString;
 @property (nonatomic,retain) UIImage * originalImage;
 @property (nonatomic,retain) UIImage * flashImage;
+@property bool active;
 
 
 @property int itemId;
@@ -29,7 +30,7 @@
 - (id)initWithImageNamed:(NSString*)_imageName superlayer:(CALayer*)layer /*superview:(UIView*)sview*/ center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate;
 
 - (void)changeImageTo:(NSString*)_imageName withColor:_color;
-
+- (void)changeImageTo:(NSString*)_imageName all:(bool)all;
 - (void)animateMe;
 - (void)explodeMe;
 - (void)flash;

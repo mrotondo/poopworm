@@ -272,6 +272,8 @@
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];
     
+    piece.active = tapped;
+    
     [wormSplotches addObject: piece];
 
     [self updatePath];

@@ -30,6 +30,8 @@
 @property (nonatomic, retain) NSNumber *outputNodeID;
 @property (nonatomic) CGFloat volume;
 @property int foodInBelly;
+@property int effectInBelly;
+
 @property (nonatomic, readonly) BOOL dead;
 @property (nonatomic, readonly) CGRect boundingBox;
 @property (nonatomic, assign) BOOL mating;

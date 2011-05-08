@@ -12,7 +12,7 @@
 static NSMutableDictionary* imageCache;
 
 @implementation PWSplotch
-@synthesize delegate, itemId, isFood, originalColor, originalString, originalImage, flashImage;
+@synthesize delegate, itemId, isFood, originalColor, originalString, originalImage, flashImage, active;
 
 - (UIImage*)createParticle:(UIImage*)maskImage withColor:(UIColor*)_color
 {
@@ -108,6 +108,7 @@ static NSMutableDictionary* imageCache;
         //float randy = rand() % 3000 / 1000.0;
         //[self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
         delegate = _delegate;
+        active = NO;
     }
     
     return self;
@@ -124,8 +125,18 @@ static NSMutableDictionary* imageCache;
 
 - (void)changeImageTo:(NSString*)_imageName withColor:_color
 {
-    self.image = nil;
     self.image = [self createParticle:[UIImage imageNamed:_imageName] withColor:_color];
+}
+
+- (void)changeImageTo:(NSString*)_imageName all:(bool)all
+{
+    // BAIL OUT IF ALREADY THAT IMAGE! YEAH!
+    if ( [_imageName isEqualToString:self.originalString] ) return;
+    
+    self.originalImage = [self createParticle:[UIImage imageNamed:_imageName] withColor:self.originalColor];
+    self.flashImage = [self createParticle:[UIImage imageNamed:_imageName] withColor:[self getPurpleColor]];
+    if (all) self.image = originalImage;
+
 }
 
 - (void) animateMe

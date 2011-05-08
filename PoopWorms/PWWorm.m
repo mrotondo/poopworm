@@ -13,6 +13,7 @@
 #import "PWViewController.h"
 #import "AKSCSynth.h"
 #import "VVOSC.h"
+#import "SoundFood.h"
 
 @interface PWWorm ()
 
@@ -27,7 +28,7 @@
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset, mating, lastDate;
 // Synthesis stuffs
-@synthesize groupID, busID, outputNodeID;
+@synthesize groupID, busID, outputNodeID, effectInBelly;
 @synthesize foodInBelly, activeEffectID, volume;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
@@ -74,6 +75,12 @@
                                                         andArguments:args 
                                                            addAction:AKAddBeforeAction 
                                                             targetID:self.outputNodeID];
+    }
+    
+    // update display here
+    for (PWSplotch* splotch in self.splotchWorm.wormSplotches)
+    {
+        if ( !splotch.active ) [splotch changeImageTo:[SoundFood imageForEffectId:self.effectInBelly] all:YES];
     }
 }
 
@@ -190,7 +197,7 @@
 {
     for (PWSplotch* splotch in self.splotchWorm.wormSplotches)
     {
-        
+        [splotch changeImageTo:[SoundFood imageForFoodId:self.foodInBelly] all:NO];
     }
 }
 

@@ -133,7 +133,16 @@
 
 - (void)tick
 {
-    age++;
+    UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
+    
+    if( CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) ) )
+    {
+        age++;
+    }
+    else
+    {
+        age += 40;
+    }
     
 //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
     [self.sequence decay:1 - exp(-0.00001 * age)];

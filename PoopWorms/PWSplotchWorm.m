@@ -18,7 +18,7 @@
 @end
 
 @implementation PWSplotchWorm
-@synthesize delegate, xOffset, yOffset, layer, numPathPoints, scalingFactor, entranceAngle, worm;
+@synthesize delegate, wormSplotches, xOffset, yOffset, layer, numPathPoints, scalingFactor, entranceAngle, worm;
 
 - (id)initWithView:(UIView*)_view andAngle:(float)angle andWorm:(PWWorm*)_worm
 {
@@ -152,6 +152,15 @@
     return NO;
 }
 
+- (CGAffineTransform)extracted_method
+{
+    CGAffineTransform relativeCenter = CGAffineTransformMakeTranslation(view.bounds.size.width / 2, view.bounds.size.height / 2);
+    CGAffineTransform rotatedRelativeCenter = CGAffineTransformRotate(relativeCenter, self.entranceAngle);
+    CGAffineTransform scaledRotatedRelativeCenter = CGAffineTransformScale(rotatedRelativeCenter, self.scalingFactor, self.scalingFactor);
+    CGAffineTransform scaledRotatedAbsoluteCenter = CGAffineTransformTranslate(scaledRotatedRelativeCenter, -view.bounds.size.width / 2, -view.bounds.size.height / 2);
+    return scaledRotatedAbsoluteCenter;
+}
+
 - (void)moveWorm
 {
     if ( !moveTime ) return;
@@ -189,11 +198,7 @@
     [UIView commitAnimations];
     
     CGPoint headCenter = [[wormSplotches lastObject] center];
-    CGAffineTransform relativeCenter = CGAffineTransformMakeTranslation(view.bounds.size.width / 2, view.bounds.size.height / 2);
-    CGAffineTransform rotatedRelativeCenter = CGAffineTransformRotate(relativeCenter, self.entranceAngle);
-    CGAffineTransform scaledRotatedRelativeCenter = CGAffineTransformScale(rotatedRelativeCenter, self.scalingFactor, self.scalingFactor);
-    CGAffineTransform scaledRotatedAbsoluteCenter = CGAffineTransformTranslate(scaledRotatedRelativeCenter, -view.bounds.size.width / 2, -view.bounds.size.height / 2);
-    [self.delegate wormHeadLocation: CGPointApplyAffineTransform(headCenter, scaledRotatedAbsoluteCenter) withWorm:self.worm];
+    [self.delegate wormHeadLocation:CGPointApplyAffineTransform(headCenter, [self extracted_method]) withWorm:self.worm];
     
     [self updatePath];
 }

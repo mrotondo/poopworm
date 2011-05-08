@@ -15,4 +15,7 @@
 
 + synthNameForFoodId:(int)foodId;
 + imageForFoodId:(int)foodId;
+
++ effectNameForEffectId:(int)effectId;
++ imageForEffectId:(int)effectId;
 @end

@@ -15,7 +15,7 @@
 
 @implementation PWViewController
 @synthesize CPULabel;
-@synthesize creatingWorm, currentWorm, worms, splotchHandler, currentFoodId;
+@synthesize creatingWorm, currentWorm, worms, splotchHandler, currentFoodId, currentEffectId, placingFood;
 
 - (void)dealloc
 {
@@ -48,6 +48,9 @@
     self.splotchHandler = [[PWSplotchHandler alloc] initWithView:self.view];
     
     ((PWWormFieldView*) self.view).controller = self;
+    
+    self.currentFoodId = 1;
+    self.placingFood = YES;
     
     [NSTimer scheduledTimerWithTimeInterval:1 
                                      target:self 
@@ -122,14 +125,25 @@
     PWWormFieldView* wormView = (PWWormFieldView*) self.view;
     if ( [[event allTouches] count] == 1  && !(loc.x < wormView.borderWidth || loc.x > wormView.bounds.size.width - wormView.borderWidth || loc.y < wormView.borderWidth || loc.y > wormView.bounds.size.height - wormView.borderWidth))
     {
-
-        [self.splotchHandler handleTouchPoint:loc withFoodId:self.currentFoodId];
+        int itemId = self.currentFoodId;
+        if (!self.placingFood)
+            itemId = self.currentEffectId;
+        
+        [self.splotchHandler handleTouchPoint:loc withItemId:itemId isFood:self.placingFood];
     }
 }
 
 - (IBAction) selectSoundFood:(UIButton*)sender
 {
     self.currentFoodId = sender.tag;
+    self.placingFood = YES;
+}
+
+
+- (IBAction) selectEffect:(UIButton*)sender
+{
+    self.currentEffectId = sender.tag;
+    self.placingFood = NO;
 }
 
 // HERE'S WHERE THE WORM HEAD GETS HANDLED AND THINGS GET EATEN

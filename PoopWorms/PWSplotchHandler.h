@@ -16,7 +16,7 @@
 }
 
 - (id)initWithView:(UIView*)_view;
-- (void)handleTouchPoint:(CGPoint)_touchPoint withFoodId:(int)foodId;
+- (void)handleTouchPoint:(CGPoint)touchPoint withItemId:(int)itemId isFood:(bool)isFood;
 - (void)handleWormPoint:(CGPoint)_wormPoint withWorm:(PWWorm*)worm;
 
 @end

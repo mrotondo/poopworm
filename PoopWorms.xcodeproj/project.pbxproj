@@ -76,6 +76,9 @@
 		D5F103121376E597008FFD75 /* distortion.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F1030E1376E597008FFD75 /* distortion.png */; };
 		D5F103131376E597008FFD75 /* kick.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F1030F1376E597008FFD75 /* kick.png */; };
 		D5F103141376E597008FFD75 /* wavypulse.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F103101376E597008FFD75 /* wavypulse.png */; };
+		D5F103181376EB34008FFD75 /* echo.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F103151376EB34008FFD75 /* echo.png */; };
+		D5F103191376EB34008FFD75 /* flange.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F103161376EB34008FFD75 /* flange.png */; };
+		D5F1031A1376EB34008FFD75 /* pitch.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F103171376EB34008FFD75 /* pitch.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +219,9 @@
 		D5F1030E1376E597008FFD75 /* distortion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distortion.png; sourceTree = "<group>"; };
 		D5F1030F1376E597008FFD75 /* kick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kick.png; sourceTree = "<group>"; };
 		D5F103101376E597008FFD75 /* wavypulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wavypulse.png; sourceTree = "<group>"; };
+		D5F103151376EB34008FFD75 /* echo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = echo.png; sourceTree = "<group>"; };
+		D5F103161376EB34008FFD75 /* flange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flange.png; sourceTree = "<group>"; };
+		D5F103171376EB34008FFD75 /* pitch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pitch.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +284,9 @@
 		C2658212137656AE0080B599 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				D5F103151376EB34008FFD75 /* echo.png */,
+				D5F103161376EB34008FFD75 /* flange.png */,
+				D5F103171376EB34008FFD75 /* pitch.png */,
 				D5F1030D1376E597008FFD75 /* blank.png */,
 				D5F1030E1376E597008FFD75 /* distortion.png */,
 				D5F1030F1376E597008FFD75 /* kick.png */,
@@ -563,6 +572,9 @@
 				D5F103121376E597008FFD75 /* distortion.png in Resources */,
 				D5F103131376E597008FFD75 /* kick.png in Resources */,
 				D5F103141376E597008FFD75 /* wavypulse.png in Resources */,
+				D5F103181376EB34008FFD75 /* echo.png in Resources */,
+				D5F103191376EB34008FFD75 /* flange.png in Resources */,
+				D5F1031A1376EB34008FFD75 /* pitch.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

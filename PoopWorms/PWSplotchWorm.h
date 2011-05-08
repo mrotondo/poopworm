@@ -24,6 +24,8 @@
     CGPoint startPoint, endPoint;
     NSTimer *aniTimer;
     
+    float base[3];
+    
     bool moveTime;
 }
 

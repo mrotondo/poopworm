@@ -159,7 +159,7 @@
         
         if( offScreen || dead )
         {
-            age += 400;
+            age += 40;
         }
         else
         {

@@ -172,9 +172,6 @@
             PWWorm *worm2 = [self.worms objectAtIndex:j];
             CGRect bbox2 = worm2.boundingBox;
             bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm extracted_method] );
-            
-            if( CGRectIntersectsRect( bbox1, bbox2 ) )
-                NSLog(@"%@ and %@ intersect!", worm1, worm2);
         }
     }
 }

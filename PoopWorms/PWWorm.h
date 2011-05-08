@@ -32,6 +32,7 @@
 @property int foodInBelly;
 @property (nonatomic, readonly) BOOL dead;
 @property (nonatomic, readonly) CGRect boundingBox;
+@property (nonatomic, assign) BOOL mating;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle;
 - (void) addNoteWithPitch:(float)yPercent;

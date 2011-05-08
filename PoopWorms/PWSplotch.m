@@ -35,7 +35,6 @@
     UIImage* retImage= [UIImage imageWithCGImage:masked];
     CGImageRelease(masked);
     return retImage;
-    
 }
 
 // override init to include setting the IP and port for OSC

@@ -12,17 +12,19 @@
 @private
 }
 @property (nonatomic, retain) CAShapeLayer* borderLayer;
+@property (nonatomic, retain) NSTimer* stopTimer;
+- (void) stopCreatingWorm:(NSTimer*)sender;
 @end
 
 @implementation PWWormFieldView
-@synthesize controller, borderWidth, borderLayer;
+@synthesize controller, borderWidth, borderLayer, stopTimer;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Initialization code
-        self.borderWidth = 50;
+        self.borderWidth = 80;
         self.borderLayer = [CAShapeLayer layer];
         [self.layer addSublayer:self.borderLayer];
         self.borderLayer.fillColor = nil;
@@ -39,21 +41,13 @@
     NSLog(@"View bounds: %@", NSStringFromCGRect(self.bounds));
     self.borderLayer.transform = CATransform3DIdentity;
     self.borderLayer.frame = self.bounds;
-    UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.borderWidth];
+    UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.borderWidth/4];
     self.borderLayer.path = path.CGPath;
     float scalingFactorX = (self.bounds.size.width - self.borderWidth * 2) / self.bounds.size.width;
     float scalingFactorY = (self.bounds.size.height - self.borderWidth * 2) / self.bounds.size.height;
     NSLog(@"Scaling factors: %f, %f", scalingFactorX, scalingFactorY);
     self.borderLayer.transform = CATransform3DMakeScale(scalingFactorX, scalingFactorY, 1.0);
 }
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-/*
-- (void)drawRect:(CGRect)rect
-{
-}
-*/
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -66,28 +60,20 @@
         {
             float angle = atan2f((self.bounds.size.height - loc.y) - self.bounds.size.height / 2.0, (self.bounds.size.width - loc.x) - self.bounds.size.width / 2.0);
             [controller startCreatingWormWithAngle:angle];
+            self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(stopCreatingWorm:) userInfo:nil repeats:NO];
         }
     }
     else
     {
         [controller addNoteWithYPercent:loc.y / self.bounds.size.height];
+        [self.stopTimer invalidate];
+        self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(stopCreatingWorm:) userInfo:nil repeats:NO];
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void) stopCreatingWorm:(NSTimer*)sender
 {
-    if ( [[event allTouches] count] == 1 )
-    {
-        [controller stopCreatingWorm];
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if ( [[event allTouches] count] == 1 )
-    {
-        [controller stopCreatingWorm];
-    }
+    [controller stopCreatingWorm]; 
 }
 
 - (void)dealloc

@@ -100,6 +100,7 @@
     NSString *randomFood = [possibleFood objectAtIndex:arc4random() % [possibleFood count]];
     [self.foodInBelly addObject:randomFood];
     NSString *randomDrug = [possibleDrugs objectAtIndex:arc4random() % [possibleDrugs count]];
+    NSLog(@"Spawing %@ => %@", randomFood, randomDrug);
     // give SCSynth time to create groups
     [self performSelector:@selector(eatEffect:) withObject:randomDrug afterDelay:0.1];
 }

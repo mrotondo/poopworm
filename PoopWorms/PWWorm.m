@@ -172,7 +172,9 @@
             return;
         }
         
-        [self.splotchWorm setAlpha:exp(-0.002 * age)];
+        everySoOften++;
+        if( everySoOften % 10 == 0 )
+            [self.splotchWorm setAlpha:exp(-0.002 * age)];
     }
     
     if (self.creating)

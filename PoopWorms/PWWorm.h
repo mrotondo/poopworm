@@ -14,6 +14,9 @@
 @class EWPitchEvent;
 
 @interface PWWorm : NSObject
+{
+    int everySoOften;
+}
 
 @property (nonatomic, retain) NSMutableArray* notes;
 @property int durationInBeats;

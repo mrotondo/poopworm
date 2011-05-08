@@ -22,4 +22,6 @@
 - (void) drawWorms;
 - (void) tick:(NSTimer*)sender;
 
+- (IBAction) clearStuff;
+
 @end

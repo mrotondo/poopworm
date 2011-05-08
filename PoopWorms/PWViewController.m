@@ -49,13 +49,18 @@
 
 - (void) tick:(NSTimer*)sender
 {
+    for (PWWorm* worm in self.worms)
+    {
+        [worm tick];
+    }
+    
     [self.view setNeedsDisplay];
 }
 
 - (void) startCreatingWorm
 {
     self.creatingWorm = YES;
-    self.currentWorm = [[[PWWorm alloc] init] autorelease];
+    self.currentWorm = [[[PWWorm alloc] initWithView:self.view] autorelease];
     [self.worms addObject:self.currentWorm];
     [self.view.layer addSublayer:self.currentWorm.layer];
 }
@@ -77,10 +82,10 @@
 
 - (void) drawWorms
 {
-    for (PWWorm* worm in self.worms)
-    {
-        [worm updatePath];
-    }
+//    for (PWWorm* worm in self.worms)
+//    {
+//        [worm updatePath];
+//    }
     
     [PWMockBeatManager incrementBeat];
 }
@@ -90,6 +95,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (IBAction) clearStuff
+{
+    [self.currentWorm clearWorm];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

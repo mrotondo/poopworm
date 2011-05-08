@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "PWSplotchWorm.h"
 
 @interface PWWorm : NSObject {
     
@@ -18,9 +19,14 @@
 @property int durationInBeats;
 @property BOOL creating;
 @property (nonatomic, retain) CAShapeLayer* layer;
+@property (nonatomic, retain) PWSplotchWorm* splotchWorm;
+@property int beatsSinceLastNote;
 
+- (id) initWithView:(UIView*)view;
 - (void) addNoteWithPitch:(float)yPercent;
 - (void) stopCreating;
-- (void) updatePath;
+//- (void) updatePath;
+- (void) clearWorm;
+- (void) tick;
 
 @end

@@ -11,7 +11,7 @@
 #import "EWTiming.h"
 
 @implementation PWWorm
-@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence;
+@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age;
 
 - (id) initWithView:(UIView*)view
 {
@@ -46,11 +46,13 @@
     [self.notes addObject:note];
     [self.splotchWorm addToWorm:CGPointMake(note.beatIndex * 20, 400 + note.pitchPercent * 200) tapped:YES];
     self.beatsSinceLastNote = 0;
-    [self.sequence addEvent:[[EWPitchEvent alloc] initWithPitch:pitchPercent]];
+    [self.sequence addEvent:[[[EWPitchEvent alloc] initWithPitch:pitchPercent] autorelease]];
 }
 
 - (void) tick
 {
+    age++;
+    
     if (self.creating)
     {
         PWNote* lastNote = [self.notes lastObject];

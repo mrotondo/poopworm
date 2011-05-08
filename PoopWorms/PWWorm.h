@@ -12,9 +12,7 @@
 
 @class EWSequence;
 
-@interface PWWorm : NSObject {
-    
-}
+@interface PWWorm : NSObject
 
 @property (nonatomic, retain) NSMutableArray* notes;
 @property int durationInBeats;
@@ -23,12 +21,12 @@
 @property (nonatomic, retain) PWSplotchWorm* splotchWorm;
 @property int beatsSinceLastNote;
 @property (nonatomic, retain) EWSequence *sequence;
+@property (nonatomic, readonly) long long age;
 
 - (id) initWithView:(UIView*)view;
 - (void) addNoteWithPitch:(float)yPercent;
 - (void) stopCreating;
 //- (void) updatePath;
 - (void) clearWorm;
-//- (void) tick;
 
 @end

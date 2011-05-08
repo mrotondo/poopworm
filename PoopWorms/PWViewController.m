@@ -177,10 +177,15 @@
             
             if( CGRectIntersectsRect( bbox1, bbox2 ) )
             {
-                if( !worm1.mating || !worm2.mating )
+                if( !worm1.mating || !worm2.mating &&
+                    -[worm1.lastDate timeIntervalSinceNow] > 3 &&
+                    -[worm2.lastDate timeIntervalSinceNow] > 3 )
                 {
                     NSLog( @"I would mate %@ and %@", worm1, worm2 );
+                    worm1.lastDate = [NSDate date];
+                    worm2.lastDate = [NSDate date];
                 }
+                
                 worm1.mating = YES;
                 worm2.mating = YES;
                 foundMate = YES;

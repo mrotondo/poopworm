@@ -35,8 +35,6 @@
 //    [seq addEvent:[[EWPitchEvent alloc] initWithPitch:0] atTick:12];
 //    [seq play];
     
-    [[AKSCSynth sharedSynth] synthWithName:@"Tanh" andArguments:nil];
-    
     return YES;
 }
 

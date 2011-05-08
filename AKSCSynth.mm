@@ -20,19 +20,6 @@
 //#import "NSArray+SCSynthAdditions.h"
 #import "OSCMessage+AddArguments.h"
 
-
-int vpost(const char *fmt, va_list ap)
-{
-	char buf[512];
-	vsnprintf(buf, sizeof(buf), fmt, ap);
-
-    NSString *logString = [[NSString alloc] initWithCString:buf encoding:NSASCIIStringEncoding];
-    NSLog(@"Server: %@", logString);
-    [logString release];
-
-	return 0;
-}
-
 @interface AKSCSynth ()
 
 @property (nonatomic) WorldOptions options;
@@ -40,6 +27,8 @@ int vpost(const char *fmt, va_list ap)
 @property (nonatomic, retain) NSTimer *timer;
 
 @property (nonatomic) NSInteger lastNodeID;
+@property (nonatomic) NSInteger lastGroupID;
+@property (nonatomic) NSInteger lastBusID;
 @property (nonatomic) NSInteger nextBufferNumber;
 
 - (void)copySynthDefs;
@@ -49,12 +38,23 @@ int vpost(const char *fmt, va_list ap)
 
 @end
 
+int vpost(const char *fmt, va_list ap)
+{
+	char buf[512];
+	vsnprintf(buf, sizeof(buf), fmt, ap);
+    
+    NSString *logString = [[NSString alloc] initWithCString:buf encoding:NSASCIIStringEncoding];
+    NSLog(@"Server: %@", logString);
+    [logString release];
+    
+	return 0;
+}
 
 @implementation AKSCSynth
 @synthesize OSCPort;
 @synthesize synthsByName;
 @synthesize soundFilesByBufferNumber;
-@synthesize options, world, timer, lastNodeID, nextBufferNumber;
+@synthesize options, world, timer, lastNodeID, lastGroupID, lastBusID, nextBufferNumber;
 
 - (void)dealloc
 {
@@ -150,15 +150,40 @@ int vpost(const char *fmt, va_list ap)
 
 - (NSNumber *)synthWithName:(NSString *)synthName andArguments:(NSArray *)arguments
 {
-    NSInteger nodeID;
+    return [self synthWithName:synthName
+                  andArguments:arguments
+                     addAction:AKAddToHeadAction
+                      targetID:[NSNumber numberWithInteger:AKDefaultGroupID]];
+}
+
+- (NSNumber *)synthWithName:(NSString *)synthName 
+               andArguments:(NSArray *)arguments 
+                  addAction:(AKAddAction)addAction 
+                   targetID:(NSNumber *)targetID
+{
+    NSInteger nodeID = 0;
     OSCMessage *s_new = [self s_newMessageWithSynth:synthName
                                        andArguments:arguments
-                                             nodeID:&nodeID];
-    
-    //DLog(@"Sending Message: %@", s_new);
+                                             nodeID:&nodeID
+                                          addAction:addAction
+                                       targetNodeID:[targetID integerValue]];
     [self sendMessageInBundle:s_new];
-
+    //[self dumpTree];
     return [NSNumber numberWithInteger:nodeID];
+}
+
+- (NSNumber *)group
+{
+    NSInteger groupID = 0;
+    OSCMessage *g_new = [self g_newMessageWithNodeID:&groupID];
+    [self sendMessageInBundle:g_new];
+    return [NSNumber numberWithInteger:groupID];
+}
+
+- (NSNumber *)bus
+{
+    NSInteger busID = lastBusID++;
+    return [NSNumber numberWithInteger:busID];
 }
 
 - (void)setNodeID:(NSInteger)nodeID
@@ -173,36 +198,60 @@ int vpost(const char *fmt, va_list ap)
                           andArguments:(NSArray *)arguments
 {
     OSCMessage *message = [OSCMessage createWithAddress:@"/n_set"];
-
     [message addValue:[OSCValue createWithInt:nodeID]];
-
     [message addArguments:arguments];
-
     return message;
 }
 
 - (OSCMessage *)s_newMessageWithSynth:(NSString *)synthName
                          andArguments:(NSArray *)arguments
                                nodeID:(NSInteger *)nodeIDDestination
+                            addAction:(AKAddAction)addAction
+                         targetNodeID:(NSInteger)targetNodeID
 {
-    OSCMessage *message = [OSCMessage createWithAddress:@"/s_new"];
-
+    NSString *addActionName = nil;
+    switch (addAction) {
+        case AKAddBeforeAction:
+            addActionName = @"before";
+            break;
+        case AKAddAfterAction:
+            addActionName = @"after";
+            break;
+        case AKAddToHeadAction:
+            addActionName = @"head";
+            break;
+        case AKAddToTailAction:
+            addActionName = @"tail";
+            break;
+        default:
+            break;
+    }
     NSInteger nodeID = ++lastNodeID;
-    *nodeIDDestination = nodeID;
-    
+    //NSLog(@"Adding new %@ node %i to target: %i, %@", synthName, nodeID, targetNodeID, addActionName);
+    OSCMessage *message = [OSCMessage createWithAddress:@"/s_new"];
     [message addString:synthName];
     [message addInt:nodeID];
-    // Add action. 0=addToHead, 1=addToTail, 2=addBefore(target), 3=addAfter(target), 4=replace(and free target)
-    [message addInt:0];
-    // Target ID.
-    [message addInt:0]; // 0 = default group.
-
+    [message addInt:addAction];
+    [message addInt:targetNodeID];
+    
     [message addArguments:arguments];
-
+    *nodeIDDestination = nodeID;
     return message;
 }
 
-- (OSCMessage *)b_allocReadMessageWithPath:(NSString *)path bufferNumber:(NSInteger)bufferNumber
+- (OSCMessage *)g_newMessageWithNodeID:(NSInteger *)groupIDDestination
+{
+    NSInteger groupID = ++lastGroupID;
+    OSCMessage *message = [OSCMessage createWithAddress:@"/g_new"];
+    [message addInt:groupID];
+    [message addInt:1]; // addToTail
+    [message addInt:0]; // add to default group
+    *groupIDDestination = groupID;
+    return message;
+}
+
+- (OSCMessage *)b_allocReadMessageWithPath:(NSString *)path 
+                              bufferNumber:(NSInteger)bufferNumber
 {
     OSCMessage *message = [OSCMessage createWithAddress:@"/b_allocReadChannel"];
     [message addInt:bufferNumber];
@@ -282,6 +331,8 @@ static AKSCSynth *sharedInstance = nil;
             options.mBufLength = 1024;
             world = nil;
             lastNodeID = 1000;
+            lastGroupID = 500;
+            lastBusID = 16; // first are 8 in buses, 8 out buses
             self.soundFilesByBufferNumber = [NSMutableDictionary dictionaryWithCapacity:5];
 
             unsigned long route = kAudioSessionOverrideAudioRoute_None;

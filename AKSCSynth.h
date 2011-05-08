@@ -11,6 +11,15 @@
 
 #define AKSCSynthSyncDelay 0.5
 
+typedef enum {
+    AKAddToHeadAction = 0,
+    AKAddToTailAction,
+    AKAddBeforeAction,
+    AKAddAfterAction,
+    AKReplaceAction
+} AKAddAction;
+#define AKDefaultGroupID 0
+
 @interface AKSCSynth : NSObject
 {
     
@@ -35,14 +44,26 @@
 
 - (void)dumpOSC:(BOOL)flag;
 
-- (NSNumber *)synthWithName:(NSString *)synthName andArguments:(NSArray *)arguments;
+- (NSNumber *)bus;
+- (NSNumber *)group;
+- (NSNumber *)synthWithName:(NSString *)synthName 
+               andArguments:(NSArray *)arguments;
+- (NSNumber *)synthWithName:(NSString *)synthName 
+               andArguments:(NSArray *)arguments 
+                  addAction:(AKAddAction)addAction 
+                   targetID:(NSNumber *)targetID;
+
 - (void)setNodeID:(NSInteger)nodeID withArguments:(NSArray *)arguments;
 
 - (OSCMessage *)n_setMessageWithNodeID:(NSInteger)nodeID andArguments:(NSArray *)arguments;
 
 - (OSCMessage *)s_newMessageWithSynth:(NSString *)synthName
                          andArguments:(NSArray *)arguments
-                               nodeID:(NSInteger *)nodeIDDestination;
+                               nodeID:(NSInteger *)nodeIDDestination
+                            addAction:(AKAddAction)addAction
+                         targetNodeID:(NSInteger)targetNodeID;
+
+- (OSCMessage *)g_newMessageWithNodeID:(NSInteger *)groupIDDestination;
 
 - (OSCMessage *)b_allocReadMessageWithPath:(NSString *)path 
                               bufferNumber:(NSInteger)bufferNumber;

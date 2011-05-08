@@ -16,4 +16,6 @@
 @property (nonatomic, retain) PWViewController* controller;
 @property int borderWidth;
 
+- (void) updateBorder;
+
 @end

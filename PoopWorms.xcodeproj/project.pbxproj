@@ -68,6 +68,7 @@
 		C2CDA7221375DD0100D70643 /* OSCZeroConfDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CDA70C1375DD0100D70643 /* OSCZeroConfDomain.m */; };
 		C2CDA7231375DD0100D70643 /* OSCZeroConfManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CDA70E1375DD0100D70643 /* OSCZeroConfManager.m */; };
 		C2E604651375ED3600C9CC45 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E604641375ED3600C9CC45 /* Accelerate.framework */; };
+		D5F102C71376C4B6008FFD75 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F102C61376C4B6008FFD75 /* triangle.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,7 @@
 		C2CDA70E1375DD0100D70643 /* OSCZeroConfManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCZeroConfManager.m; sourceTree = "<group>"; };
 		C2CDA70F1375DD0100D70643 /* VVOSC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VVOSC.h; sourceTree = "<group>"; };
 		C2E604641375ED3600C9CC45 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		D5F102C61376C4B6008FFD75 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 		C2658212137656AE0080B599 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				D5F102C61376C4B6008FFD75 /* triangle.png */,
 				C2658213137656AE0080B599 /* caterscale.png */,
 				C2658214137656AE0080B599 /* circle.png */,
 				C2658215137656AE0080B599 /* flare1.png */,
@@ -530,6 +533,7 @@
 				C265824A137656AF0080B599 /* InfoPlist.strings in Resources */,
 				C265824B137656AF0080B599 /* MainWindow.xib in Resources */,
 				C265824C137656AF0080B599 /* PWViewController.xib in Resources */,
+				D5F102C71376C4B6008FFD75 /* triangle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

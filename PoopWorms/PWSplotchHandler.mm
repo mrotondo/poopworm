@@ -117,7 +117,7 @@ const float density = 20.0;
     // perform this randy thing and also make sure nothing is too near, yeah!
     if ( (rand() % 1000) > 0 && [self nothingNearMe:touchPoint] )
     {
-        [splotchArray addObject: [[PWSplotch alloc] initWithImageNamed:[self getShapeName] superlayer:view.layer /*superview:view */
+        [splotchArray addObject: [[PWSplotch alloc] initWithImageNamed:@"triangle.png"/*[self getShapeName]*/ superlayer:view.layer /*superview:view */
                                                                 center:touchPoint size:CGSizeMake(20.0,20.0) 
                                                                  color:[self getShapeColor] alpha:1.0 delegate:self]];
     }

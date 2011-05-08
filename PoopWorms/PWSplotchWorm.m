@@ -122,11 +122,6 @@
     return [UIColor blackColor];
 }
 
-- (void)move
-{
-    aniTimer = [[NSTimer scheduledTimerWithTimeInterval:speed target:self selector:@selector(moveForward:) userInfo:nil repeats:YES] retain];
-}
-
 - (void)removeSplotch:(PWSplotch*)splotch
 {
     [wormSplotches removeObject:splotch];
@@ -212,7 +207,6 @@
     
     [wormSplotches addObject: piece];    
     endPoint = end;
-    //[self move];
     moveTime = YES;
 }
 

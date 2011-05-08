@@ -8,13 +8,6 @@
 
 #import "PWWormFieldView.h"
 
-
-@interface PWWormFieldView() {
-@private
-}
-@property int borderWidth;
-@end
-
 @implementation PWWormFieldView
 @synthesize controller, borderWidth;
 
@@ -50,17 +43,20 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if ( [[event allTouches] count] == 1 )
+    UITouch* touch = [touches anyObject];
+    CGPoint loc = [touch locationInView:self];
+
+    if ( !controller.creatingWorm)
     {
-        UITouch* touch = [touches anyObject];
-        CGPoint loc = [touch locationInView:self];
-        float angle = atan2f((self.bounds.size.height - loc.y) - self.bounds.size.height / 2.0, (self.bounds.size.width - loc.x) - self.bounds.size.width / 2.0);
-        [controller startCreatingWormWithAngle:angle];
+        if ([[event allTouches] count] == 1 && (loc.x < self.borderWidth || loc.x > self.bounds.size.width - self.borderWidth || loc.y < self.borderWidth || loc.y > self.bounds.size.height - self.borderWidth))
+        {
+            float angle = atan2f((self.bounds.size.height - loc.y) - self.bounds.size.height / 2.0, (self.bounds.size.width - loc.x) - self.bounds.size.width / 2.0);
+            [controller startCreatingWormWithAngle:angle];
+        }
     }
-    else if ( controller.creatingWorm)
+    else
     {
-        UITouch* touch = [touches anyObject];
-        [controller addNoteWithYPercent:[touch locationInView:self].y / self.bounds.size.height];
+        [controller addNoteWithYPercent:loc.y / self.bounds.size.height];
     }
 }
 

@@ -102,10 +102,12 @@
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if ( [[event allTouches] count] == 1 )
+    CGPoint loc = [[touches anyObject] locationInView:self.view];
+    PWWormFieldView* wormView = (PWWormFieldView*) self.view;
+    if ( [[event allTouches] count] == 1  && !(loc.x < wormView.borderWidth || loc.x > wormView.bounds.size.width - wormView.borderWidth || loc.y < wormView.borderWidth || loc.y > wormView.bounds.size.height - wormView.borderWidth))
     {
-        CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
-        [self.splotchHandler handleTouchPoint:touchPoint];
+
+        [self.splotchHandler handleTouchPoint:loc];
     }
 }
 

@@ -57,6 +57,8 @@
                                    selector:@selector(updateCPU:) 
                                    userInfo:nil 
                                     repeats:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
 }
 
 - (IBAction)postTreeAction:(id)sender
@@ -97,10 +99,10 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setCPULabel:nil];
+    
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (IBAction) clearStuff
@@ -148,6 +150,33 @@
 - (void)wormHeadLocation:(CGPoint)head withWorm:(PWWorm*)worm
 {
     [splotchHandler handleWormPoint:head withWorm:worm];
+}
+
+- (void)tick
+{
+    // remove the dead worms
+    for( PWWorm *worm in [[self.worms copy] autorelease] )
+    {
+        if( worm.dead && !worm.creating )
+            [self.worms removeObject:worm];
+    }
+    
+    for( int i = 0; i < self.worms.count; i++ )
+    {
+        PWWorm *worm1 = [self.worms objectAtIndex:i];
+        CGRect bbox1 = worm1.boundingBox;
+        bbox1 = CGRectApplyAffineTransform( bbox1, [worm1.splotchWorm extracted_method] );
+        
+        for( int j = i + 1; j < self.worms.count; j++ )
+        {
+            PWWorm *worm2 = [self.worms objectAtIndex:j];
+            CGRect bbox2 = worm2.boundingBox;
+            bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm extracted_method] );
+            
+            if( CGRectIntersectsRect( bbox1, bbox2 ) )
+                NSLog(@"%@ and %@ intersect!", worm1, worm2);
+        }
+    }
 }
 
 @end

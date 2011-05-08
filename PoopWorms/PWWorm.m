@@ -141,6 +141,11 @@
     self.beatsSinceLastNote = 0;
 }
 
+- (BOOL)dead
+{
+    return self.sequence.allEvents.count == 0;
+}
+
 - (void)tick
 {
 //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
@@ -150,7 +155,7 @@
     UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
     BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
     
-    BOOL dead = self.sequence.allEvents.count == 0;
+    BOOL dead = [self dead];
     
     if( offScreen || dead )
     {
@@ -204,6 +209,18 @@
     
     [self.splotchWorm stopWorm];
     self.splotchWorm = nil;
+}
+
+- (CGRect)boundingBox
+{
+    CGRect rect = CGRectNull;
+    
+    for( PWSplotch *splotch in self.splotchWorm.wormSplotches )
+    {
+        rect = CGRectUnion( rect, CGRectMake( splotch.center.x, splotch.center.y, 1, 1 ) );
+    }
+    
+    return rect;
 }
 
 @end

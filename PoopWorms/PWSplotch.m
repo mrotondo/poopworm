@@ -10,7 +10,7 @@
 #import "QuartzCore/QuartzCore.h"
 
 @implementation PWSplotch
-@synthesize delegate;
+@synthesize delegate, foodId;
 
 - (UIImage*)createParticle:(UIImage*)maskImage withColor:(UIColor*)_color
 {
@@ -21,6 +21,7 @@
     UIGraphicsEndImageContext();
     
     [self setBackgroundColor:[UIColor clearColor]];
+    self.foodId = 0;
     
     CGImageRef maskRef = maskImage.CGImage;
     CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class PWWorm;
 
 @interface PWSplotchHandler : NSObject {
     UIView * view; // pointer to the view we will post to
@@ -15,7 +16,7 @@
 }
 
 - (id)initWithView:(UIView*)_view;
-- (void)handleTouchPoint:(CGPoint)_touchPoint;
-- (void)handleWormPoint:(CGPoint)_wormPoint;
+- (void)handleTouchPoint:(CGPoint)_touchPoint withFoodId:(int)foodId;
+- (void)handleWormPoint:(CGPoint)_wormPoint withWorm:(PWWorm*)worm;
 
 @end

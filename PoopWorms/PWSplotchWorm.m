@@ -18,12 +18,13 @@
 @end
 
 @implementation PWSplotchWorm
-@synthesize delegate, xOffset, yOffset, layer, numPathPoints, scalingFactor, entranceAngle;
+@synthesize delegate, xOffset, yOffset, layer, numPathPoints, scalingFactor, entranceAngle, worm;
 
-- (id)initWithView:(UIView*)_view andAngle:(float)angle
+- (id)initWithView:(UIView*)_view andAngle:(float)angle andWorm:(PWWorm*)_worm
 {
     if ( (self = [super init]) )
     {
+        self.worm = _worm;
         view = _view;
         // an array, for the splotches
         wormSplotches = [[NSMutableArray alloc] init];
@@ -191,7 +192,7 @@
     CGAffineTransform rotatedRelativeCenter = CGAffineTransformRotate(relativeCenter, self.entranceAngle);
     CGAffineTransform scaledRotatedRelativeCenter = CGAffineTransformScale(rotatedRelativeCenter, self.scalingFactor, self.scalingFactor);
     CGAffineTransform scaledRotatedAbsoluteCenter = CGAffineTransformTranslate(scaledRotatedRelativeCenter, -view.bounds.size.width / 2, -view.bounds.size.height / 2);
-    [self.delegate wormHeadLocation: CGPointApplyAffineTransform(headCenter, scaledRotatedAbsoluteCenter)];
+    [self.delegate wormHeadLocation: CGPointApplyAffineTransform(headCenter, scaledRotatedAbsoluteCenter) withWorm:self.worm];
     
     [self updatePath];
 }
@@ -294,7 +295,6 @@
     [UIView setAnimationDuration: 2.0];
     self.layer.transform = CATransform3DConcat(self.layer.transform, CATransform3DMakeScale(self.scalingFactor, self.scalingFactor, 1.0));
     [UIView commitAnimations];
-    //[self.delegate wormHeadLocation:[[wormSplotches lastObject] center]];
 }
 
 - (void)stopWorm

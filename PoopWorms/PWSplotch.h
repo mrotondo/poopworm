@@ -21,6 +21,7 @@
 @property (nonatomic,retain) NSString * originalString;
 @property (nonatomic,retain) UIImage * originalImage;
 @property (nonatomic,retain) UIImage * flashImage;
+@property (nonatomic,retain) UIImageView * badge;
 @property bool active;
 
 

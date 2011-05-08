@@ -28,7 +28,7 @@
         view = _view;
         // an array, for the splotches
         wormSplotches = [[NSMutableArray alloc] init];
-        wormSize = 80.0;
+        wormSize = 130.0;
         speed = 0.2;
         moveTime = NO;
         

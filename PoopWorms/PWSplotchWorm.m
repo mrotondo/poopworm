@@ -321,4 +321,12 @@
     }
 }
 
+- (void)setAlpha:(float)value
+{
+    for( PWSplotch *splotch in wormSplotches )
+    {
+        splotch.alpha = value;
+    }
+}
+
 @end

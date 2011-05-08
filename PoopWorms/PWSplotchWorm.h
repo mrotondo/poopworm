@@ -51,4 +51,6 @@
 
 - (CGAffineTransform)extracted_method;
 
+- (void)setAlpha:(float)value;
+
 @end

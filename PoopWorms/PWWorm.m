@@ -133,19 +133,24 @@
 
 - (void)tick
 {
-    UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
+//    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
+    [self.sequence decay:1 - exp(-0.00001 * age)];
     
-    if( CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) ) )
-    {
-        age++;
-    }
-    else
+    UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
+    BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
+    
+    BOOL dead = self.sequence.allEvents.count == 0;
+    
+    if( offScreen || dead )
     {
         age += 40;
     }
+    else
+    {
+        age++;
+    }
     
-//    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
-    [self.sequence decay:1 - exp(-0.00001 * age)];
+    [self.splotchWorm setAlpha:exp(-0.002 * age)];
     
     if (self.creating)
     {

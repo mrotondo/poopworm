@@ -1,0 +1,1 @@
+{|pitch, input| SinOsc.ar(Linen.kr * pitch)};

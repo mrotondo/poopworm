@@ -9,7 +9,7 @@
 #import "PoopWormsAppDelegate.h"
 #import "PWViewController.h"
 #import "EWTiming.h"
-
+#import "AKSCSynth.h"
 
 @implementation PoopWormsAppDelegate
 
@@ -25,6 +25,7 @@
     [self.window makeKeyAndVisible];
     
     [[EWTicker sharedTicker] start];
+    [AKSCSynth sharedSynth];
     
     return YES;
 }

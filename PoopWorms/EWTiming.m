@@ -7,6 +7,7 @@
 //
 
 #include "EWTiming.h"
+#import "AKSCSynth.h"
 
 NSString *tickNotification = @"Nobody will ever see the contents of this string";
 
@@ -39,6 +40,15 @@ static EWTicker *g_ticker = nil;
     }
     
     return self;
+}
+
+-(void)fire
+{
+    [[AKSCSynth sharedSynth] synthWithName:@"PitchSine" 
+                              andArguments:[NSArray arrayWithObjects:
+                                            [OSCValue createWithString:@"pitch"], 
+                                            [OSCValue createWithInt:(1 - self.pitch) * 10000 + 50], 
+                                            nil]];
 }
 
 @end

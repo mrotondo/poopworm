@@ -14,25 +14,27 @@
 #import "AKSCSynth.h"
 #import "VVOSC.h"
 
-@interface PWWorm () {
-@private
-
-}
+@interface PWWorm ()
 
 @property (nonatomic, retain) NSMutableArray *activeDrugIDs;
 @property int negativeStartOffset;
+
+- (void)mantleSynths;
+- (void)dismantleSynths;
 
 @end
 
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
+// Synthesis stuffs
 @synthesize groupID, busID, outputNodeID;
 @synthesize foodInBelly, activeDrugIDs;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
 {
     self = [super init];
-    if (self) {
+    if (self) 
+    {
         self.notes = [NSMutableArray arrayWithCapacity:10];
         
         self.sequence = [[EWSequence new] autorelease];
@@ -47,37 +49,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
         
-        // Synthesis stuff
-        self.groupID = [[AKSCSynth sharedSynth] group];
-        self.busID = [[AKSCSynth sharedSynth] bus];
-        NSArray *outArgs = [NSArray arrayWithObjects:
-                            [OSCValue createWithString:@"inBus"], 
-                            [OSCValue createWithInt:[self.busID intValue]], 
-                            nil];
-        self.outputNodeID = [[AKSCSynth sharedSynth] synthWithName:@"OutConnector"
-                                                      andArguments:outArgs
-                                                         addAction:AKAddToTailAction
-                                                          targetID:self.groupID];
-        
-        self.foodInBelly = [NSMutableArray array];
-        self.activeDrugIDs = [NSMutableArray array];
-        
-        // give SCSynth time to create groups
-        
-        NSArray *possibleFood = [NSArray arrayWithObjects:
-                                 @"BasicPulse",
-                                 @"BasicSaw",
-                                 @"BasicSine",
-                                 @"WavyPulse",
-                                 nil];
-        NSArray *possibleDrugs = [NSArray arrayWithObjects:
-                                  @"Tanh", 
-                                  @"AllpassDelay", 
-                                  @"Flanger", nil];
-        NSString *randomFood = [possibleFood objectAtIndex:arc4random() % [possibleFood count]];
-        [self.foodInBelly addObject:randomFood];
-        NSString *randomDrug = [possibleDrugs objectAtIndex:arc4random() % [possibleDrugs count]];
-        [self performSelector:@selector(eatEffect:) withObject:randomDrug afterDelay:0.1];
+        [self mantleSynths];
     }
     return self;
 }
@@ -93,6 +65,48 @@
                                                     addAction:AKAddBeforeAction 
                                                      targetID:self.outputNodeID];
     [self.activeDrugIDs addObject:nodeID];
+}
+
+- (void)mantleSynths
+{
+    // Synthesis stuff
+    self.groupID = [[AKSCSynth sharedSynth] group];
+    self.busID = [[AKSCSynth sharedSynth] bus];
+    NSArray *outArgs = [NSArray arrayWithObjects:
+                        [OSCValue createWithString:@"inBus"], 
+                        [OSCValue createWithInt:[self.busID intValue]], 
+                        nil];
+    self.outputNodeID = [[AKSCSynth sharedSynth] synthWithName:@"OutConnector"
+                                                  andArguments:outArgs
+                                                     addAction:AKAddToTailAction
+                                                      targetID:self.groupID];
+    
+    self.foodInBelly = [NSMutableArray array];
+    self.activeDrugIDs = [NSMutableArray array];
+    
+    NSArray *possibleFood = [NSArray arrayWithObjects:
+                             @"BasicPulse",
+                             @"BasicSaw",
+                             @"BasicSine",
+                             @"WavyPulse",
+                             @"ResonNoise",
+                             nil];
+    NSArray *possibleDrugs = [NSArray arrayWithObjects:
+                              @"Tanh", 
+                              @"CombNDelay", 
+                              @"Flanger", 
+                              @"PitchShift", nil];
+    NSString *randomFood = [possibleFood objectAtIndex:arc4random() % [possibleFood count]];
+    [self.foodInBelly addObject:randomFood];
+    NSString *randomDrug = [possibleDrugs objectAtIndex:arc4random() % [possibleDrugs count]];
+    // give SCSynth time to create groups
+    [self performSelector:@selector(eatEffect:) withObject:randomDrug afterDelay:0.1];
+}
+
+- (void)dismantleSynths
+{
+    // TODO: call this when the worm dies
+    [[AKSCSynth sharedSynth] freeAllInGroup:self.groupID];
 }
 
 - (void)dealloc

@@ -180,6 +180,16 @@ int vpost(const char *fmt, va_list ap)
     return [NSNumber numberWithInteger:groupID];
 }
 
+- (void)freeAllInGroup:(NSNumber *)groupNodeID
+{
+    OSCMessage *allMessage = [OSCMessage createWithAddress:@"/g_freeAll"];
+    [allMessage addInt:[groupNodeID intValue]];
+    [self sendMessageInBundle:allMessage];
+    OSCMessage *freeMessage = [OSCMessage createWithAddress:@"/n_free"];
+    [freeMessage addInt:[groupNodeID intValue]];
+    [self sendMessageInBundle:freeMessage];
+}
+
 - (NSNumber *)bus
 {
     NSInteger busID = lastBusID++;

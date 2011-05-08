@@ -44,7 +44,9 @@
 - (void)endWorm:(CGPoint)end;
 
 - (void)stopWorm;
-- (void) updatePath;
+- (void)updatePath;
 - (void)moveWorm;
+
+- (void)cleanup;
 
 @end

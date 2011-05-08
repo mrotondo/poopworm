@@ -171,6 +171,18 @@ static EWTicker *g_ticker = nil;
     return timeline.count;
 }
 
+- (NSSet *)allEvents
+{
+    NSMutableSet *all = [NSMutableSet set];
+    
+    for( NSSet *events in timeline )
+    {
+        [all unionSet:events];
+    }
+    
+    return all;
+}
+
 - (void)addEvent:(EWEvent *)event
 {
     // TODO: find nearest tick

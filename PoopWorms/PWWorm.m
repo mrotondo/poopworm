@@ -104,9 +104,17 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [groupID release];
     [busID release];
     [activeDrugIDs release];
+    
+    [self.splotchWorm cleanup];
+    self.splotchWorm = nil;
+    for( EWPitchEvent *event in self.sequence.allEvents )
+        event.worm = nil;
+    self.sequence = nil;
+    
     [super dealloc];
 }
 
@@ -123,7 +131,7 @@
     self.beatsSinceLastNote = 0;
 }
 
-- (void) tick
+- (void)tick
 {
     age++;
     
@@ -157,8 +165,12 @@
     [self.splotchWorm endWorm:CGPointMake(self.negativeStartOffset + self.durationInBeats * 20, 400)];
 }
 
-- (void) clearWorm
+- (void)clearWorm
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self dismantleSynths];
+    
     [self.splotchWorm stopWorm];
     self.splotchWorm = nil;
 }

@@ -18,7 +18,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *CPULabel;
 @property BOOL creatingWorm;
 @property (nonatomic, retain) PWWorm* currentWorm;
-@property (nonatomic, retain) NSMutableSet* worms;
+@property (nonatomic, retain) NSMutableArray *worms;
 @property (nonatomic, retain) PWSplotchHandler * splotchHandler;
 @property int currentFoodId;
 @property int currentEffectId;

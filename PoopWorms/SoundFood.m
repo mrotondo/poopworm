@@ -19,6 +19,7 @@
                           @"BasicSaw",
                           @"ResonNoise",
                           @"WavyPulse",
+                          @"SineKick",
                           nil];
     return [foodNames objectAtIndex:foodId];
 }

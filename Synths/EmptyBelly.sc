@@ -1,0 +1,1 @@
+{|pitch| XLine.kr(1, 0.001, 0.05) * BPF.ar(WhiteNoise.ar(40), pitch, 0.1)}

@@ -16,6 +16,20 @@ NSString *tickNotification = @"Nobody will ever see the contents of this string"
 static EWTicker *g_ticker = nil;
 
 
+static float mtof( float midi )
+{
+    if( midi <= -1500 ) return (0);
+    else if( midi > 1499 ) return (mtof(1499));
+    else return ( pow(2,(midi-69)/12.0) * 440.0 );
+}
+
+#define LOGTWO 0.69314718055994528623
+static float ftom( float freq )
+{
+    return (freq > 0 ? (log(freq/440.0) / LOGTWO) * 12.0 + 69 : -1500);
+}
+
+
 #pragma mark -
 @implementation EWEvent
 
@@ -48,9 +62,12 @@ static EWTicker *g_ticker = nil;
 
 - (void)fire
 {
+    float freq = (1 - self.pitch) * 1000 + 100;
+    float roundedFreq = mtof( (int)ftom( freq ) );
+    
     NSArray *args = [NSArray arrayWithObjects:
                      [OSCValue createWithString:@"pitch"],
-                     [OSCValue createWithInt:(1 - self.pitch) * 1000 + 100],
+                     [OSCValue createWithInt:roundedFreq],
                      [OSCValue createWithString:@"volume"],
                      [OSCValue createWithFloat:self.worm.volume],
                      [OSCValue createWithString:@"outBus"], 

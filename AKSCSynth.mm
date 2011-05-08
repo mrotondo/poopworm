@@ -192,7 +192,8 @@ int vpost(const char *fmt, va_list ap)
 
 - (NSNumber *)bus
 {
-    NSInteger busID = lastBusID++;
+    NSInteger busID = lastBusID + 2; // 2 channels!
+    lastBusID = busID;
     return [NSNumber numberWithInteger:busID];
 }
 

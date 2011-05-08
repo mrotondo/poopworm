@@ -19,6 +19,7 @@
                                        [NSNull null], @"sublayers",
                                        [NSNull null], @"contents",
                                        [NSNull null], @"bounds",
+                                       [NSNull null], @"center",
                                        nil];
     self.actions = newActions;
 }

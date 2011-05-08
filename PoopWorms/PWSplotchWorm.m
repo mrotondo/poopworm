@@ -193,6 +193,11 @@
     return [UIColor colorWithRed:(base[0]+100)/255.0 green:(base[1]+100)/255.0 blue:(base[2]+100)/255.0 alpha:1.0];
 }
 
+- (UIColor*)getPathColor
+{
+    return [self getFromBaseColor];
+}
+
 - (void)removeSplotch:(PWSplotch*)splotch
 {
     [wormSplotches removeObject:splotch];
@@ -258,7 +263,35 @@
 
 - (void) updatePath
 {
+    if( wormSplotches.count > 0 )
+    {
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        
+        [path moveToPoint:[[wormSplotches objectAtIndex:0] center]];
+        
+        BOOL first = YES;
+        for( PWSplotch *splotch in wormSplotches )
+        {
+            if( !first )
+            {
+                [path addLineToPoint:splotch.center];
+            }
+            
+            first = NO;
+        }
+        
+        path.lineCapStyle = kCGLineCapRound;
+        path.lineJoinStyle = kCGLineJoinRound;
+        
+        self.layer.fillColor = nil;
+        self.layer.lineWidth = 30;
+        self.layer.strokeColor = [self getPathColor].CGColor;
+        
+        self.layer.path = path.CGPath;
+    }
+    
     return;
+    
     if ( [wormSplotches count] > 0 )
     {        
         UIBezierPath* path = [UIBezierPath bezierPath];
@@ -328,6 +361,7 @@
     if ( s.center.x == point.x && s.center.y == point.y ) return nil;
     
     UIColor * color = (tapped) ? [self getBrightBaseColor] : [self getFromBaseColor];
+
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];

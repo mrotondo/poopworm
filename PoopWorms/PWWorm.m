@@ -150,6 +150,12 @@
         age++;
     }
     
+    if( offScreen && dead )
+    {
+        [self clearWorm];
+        return;
+    }
+    
     [self.splotchWorm setAlpha:exp(-0.002 * age)];
     
     if (self.creating)

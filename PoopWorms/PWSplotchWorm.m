@@ -299,6 +299,10 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
     [UIView setAnimationDuration: 2.0];
+    for (PWSplotch* splotch in wormSplotches)
+    {
+        splotch.center = CGPointMake(splotch.center.x - 1500, splotch.center.y);
+    }
     self.layer.transform = CATransform3DConcat(self.layer.transform, CATransform3DMakeScale(self.scalingFactor, self.scalingFactor, 1.0));
     [UIView commitAnimations];
 }

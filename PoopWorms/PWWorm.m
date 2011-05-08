@@ -149,7 +149,7 @@
 - (void)tick
 {
 //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
-    [self.sequence decay:1 - exp(-0.00001 * age)];
+    [self.sequence decay:1 - exp(-0.000001 * age)];
     self.volume = exp(-0.001 * age);
     
     UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
@@ -157,9 +157,14 @@
     
     BOOL dead = [self dead];
     
+    if (offScreen)
+        NSLog(@"Offscreen");
+    if (dead)
+        NSLog(@"Dead!");
+    
     if( offScreen || dead )
     {
-        age += 40;
+        age += 400;
     }
     else
     {

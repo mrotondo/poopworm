@@ -152,16 +152,14 @@
     xOffset += -5 + 10 * ((float)rand() / RAND_MAX);
     yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
      
-    // oops i can't figure out fmodf
-    // TODO: Fix to use view bounds in case screen is rotated
     while (x < 0) {
-        x += 768;
+        x += view.bounds.size.width;
     }
-    x = fmodf(x, 768.0);
+    x = fmodf(x, view.bounds.size.width);
     while (y < 0) {
-        y += 1024;
+        y += view.bounds.size.height;
     }
-    y = fmodf(y, 1024.0);
+    y = fmodf(y, view.bounds.size.height);
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];

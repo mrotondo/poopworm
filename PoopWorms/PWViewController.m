@@ -201,7 +201,7 @@
     {
         PWWorm *worm1 = [self.worms objectAtIndex:i];
         CGRect bbox1 = worm1.boundingBox;
-        bbox1 = CGRectApplyAffineTransform( bbox1, [worm1.splotchWorm extracted_method] );
+        bbox1 = CGRectApplyAffineTransform( bbox1, [worm1.splotchWorm inverseTransformForSuperview] );
         
         BOOL foundMate = NO;
         
@@ -209,7 +209,7 @@
         {
             PWWorm *worm2 = [self.worms objectAtIndex:j];
             CGRect bbox2 = worm2.boundingBox;
-            bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm extracted_method] );
+            bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm inverseTransformForSuperview] );
   
             if( CGRectIntersectsRect( bbox1, bbox2 ) )
             {

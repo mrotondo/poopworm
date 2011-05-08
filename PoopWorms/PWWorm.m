@@ -146,7 +146,7 @@
         self.volume = exp(-0.001 * age);
         
         UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
-        BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
+        BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm inverseTransformForSuperview]) );
         
         BOOL dead = [self dead];
         

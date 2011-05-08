@@ -21,6 +21,43 @@
 @implementation PWSplotchWorm
 @synthesize delegate, wormSplotches, xOffset, yOffset, layer, numPathPoints, scalingFactor, entranceAngle, worm;
 
+
+
+- (UIColor*)getBaseColor
+{
+    int which = rand() % 8;
+    switch (which) {
+        case 0:
+            base[0] = 46.0; base[1] = 94.0; base[2] = 47.0; // green
+            break;
+        case 1:
+            base[0] = 250.0; base[1] = 168.0; base[2] = 25.0; // orangey
+            break;
+        case 2:
+            base[0] = 212.0; base[1] = 66.0; base[2] = 39.0; // dark red
+            break;
+        case 3:
+            base[0] = 0.0; base[1] = 124.0; base[2] = 154.0; // nice blue
+            break;
+        case 4:
+            base[0] = 0.0; base[1] = 90.0; base[2] = 136.0; // darker blue
+            break;
+        case 5:
+            base[0] = 157.0; base[1] = 36.0; base[2] = 158.0; // magenta
+            break;
+        case 6:
+            base[0] = 210.0; base[1] = 31.0; base[2] = 63.0; // green
+            break;
+        case 7:
+            base[0] = 134.0; base[1] = 150.0; base[2] = 58.0; // green
+            break;
+        default:
+            break;
+    }
+    return [UIColor blackColor];
+}
+
+
 - (id)initWithView:(UIView*)_view andAngle:(float)angle andWorm:(PWWorm*)_worm
 {
     if ( (self = [super init]) )
@@ -43,6 +80,8 @@
         
         self.entranceAngle = angle;
         self.scalingFactor = 0.2;
+        
+        [self getBaseColor];
     }
     return self;
 }
@@ -140,29 +179,23 @@
     return [UIColor blackColor];
 }
 
+- (UIColor*)getFromBaseColor
+{
+    float diff0 = (rand() % 1000 / 12.5 ) - 40; // a number between -40 and 40
+    float diff1 = (rand() % 1000 / 12.5 ) - 40;
+    float diff2 = (rand() % 1000 / 12.5 ) - 40;
+    
+    return [UIColor colorWithRed:(base[0]+diff0)/255.0 green:(base[1]+diff1)/255.0 blue:(base[2]+diff2)/255.0 alpha:1.0];
+}
+
+- (UIColor*)getBrightBaseColor
+{    
+    return [UIColor colorWithRed:(base[0]+100)/255.0 green:(base[1]+100)/255.0 blue:(base[2]+100)/255.0 alpha:1.0];
+}
+
 - (UIColor*)getPathColor
 {
-    int which = rand() % 5;
-    switch (which) {
-        case 0:
-            return [UIColor colorWithRed:76.0/255.0 green:124.0/255.0 blue:82.0/255.0 alpha:1.0];
-            break;
-        case 1:
-            return [UIColor colorWithRed:86.0/255.0 green:134.0/255.0 blue:87.0/255.0 alpha:1.0];
-            break;
-        case 2:
-            return [UIColor colorWithRed:66.0/255.0 green:122.0/255.0 blue:81.0/255.0 alpha:1.0];
-            break;
-        case 3:
-            return [UIColor colorWithRed:80.0/255.0 green:128.0/255.0 blue:89.0/255.0 alpha:1.0];
-            break;
-        case 4:
-            return [UIColor colorWithRed:76.0/255.0 green:110.0/255.0 blue:76.0/255.0 alpha:1.0];
-            break;
-        default:
-            break;
-    }
-    return [UIColor blackColor];
+    return [self getFromBaseColor];
 }
 
 - (void)removeSplotch:(PWSplotch*)splotch
@@ -298,7 +331,7 @@
         
         self.layer.fillColor = nil;
         self.layer.lineWidth = 4;
-        self.layer.strokeColor = [self getGreenColor].CGColor;
+        self.layer.strokeColor = [self getFromBaseColor].CGColor;
         
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
         animation.duration = 1.0 / [EWTicker sharedTicker].ticksPerSecond;
@@ -314,7 +347,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                     center:start size:CGSizeMake(wormSize,wormSize) 
-                                     color:[UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0] alpha:1.0 delegate:self]autorelease];
+                                     color:[self getFromBaseColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
     startPoint = start;
@@ -327,7 +360,8 @@
     PWSplotch* s = [wormSplotches lastObject];
     if ( s.center.x == point.x && s.center.y == point.y ) return nil;
     
-    UIColor * color = (tapped) ? [self getGreenColor] : [UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:tapped ? 1.0 : 0.0];
+    UIColor * color = (tapped) ? [self getBrightBaseColor] : [self getFromBaseColor];
+
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:point size:CGSizeMake(wormSize,wormSize) 
                                                          color:color alpha:1.0 delegate:self]autorelease];
@@ -345,7 +379,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
                                                         center:end size:CGSizeMake(wormSize,wormSize) 
-                                                         color:[UIColor colorWithRed:0.1 green:0.7 blue:0.3 alpha:1.0] alpha:1.0 delegate:self]autorelease];
+                                                         color:[self getFromBaseColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];    
     endPoint = end;

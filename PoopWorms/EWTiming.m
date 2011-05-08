@@ -6,8 +6,9 @@
 //  Copyright 2011 Smule. All rights reserved.
 //
 
-#include "EWTiming.h"
+#import "EWTiming.h"
 #import "AKSCSynth.h"
+
 
 NSString *tickNotification = @"Nobody will ever see the contents of this string";
 
@@ -29,6 +30,8 @@ static EWTicker *g_ticker = nil;
 @implementation EWPitchEvent
 
 @synthesize pitch;
+@synthesize splotch;
+@synthesize worm;
 
 - (id)initWithPitch:(float)aPitch
 {
@@ -42,12 +45,12 @@ static EWTicker *g_ticker = nil;
     return self;
 }
 
--(void)fire
+- (void)fire
 {
-    [[AKSCSynth sharedSynth] synthWithName:@"PitchSine" 
+    [[AKSCSynth sharedSynth] synthWithName:@"PitchSine"
                               andArguments:[NSArray arrayWithObjects:
-                                            [OSCValue createWithString:@"pitch"], 
-                                            [OSCValue createWithInt:(1 - self.pitch) * 10000 + 50], 
+                                            [OSCValue createWithString:@"pitch"],
+                                            [OSCValue createWithInt:(1 - self.pitch) * 2000 + 200],
                                             nil]];
 }
 
@@ -134,6 +137,28 @@ static EWTicker *g_ticker = nil;
     [super dealloc];
 }
 
+- (void)setLength:(int)newLength
+{
+    if( newLength > 0 )
+    {
+        if( newLength < timeline.count )
+        {
+            [timeline removeObjectsInRange:NSMakeRange( newLength, timeline.count - newLength )];
+            if( pos >= newLength )
+                pos = 0;
+        }
+        else if( newLength > timeline.count )
+        {
+            for( int i = timeline.count; i < newLength; i++ )
+                [timeline addObject:[NSMutableSet set]];
+        }
+    }
+    else
+    {
+        NSLog(@"wtf is this length");
+    }
+}
+
 - (int)length
 {
     return timeline.count;
@@ -167,6 +192,52 @@ static EWTicker *g_ticker = nil;
     for( NSMutableSet *events in timeline )
     {
         [events removeObject:event];
+    }
+}
+
+- (NSSet *)eventsAtTick:(int)tick
+{
+    if( tick >= 0 && tick < timeline.count )
+    {
+        return [timeline objectAtIndex:tick];
+    }
+    
+    NSLog(@"wtf is this tick");
+    
+    return nil;
+}
+
+- (void)drift:(float)amount
+{
+    for( int i = 0; i < timeline.count; i++ )
+    {
+        NSMutableSet *events = [timeline objectAtIndex:i];
+        
+        for( id event in [[events copy] autorelease] )
+        {
+            if( (arc4random() % 1000) / 1000.0 < amount )
+            {
+                NSLog(@"moved one");
+                [events removeObject:event];
+                
+                NSMutableSet *otherEvents = [timeline objectAtIndex:(i + 1) % timeline.count];
+                [otherEvents addObject:event];
+            }
+        }
+    }
+}
+
+- (void)decay:(float)amount
+{
+    for( NSMutableSet *events in timeline )
+    {
+        for( id event in [[events copy] autorelease] )
+        {
+            if( (arc4random() % 1000) / 1000.0 < amount )
+            {
+                [events removeObject:event];
+            }
+        }
     }
 }
 

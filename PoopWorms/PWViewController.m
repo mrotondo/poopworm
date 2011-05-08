@@ -23,8 +23,9 @@
     [super dealloc];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration
 {
+
     [((PWWormFieldView*) self.view) updateBorder];
 }
 
@@ -121,15 +122,18 @@
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    CGPoint loc = [[touches anyObject] locationInView:self.view];
-    PWWormFieldView* wormView = (PWWormFieldView*) self.view;
-    if ( [[event allTouches] count] == 1  && !(loc.x < wormView.borderWidth || loc.x > wormView.bounds.size.width - wormView.borderWidth || loc.y < wormView.borderWidth || loc.y > wormView.bounds.size.height - wormView.borderWidth))
+    if (!self.creatingWorm)
     {
-        int itemId = self.currentFoodId;
-        if (!self.placingFood)
-            itemId = self.currentEffectId;
-        
-        [self.splotchHandler handleTouchPoint:loc withItemId:itemId isFood:self.placingFood];
+        CGPoint loc = [[touches anyObject] locationInView:self.view];
+        PWWormFieldView* wormView = (PWWormFieldView*) self.view;
+        if ( [[event allTouches] count] == 1  && !(loc.x < wormView.borderWidth || loc.x > wormView.bounds.size.width - wormView.borderWidth || loc.y < wormView.borderWidth || loc.y > wormView.bounds.size.height - wormView.borderWidth))
+        {
+            int itemId = self.currentFoodId;
+            if (!self.placingFood)
+                itemId = self.currentEffectId;
+            
+            [self.splotchHandler handleTouchPoint:loc withItemId:itemId isFood:self.placingFood];
+        }
     }
 }
 

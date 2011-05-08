@@ -14,6 +14,7 @@
 + synthNameForFoodId:(int)foodId
 {
     NSArray *foodNames = [NSArray arrayWithObjects:
+                          @"EmptyBelly",
                           @"BasicSine",
                           @"BasicPulse",
                           @"BasicSaw",
@@ -27,12 +28,14 @@
 + imageForFoodId:(int)foodId
 {
     NSArray *images = [NSArray arrayWithObjects:
-                          @"circle.png",
-                          @"square.png",
-                          @"triangle.png",
-                          @"noise.png",
-                          @"wave.png",
-                          nil];
+                       @"blank.png",
+                       @"circle.png",
+                       @"square.png",
+                       @"triangle.png",
+                       @"noise.png",
+                       @"wavypulse.png",
+                       @"kick",
+                       nil];
     return [images objectAtIndex:foodId];
 }
 

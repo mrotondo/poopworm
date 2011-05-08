@@ -72,6 +72,10 @@
 		D5F102CD1376D398008FFD75 /* noise.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F102CB1376D398008FFD75 /* noise.png */; };
 		D5F102CE1376D398008FFD75 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F102CC1376D398008FFD75 /* square.png */; };
 		D5F102D11376D6F8008FFD75 /* SoundFood.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F102D01376D6F8008FFD75 /* SoundFood.m */; };
+		D5F103111376E597008FFD75 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F1030D1376E597008FFD75 /* blank.png */; };
+		D5F103121376E597008FFD75 /* distortion.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F1030E1376E597008FFD75 /* distortion.png */; };
+		D5F103131376E597008FFD75 /* kick.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F1030F1376E597008FFD75 /* kick.png */; };
+		D5F103141376E597008FFD75 /* wavypulse.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F103101376E597008FFD75 /* wavypulse.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +212,10 @@
 		D5F102CC1376D398008FFD75 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
 		D5F102CF1376D6F8008FFD75 /* SoundFood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundFood.h; sourceTree = "<group>"; };
 		D5F102D01376D6F8008FFD75 /* SoundFood.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundFood.m; sourceTree = "<group>"; };
+		D5F1030D1376E597008FFD75 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
+		D5F1030E1376E597008FFD75 /* distortion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distortion.png; sourceTree = "<group>"; };
+		D5F1030F1376E597008FFD75 /* kick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kick.png; sourceTree = "<group>"; };
+		D5F103101376E597008FFD75 /* wavypulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wavypulse.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +278,10 @@
 		C2658212137656AE0080B599 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				D5F1030D1376E597008FFD75 /* blank.png */,
+				D5F1030E1376E597008FFD75 /* distortion.png */,
+				D5F1030F1376E597008FFD75 /* kick.png */,
+				D5F103101376E597008FFD75 /* wavypulse.png */,
 				D5F102CB1376D398008FFD75 /* noise.png */,
 				D5F102CC1376D398008FFD75 /* square.png */,
 				D5F102C61376C4B6008FFD75 /* triangle.png */,
@@ -547,6 +559,10 @@
 				D5F102C71376C4B6008FFD75 /* triangle.png in Resources */,
 				D5F102CD1376D398008FFD75 /* noise.png in Resources */,
 				D5F102CE1376D398008FFD75 /* square.png in Resources */,
+				D5F103111376E597008FFD75 /* blank.png in Resources */,
+				D5F103121376E597008FFD75 /* distortion.png in Resources */,
+				D5F103131376E597008FFD75 /* kick.png in Resources */,
+				D5F103141376E597008FFD75 /* wavypulse.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

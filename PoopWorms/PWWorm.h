@@ -29,7 +29,7 @@
 @property (nonatomic, retain) NSNumber *busID;
 @property (nonatomic, retain) NSNumber *outputNodeID;
 
-- (id) initWithView:(UIView*)view;
+- (id) initWithView:(UIView*)view andAngle:(float)angle;
 - (void) addNoteWithPitch:(float)yPercent;
 - (void) stopCreating;
 //- (void) updatePath;

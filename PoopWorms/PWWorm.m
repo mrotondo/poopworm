@@ -14,11 +14,20 @@
 #import "AKSCSynth.h"
 #import "VVOSC.h"
 
+@interface PWWorm () {
+@private
+
+}
+
+@property int negativeStartOffset;
+
+@end
+
 @implementation PWWorm
-@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent;
+@synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset;
 @synthesize groupID, busID, outputNodeID;
 
-- (id) initWithView:(UIView*)view
+- (id) initWithView:(UIView*)view andAngle:(float)angle
 {
     self = [super init];
     if (self) {
@@ -28,10 +37,12 @@
         [self.sequence record];
         
         self.creating = YES;
-        self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view] autorelease];
+        self.splotchWorm = [[[PWSplotchWorm alloc] initWithView:view andAngle:angle] autorelease];
         self.splotchWorm.delegate = ((PoopWormsAppDelegate*)[UIApplication sharedApplication].delegate).viewController;
-        [self.splotchWorm startWorm:CGPointMake(0, 400)];
+        self.negativeStartOffset = -100;
+        [self.splotchWorm startWorm:CGPointMake(self.negativeStartOffset, 400)];
         self.beatsSinceLastNote = 0;
+
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
         
@@ -77,7 +88,7 @@
 {
     EWPitchEvent *event = [[[EWPitchEvent alloc] initWithPitch:pitchPercent] autorelease];
     event.worm = self;
-    event.splotch = [self.splotchWorm addToWorm:CGPointMake(self.sequence.pos * 20, 400 + event.pitch * 200) tapped:YES];
+    event.splotch = [self.splotchWorm addToWorm:CGPointMake(self.negativeStartOffset + self.sequence.pos * 20, 400 + event.pitch * 200) tapped:YES];
     
     [self.sequence addEvent:event];
     
@@ -91,13 +102,13 @@
     age++;
     
 //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
-    [self.sequence decay:1 - exp(-0.0001 * age)];
+    [self.sequence decay:1 - exp(-0.00001 * age)];
     
     if (self.creating)
     {
         if (self.beatsSinceLastNote != 0)
         {
-            [self.splotchWorm addToWorm:CGPointMake((self.sequence.pos) * 20,
+            [self.splotchWorm addToWorm:CGPointMake(self.negativeStartOffset + self.sequence.pos * 20,
                                                     400 + self.lastEvent.pitch * 200) tapped:NO];
         }
         self.beatsSinceLastNote++;
@@ -117,7 +128,7 @@
     [self.sequence play];
     self.creating = NO;
     
-    [self.splotchWorm endWorm:CGPointMake(self.durationInBeats * 20, 400)];
+    [self.splotchWorm endWorm:CGPointMake(self.negativeStartOffset + self.durationInBeats * 20, 400)];
 }
 
 - (void) clearWorm

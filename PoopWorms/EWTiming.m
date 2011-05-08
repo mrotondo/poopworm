@@ -343,7 +343,7 @@ static EWTicker *g_ticker = nil;
 + (EWTicker *)sharedTicker
 {
     if( g_ticker == nil )
-        g_ticker = [[EWTicker alloc] initWithBeatsPerMeasure:4 subdivisions:4 bpm:103];
+        g_ticker = [[EWTicker alloc] initWithBeatsPerMeasure:4 subdivisions:16 bpm:30];
     
     return g_ticker;
 }

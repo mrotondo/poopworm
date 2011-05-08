@@ -55,10 +55,10 @@
                           nil];
 }
 
-- (void) startCreatingWorm
+- (void) startCreatingWormWithAngle:(float)angle
 {
     self.creatingWorm = YES;
-    self.currentWorm = [[[PWWorm alloc] initWithView:self.view] autorelease];
+    self.currentWorm = [[[PWWorm alloc] initWithView:self.view andAngle:angle] autorelease];
     [self.worms addObject:self.currentWorm];
     [self.view.layer addSublayer:self.currentWorm.layer];
 }

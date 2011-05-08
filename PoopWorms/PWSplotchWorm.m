@@ -28,7 +28,7 @@
         view = _view;
         // an array, for the splotches
         wormSplotches = [[NSMutableArray alloc] init];
-        wormSize = 60.0;
+        wormSize = 80.0;
         speed = 0.2;
         moveTime = NO;
         
@@ -296,13 +296,13 @@
     moveTime = YES;
     [self updatePath];
     
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    [UIView setAnimationDuration: 2.0];
     for (PWSplotch* splotch in wormSplotches)
     {
         splotch.center = CGPointMake(splotch.center.x - 1500, splotch.center.y);
     }
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration: 2.0];
     self.layer.transform = CATransform3DConcat(self.layer.transform, CATransform3DMakeScale(self.scalingFactor, self.scalingFactor, 1.0));
     [UIView commitAnimations];
 }

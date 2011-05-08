@@ -93,16 +93,6 @@
                                                       targetID:self.groupID];
     self.foodInBelly = 0;
     self.activeEffectID = nil;
-    
-    NSArray *possibleDrugs = [NSArray arrayWithObjects:
-                              @"Tanh", 
-                              @"CombNDelay", 
-                              @"Flanger", 
-                              @"PitchShift", nil];
-    NSString *randomDrug = [possibleDrugs objectAtIndex:arc4random() % [possibleDrugs count]];
-    NSLog(@"Spawing %@", randomDrug);
-    // give SCSynth time to create groups
-    [self performSelector:@selector(eatEffect:) withObject:randomDrug afterDelay:0.1];
 }
 
 - (void)dismantleSynths
@@ -148,36 +138,35 @@
 
 - (void)tick
 {
-//    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
-    [self.sequence decay:1 - exp(-0.000001 * age)];
-    self.volume = exp(-0.001 * age);
-    
-    UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
-    BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
-    
-    BOOL dead = [self dead];
-    
-    if (offScreen)
-        NSLog(@"Offscreen");
-    if (dead)
-        NSLog(@"Dead!");
-    
-    if( offScreen || dead )
+    // AGING
+    if (!self.creating)
     {
-        age += 400;
+        //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
+        [self.sequence decay:1 - exp(-0.000001 * age)];
+        self.volume = exp(-0.001 * age);
+        
+        UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
+        BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
+        
+        BOOL dead = [self dead];
+        
+        if( offScreen || dead )
+        {
+            age += 400;
+        }
+        else
+        {
+            age++;
+        }
+        
+        if( offScreen && dead )
+        {
+            [self clearWorm];
+            return;
+        }
+        
+        [self.splotchWorm setAlpha:exp(-0.002 * age)];
     }
-    else
-    {
-        age++;
-    }
-    
-    if( offScreen && dead )
-    {
-        [self clearWorm];
-        return;
-    }
-    
-    [self.splotchWorm setAlpha:exp(-0.002 * age)];
     
     if (self.creating)
     {

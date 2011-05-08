@@ -158,14 +158,30 @@
         return nil;
     
     float angle = (arc4random() % 1000) / 1000.0 * M_PI * 2;
+    int lengthDiff = abs( mother.sequence.length - father.sequence.length );
+    int minLength = MIN( mother.sequence.length, father.sequence.length );
+    
+    int newLength = minLength + (lengthDiff > 0 ? arc4random() % lengthDiff : 0);
     
     PWWorm *worm = [[[PWWorm alloc] initWithView:self.view andAngle:angle] autorelease];
-    for( int i = 0; i < 32; i++ )
+    for( int i = 0; i < newLength; i++ )
     {
         [worm.sequence tick];
         [worm tick];
-        if( i % 4 == 0 )
-            [worm addNoteWithPitch:(arc4random() % 1000) / 1000.0];
+        
+        EWPitchEvent *motherEvent = [[mother.sequence eventsAtTick:i] anyObject];
+        EWPitchEvent *fatherEvent = [[mother.sequence eventsAtTick:i] anyObject];
+        
+        float pitch = -1;
+        
+        if( motherEvent && arc4random() % 2 == 0 )
+            pitch = motherEvent.pitch;
+        
+        if( fatherEvent && arc4random() % 3 == 0 )
+            pitch = fatherEvent.pitch;
+        
+        if( pitch != -1 )
+            [worm addNoteWithPitch:pitch];
     }
     [worm stopCreating];
     

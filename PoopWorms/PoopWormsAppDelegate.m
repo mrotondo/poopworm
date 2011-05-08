@@ -8,7 +8,7 @@
 
 #import "PoopWormsAppDelegate.h"
 
-#import "PoopWormsViewController.h"
+#import "PWViewController.h"
 
 @implementation PoopWormsAppDelegate
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class PoopWormsViewController;
+@class PWViewController;
 
 @interface PoopWormsAppDelegate : NSObject <UIApplicationDelegate> {
 
@@ -16,6 +16,6 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet PoopWormsViewController *viewController;
+@property (nonatomic, retain) IBOutlet PWViewController *viewController;
 
 @end

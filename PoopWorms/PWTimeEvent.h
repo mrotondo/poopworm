@@ -1,15 +1,16 @@
 //
-//  PoopWormsViewController.h
+//  PWTimeEvent.h
 //  PoopWorms
 //
 //  Created by Mike Rotondo on 5/7/11.
 //  Copyright 2011 Stanford. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface PoopWormsViewController : UIViewController {
-    
-}
+
+@protocol PWTimeEvent <NSObject>
+
+- (void)makeDo;
 
 @end

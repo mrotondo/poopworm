@@ -11,10 +11,11 @@
 #import "EWTiming.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface PWSplotchWorm() {
-@private
-}
+@interface PWSplotchWorm()
+
 @property int numPathPoints;
+- (CGPoint)headCenterInSuperview;
+
 @end
 
 @implementation PWSplotchWorm
@@ -152,7 +153,7 @@
     return NO;
 }
 
-- (CGAffineTransform)extracted_method
+- (CGAffineTransform)inverseTransformForSuperview
 {
     CGAffineTransform relativeCenter = CGAffineTransformMakeTranslation(view.bounds.size.width / 2, view.bounds.size.height / 2);
     CGAffineTransform rotatedRelativeCenter = CGAffineTransformRotate(relativeCenter, self.entranceAngle);
@@ -161,15 +162,21 @@
     return scaledRotatedAbsoluteCenter;
 }
 
+- (CGPoint)headCenterInSuperview
+{
+    CGPoint headCenter = [[wormSplotches lastObject] center];
+    return CGPointApplyAffineTransform(headCenter, [self inverseTransformForSuperview]);
+}
+
 - (void)moveWorm
 {
     if ( !moveTime ) return;
     
-    PWSplotch * splotch = [wormSplotches objectAtIndex:0];
-
+    PWSplotch *splotch = [wormSplotches objectAtIndex:0];
+    
     float x = endPoint.x + splotch.center.x - startPoint.x + xOffset;
     float y = endPoint.y - startPoint.y + splotch.center.y + yOffset;
-
+    
     xOffset += -5 + 10 * ((float)rand() / RAND_MAX);
     yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
      
@@ -182,16 +189,16 @@
 //    }
 //    y = fmodf(y, view.bounds.size.height);
     
-    CGPoint tempCenter = CGPointMake(x, y); 
-    for (int i = [wormSplotches count] - 1; i >= 0 ; i--) 
+    CGPoint tempCenter = CGPointMake(x, y);
+    for (int i = [wormSplotches count] - 1; i >= 0 ; i--)
     {
         CGPoint tempCenter2 = [[wormSplotches objectAtIndex:i] center];
         [[wormSplotches objectAtIndex:i] setCenter:tempCenter];
         tempCenter = tempCenter2;
     }
     
-    CGPoint headCenter = [[wormSplotches lastObject] center];
-    [self.delegate wormHeadLocation:CGPointApplyAffineTransform(headCenter, [self extracted_method]) withWorm:self.worm];
+    [self.delegate wormHeadLocation:[self headCenterInSuperview] 
+                           withWorm:self.worm];
     
     [self updatePath];
 }

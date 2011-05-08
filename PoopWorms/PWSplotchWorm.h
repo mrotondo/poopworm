@@ -49,7 +49,7 @@
 
 - (void)cleanup;
 
-- (CGAffineTransform)extracted_method;
+- (CGAffineTransform)inverseTransformForSuperview;
 
 - (void)setAlpha:(float)value;
 

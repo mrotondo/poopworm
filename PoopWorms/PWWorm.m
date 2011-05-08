@@ -136,6 +136,7 @@
 {
 //    [self.sequence drift:1 - exp(-0.0001 * age)]; // tom: too hard!
     [self.sequence decay:1 - exp(-0.00001 * age)];
+    self.volume = exp(-0.001 * age);
     
     UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
     BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );

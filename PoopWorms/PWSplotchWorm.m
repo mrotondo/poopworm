@@ -26,7 +26,6 @@
         
         xOffset = 0.0;
         yOffset = 0.0;
-        
     }
     return self;
 }
@@ -150,9 +149,9 @@
     float x = endPoint.x + splotch.center.x - startPoint.x + xOffset;
     float y = endPoint.y - startPoint.y + splotch.center.y + yOffset;
 
-    xOffset += 10 * ((float)rand() / RAND_MAX);
-    yOffset += 10 * ((float)rand() / RAND_MAX);
-    
+    xOffset += -5 + 10 * ((float)rand() / RAND_MAX);
+    yOffset += -5 + 10 * ((float)rand() / RAND_MAX);
+     
     // oops i can't figure out fmodf
     if ( x < 0.0 ) x += 768.0;
     if ( x > 768.0 ) x -= 768.0;

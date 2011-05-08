@@ -15,7 +15,7 @@
 
 @implementation PWViewController
 @synthesize CPULabel;
-@synthesize creatingWorm, currentWorm, worms, splotchHandler;
+@synthesize creatingWorm, currentWorm, worms, splotchHandler, currentFoodId;
 
 - (void)dealloc
 {
@@ -25,7 +25,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self.view updateBorder];
+    [((PWWormFieldView*) self.view) updateBorder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,14 +121,19 @@
     if ( [[event allTouches] count] == 1  && !(loc.x < wormView.borderWidth || loc.x > wormView.bounds.size.width - wormView.borderWidth || loc.y < wormView.borderWidth || loc.y > wormView.bounds.size.height - wormView.borderWidth))
     {
 
-        [self.splotchHandler handleTouchPoint:loc];
+        [self.splotchHandler handleTouchPoint:loc withFoodId:self.currentFoodId];
     }
 }
 
-// HERE'S WHERE THE WORM HEAD GETS HANDLED AND THINGS GET EATEN
-- (void)wormHeadLocation:(CGPoint)head
+- (IBAction) selectSoundFood:(UIButton*)sender
 {
-    [splotchHandler handleWormPoint:head];
+    self.currentFoodId = sender.tag;
+}
+
+// HERE'S WHERE THE WORM HEAD GETS HANDLED AND THINGS GET EATEN
+- (void)wormHeadLocation:(CGPoint)head withWorm:(PWWorm*)worm
+{
+    [splotchHandler handleWormPoint:head withWorm:worm];
 }
 
 @end

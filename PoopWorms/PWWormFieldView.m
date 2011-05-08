@@ -28,6 +28,8 @@
         self.borderLayer.fillColor = nil;
         self.borderLayer.lineWidth = 4;
         self.borderLayer.strokeColor = [UIColor blackColor].CGColor;
+        
+        [self updateBorder];
     }
     return self;
 }

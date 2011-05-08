@@ -20,11 +20,13 @@
 @property (nonatomic, retain) PWWorm* currentWorm;
 @property (nonatomic, retain) NSMutableSet* worms;
 @property (nonatomic, retain) PWSplotchHandler * splotchHandler;
+@property int currentFoodId;
 
 - (void) startCreatingWormWithAngle:(float)angle;
 - (void) stopCreatingWorm;
 - (void) addNoteWithYPercent:(float)yPercent;
-- (void) drawWorms;
+
+- (IBAction) selectSoundFood:(UIButton*)sender;
 
 - (IBAction) clearStuff;
 

@@ -131,7 +131,7 @@ const float density = 20.0;
         }
         
         splotch = [[PWSplotch alloc] initWithImageNamed:imageName superlayer:view.layer
-                                                 center:touchPoint size:CGSizeMake(20.0,20.0) 
+                                                 center:touchPoint size:CGSizeMake(20.0,20.0)
                                                   color:[self getShapeColor] alpha:1.0 delegate:self];
         splotch.itemId = itemId;
         splotch.isFood = isFood;

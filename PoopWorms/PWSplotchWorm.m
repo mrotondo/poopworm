@@ -154,6 +154,12 @@
     [wormSplotches addObject:splotch];
 }
 
+- (bool)jumpTooBigBetween:(CGPoint)pt1 and:(CGPoint)pt2
+{
+    if ( (fabs(pt1.x - pt2.x) > 700.0) || (fabs(pt1.y - pt2.y) > 900.0) ) return YES;
+    return NO;
+}
+
 - (void)moveWorm
 {
     if ( !moveTime ) return;
@@ -168,16 +174,21 @@
     if ( x > 768.0 ) x -= 768.0;
     if ( y < 0.0 ) y += 1024.0;
     if ( y > 1024.0 ) y -= 1024.0;
-
-    splotch.center = CGPointMake(x,y);
-
-    [self.delegate wormHeadLocation:splotch.center];
-    //[splotch setImage:[UIImage imageNamed:@"head.png"]];
-
-    // now swap to the front
-    [wormSplotches removeObjectAtIndex:0];
-    //[[wormSplotches lastObject] changeImageTo:@"caterscale.png" withColor:[self getGreenColor]];
-    [wormSplotches addObject:splotch];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration:0.1];
+    CGPoint tempCenter = CGPointMake(x, y); 
+    for (int i = [wormSplotches count] - 1; i >= 0 ; i--) 
+    {
+        if ([self jumpTooBigBetween:[[wormSplotches objectAtIndex:i] center] and:tempCenter])
+            [UIView setAnimationsEnabled:NO];
+        else [UIView setAnimationsEnabled:YES];
+        CGPoint tempCenter2 = [[wormSplotches objectAtIndex:i] center];
+        [[wormSplotches objectAtIndex:i] setCenter:tempCenter];
+        tempCenter = tempCenter2;
+    }
+    [UIView commitAnimations];
 }
 
 - (void)startWorm:(CGPoint)start

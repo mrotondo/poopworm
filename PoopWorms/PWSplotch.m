@@ -49,8 +49,8 @@
         [sview addSubview:self];
         self.center = _center;
         //[self animateMe];
-        float randy = rand() % 3000 / 1000.0;
-        [self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
+        //float randy = rand() % 3000 / 1000.0;
+        //[self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
         delegate = _delegate;
     }
     

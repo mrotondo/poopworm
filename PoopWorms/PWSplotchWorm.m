@@ -377,8 +377,8 @@
 
 - (void)endWorm:(CGPoint)end
 {
-    PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superlayer:self.layer //superview:view 
-                                                        center:end size:CGSizeMake(wormSize,wormSize) 
+    PWSplotch * piece = [[[PWSplotch alloc] initHeadWithImageNamed:@"head.png" superlayer:self.layer //superview:view 
+                                                        center:end size:CGSizeMake(wormSize+220.0,wormSize+220.0) 
                                                          color:[self getFromBaseColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];    

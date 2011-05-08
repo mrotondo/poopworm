@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B2B5271F13766750007EF0A8 /* PWSplotchHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = B2B5271E13766750007EF0A8 /* PWSplotchHandler.mm */; };
+		B2B5278313773F2D007EF0A8 /* headopen.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B5278213773F2C007EF0A8 /* headopen.png */; };
 		C26581CF1375F4310080B599 /* AKSCSynth.mm in Sources */ = {isa = PBXBuildFile; fileRef = C26581CE1375F4310080B599 /* AKSCSynth.mm */; };
 		C26581DC1375F75C0080B599 /* libsndfile_iphone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581DB1375F75C0080B599 /* libsndfile_iphone.a */; };
 		C26581EF1375F8730080B599 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C26581EE1375F8730080B599 /* AudioToolbox.framework */; };
@@ -117,6 +118,7 @@
 		B2B5270C137662D1007EF0A8 /* PoopWormsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoopWormsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B5271D13766750007EF0A8 /* PWSplotchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWSplotchHandler.h; sourceTree = "<group>"; };
 		B2B5271E13766750007EF0A8 /* PWSplotchHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PWSplotchHandler.mm; sourceTree = "<group>"; };
+		B2B5278213773F2C007EF0A8 /* headopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headopen.png; sourceTree = "<group>"; };
 		C26581BC1375EE750080B599 /* iPhone_Synth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iPhone_Synth.xcodeproj; path = SuperCollider/platform/iphone/iPhone_Synth.xcodeproj; sourceTree = "<group>"; };
 		C26581CD1375F4310080B599 /* AKSCSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSCSynth.h; sourceTree = "<group>"; };
 		C26581CE1375F4310080B599 /* AKSCSynth.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSCSynth.mm; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				C2658216137656AE0080B599 /* flare2.png */,
 				C2658217137656AE0080B599 /* flare3.png */,
 				C2658218137656AE0080B599 /* head.png */,
+				B2B5278213773F2C007EF0A8 /* headopen.png */,
 				C2658219137656AE0080B599 /* icon.png */,
 				C265821A137656AE0080B599 /* particle.png */,
 				C265821B137656AE0080B599 /* shine1.png */,
@@ -580,6 +583,7 @@
 				D5F103181376EB34008FFD75 /* echo.png in Resources */,
 				D5F103191376EB34008FFD75 /* flange.png in Resources */,
 				D5F1031A1376EB34008FFD75 /* pitch.png in Resources */,
+				B2B5278313773F2D007EF0A8 /* headopen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

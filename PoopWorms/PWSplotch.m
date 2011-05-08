@@ -161,7 +161,48 @@ static NSMutableDictionary* imageCache;
         //float randy = rand() % 3000 / 1000.0;
         //[self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
         delegate = _delegate;
-        active = NO;
+        self.active = NO;
+        isHead = NO;
+    }
+    
+    return self;
+}
+
+// override init to include setting the IP and port for OSC
+- (id)initHeadWithImageNamed:(NSString*)_imageName superlayer:(CALayer*)layer /*superview:(UIView*)sview*/ center:(CGPoint)_center size:(CGSize)_size color:(UIColor*)_color alpha:(float)_alpha delegate:(id)_delegate
+{
+    if ( (self = [super init]) )
+    {
+        self.frame = CGRectMake(10.0, 10.0, _size.width, _size.height);
+        inAlpha = _alpha;
+        
+        self.flashImage = [self createParticle:@"headopen.png" withColor:_color];
+        self.image = [self createParticle:_imageName withColor:_color];
+        
+        //[sview addSubview:self];
+        [layer addSublayer:self.layer];
+        
+//        CAShapeLayer* ringLayer = [CAShapeLayer layer];
+//        UIBezierPath* ringPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_size.width / 2, _size.height / 2) radius:1.5 * _size.width / 2 startAngle:0 endAngle:2 * M_PI clockwise:NO];
+//        //ringLayer.lineWidth = 4;
+//        ringLayer.fillColor = CGColorCreateCopyWithAlpha(_color.CGColor, 0.2); 
+//        ringLayer.path = ringPath.CGPath;
+//        ringLayer.strokeColor = nil;
+//        [self.layer addSublayer:ringLayer];
+        
+        self.originalColor = _color;
+        self.originalString = _imageName;
+        self.originalImage = self.image;
+        
+        self.badge = nil;
+        
+        self.center = _center;
+        //[self animateMe];
+        //float randy = rand() % 3000 / 1000.0;
+        //[self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
+        delegate = _delegate;
+        self.active = NO;
+        isHead = YES;
     }
     
     return self;
@@ -186,6 +227,7 @@ static NSMutableDictionary* imageCache;
 - (void)changeImageTo:(NSString*)_imageName all:(bool)all
 {
     // BAIL OUT IF ALREADY THAT IMAGE! YEAH!
+    if ( isHead ) [self animateMe];
     if ( [_imageName isEqualToString:self.originalString] ) return;
     
     self.originalString = _imageName;
@@ -202,7 +244,8 @@ static NSMutableDictionary* imageCache;
                           delay:0.0
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{ 
-                         self.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(1.2, 1.2),CGAffineTransformMakeRotation((rand()%10 - 5)*360.0));
+                         self.transform = CGAffineTransformMakeScale(2.0, 2.0);
+                         self.image = self.flashImage;
                          
                      } 
                      completion:^(BOOL finished){
@@ -211,10 +254,12 @@ static NSMutableDictionary* imageCache;
                                              options:UIViewAnimationOptionAllowUserInteraction
                                           animations:^{ 
                                               self.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                              //self.image = self.originalImage;
                                           } 
                                           completion:^(BOOL finished){
-                                              float randy = rand() % 3000 / 1000.0;
-                                              [self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
+                                              //float randy = rand() % 3000 / 1000.0;
+                                              //[self performSelector:@selector(animateMe) withObject:nil afterDelay:randy];
+                                              self.image = self.originalImage;
                                           }];
                      }];
 }

@@ -13,8 +13,10 @@
 
 @interface PWViewController : UIViewController <PWSplotchWormDelegate> {
     UILabel *CPULabel;
+    NSArray *foodButtons;
 }
 
+@property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *foodButtons;
 @property (nonatomic, retain) IBOutlet UILabel *CPULabel;
 @property BOOL creatingWorm;
 @property (nonatomic, retain) PWWorm* currentWorm;

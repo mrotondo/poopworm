@@ -36,7 +36,7 @@ extern NSString *tickNotification;
 }
 
 @property (nonatomic, readonly) int pos;
-@property (nonatomic, readonly) int length;
+@property (nonatomic, assign) int length;
 
 - (void)addEvent:(EWEvent *)event;
 - (void)addEvent:(EWEvent *)event atTick:(int)tick;

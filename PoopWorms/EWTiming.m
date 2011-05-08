@@ -45,7 +45,7 @@ static EWTicker *g_ticker = nil;
     return self;
 }
 
--(void)fire
+- (void)fire
 {
     [[AKSCSynth sharedSynth] synthWithName:@"PitchSine" 
                               andArguments:[NSArray arrayWithObjects:
@@ -135,6 +135,28 @@ static EWTicker *g_ticker = nil;
     [timeline release], timeline = nil;
     
     [super dealloc];
+}
+
+- (void)setLength:(int)newLength
+{
+    if( newLength > 0 )
+    {
+        if( newLength < timeline.count )
+        {
+            [timeline removeObjectsInRange:NSMakeRange( newLength, timeline.count - newLength )];
+            if( pos >= newLength )
+                pos = 0;
+        }
+        else if( newLength > timeline.count )
+        {
+            for( int i = timeline.count; i < newLength; i++ )
+                [timeline addObject:[NSMutableSet set]];
+        }
+    }
+    else
+    {
+        NSLog(@"wtf is this length");
+    }
 }
 
 - (int)length

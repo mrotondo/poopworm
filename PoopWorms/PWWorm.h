@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSNumber *outputNodeID;
 @property (nonatomic) CGFloat volume;
 @property int foodInBelly;
+@property (nonatomic, readonly) BOOL dead;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle;
 - (void) addNoteWithPitch:(float)yPercent;

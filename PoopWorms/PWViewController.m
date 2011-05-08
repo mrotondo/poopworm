@@ -54,6 +54,8 @@
                                    selector:@selector(updateCPU:) 
                                    userInfo:nil 
                                     repeats:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tick) name:tickNotification object:nil];
 }
 
 - (IBAction)postTreeAction:(id)sender
@@ -94,10 +96,10 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setCPULabel:nil];
+    
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (IBAction) clearStuff
@@ -134,6 +136,16 @@
 - (void)wormHeadLocation:(CGPoint)head withWorm:(PWWorm*)worm
 {
     [splotchHandler handleWormPoint:head withWorm:worm];
+}
+
+- (void)tick
+{
+    // remove the dead worms
+    for( PWWorm *worm in [[self.worms copy] autorelease] )
+    {
+        if( worm.dead && !worm.creating )
+            [self.worms removeObject:worm];
+    }
 }
 
 @end

@@ -172,6 +172,7 @@
         tempCenter = tempCenter2;
     }
     [UIView commitAnimations];
+    [self.delegate wormHeadLocation:[[wormSplotches lastObject] center]];
 }
 
 - (void)startWorm:(CGPoint)start

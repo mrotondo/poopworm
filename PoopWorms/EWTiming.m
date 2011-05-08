@@ -187,7 +187,6 @@ static EWTicker *g_ticker = nil;
 
 - (void)drift:(float)amount
 {
-    NSLog(@"drifting %f", amount);
     for( int i = 0; i < timeline.count; i++ )
     {
         NSMutableSet *events = [timeline objectAtIndex:i];
@@ -208,7 +207,6 @@ static EWTicker *g_ticker = nil;
 
 - (void)decay:(float)amount
 {
-    NSLog(@"decaying %f", amount);
     for( NSMutableSet *events in timeline )
     {
         for( id event in [[events copy] autorelease] )

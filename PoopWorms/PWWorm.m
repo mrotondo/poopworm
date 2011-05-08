@@ -202,4 +202,16 @@
     self.splotchWorm = nil;
 }
 
+- (CGRect)boundingBox
+{
+    CGRect rect = CGRectNull;
+    
+    for( PWSplotch *splotch in self.splotchWorm.wormSplotches )
+    {
+        rect = CGRectUnion( rect, CGRectMake( splotch.center.x, splotch.center.y, 1, 1 ) );
+    }
+    
+    return rect;
+}
+
 @end

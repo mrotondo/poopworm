@@ -37,7 +37,7 @@
     else if ( controller.creatingWorm)
     {
         UITouch* touch = [touches anyObject];
-        [controller addNoteWithYPercent:[touch locationInView:self].y / self.frame.size.height];
+        [controller addNoteWithYPercent:[touch locationInView:self].y / self.bounds.size.height];
     }
 }
 

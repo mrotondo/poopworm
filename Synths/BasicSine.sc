@@ -1,1 +1,1 @@
-{|pitch, cutoff| SinOsc.ar(pitch)};
+{|pitch| SinOsc.ar(pitch)};

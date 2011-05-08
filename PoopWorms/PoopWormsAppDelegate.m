@@ -27,6 +27,8 @@
     [[EWTicker sharedTicker] start];
     [AKSCSynth sharedSynth];
     
+    [[AKSCSynth sharedSynth] synthWithName:@"Tanh" andArguments:nil];
+    
     return YES;
 }
 

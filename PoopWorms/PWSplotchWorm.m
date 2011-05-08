@@ -58,6 +58,7 @@
         [splotch removeFromSuperview];
     }
     
+    [self.layer removeFromSuperlayer];
     [wormSplotches release];
     [super dealloc];
 }
@@ -304,6 +305,14 @@
         [aniTimer invalidate];
         [aniTimer release];
         aniTimer = nil;
+    }
+}
+
+- (void)cleanup
+{
+    for( PWSplotch *splotch in wormSplotches )
+    {
+        [self removeSplotch:splotch];
     }
 }
 

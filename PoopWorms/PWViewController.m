@@ -14,12 +14,14 @@
 #import "AKSCSynth.h"
 
 @implementation PWViewController
+@synthesize foodButtons;
 @synthesize CPULabel;
 @synthesize creatingWorm, currentWorm, worms, splotchHandler, currentFoodId, currentEffectId, placingFood;
 
 - (void)dealloc
 {
     [CPULabel release];
+    [foodButtons release];
     [super dealloc];
 }
 
@@ -46,7 +48,7 @@
     [super viewDidLoad];
 
     self.worms = [NSMutableArray arrayWithCapacity:10];
-    self.splotchHandler = [[PWSplotchHandler alloc] initWithView:self.view];
+    self.splotchHandler = [[[PWSplotchHandler alloc] initWithView:self.view] autorelease];
     
     ((PWWormFieldView*) self.view).controller = self;
     
@@ -103,6 +105,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setCPULabel:nil];
     
+    [self setFoodButtons:nil];
     [super viewDidUnload];
 }
 
@@ -137,8 +140,19 @@
     }
 }
 
+- (void)unhighlightAllButtons
+{
+    for (UIButton *button in self.foodButtons) 
+    {
+        button.layer.borderWidth = 0;
+    }
+}
+
 - (IBAction) selectSoundFood:(UIButton*)sender
 {
+    [self unhighlightAllButtons];
+    sender.layer.borderColor = [UIColor orangeColor].CGColor;
+    sender.layer.borderWidth = 5;
     self.currentFoodId = sender.tag;
     self.placingFood = YES;
 }
@@ -146,6 +160,9 @@
 
 - (IBAction) selectEffect:(UIButton*)sender
 {
+    [self unhighlightAllButtons];
+    sender.layer.borderColor = [UIColor orangeColor].CGColor;
+    sender.layer.borderWidth = 5;
     self.currentEffectId = sender.tag;
     self.placingFood = NO;
 }
@@ -205,7 +222,7 @@
     {
         PWWorm *worm1 = [self.worms objectAtIndex:i];
         CGRect bbox1 = worm1.boundingBox;
-        bbox1 = CGRectApplyAffineTransform( bbox1, [worm1.splotchWorm extracted_method] );
+        bbox1 = CGRectApplyAffineTransform( bbox1, [worm1.splotchWorm inverseTransformForSuperview] );
         
         BOOL foundMate = NO;
         
@@ -213,7 +230,7 @@
         {
             PWWorm *worm2 = [self.worms objectAtIndex:j];
             CGRect bbox2 = worm2.boundingBox;
-            bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm extracted_method] );
+            bbox2 = CGRectApplyAffineTransform( bbox2, [worm2.splotchWorm inverseTransformForSuperview] );
   
             if( CGRectIntersectsRect( bbox1, bbox2 ) )
             {

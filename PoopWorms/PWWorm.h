@@ -42,4 +42,7 @@
 - (void) clearWorm;
 - (void)eatEffect:(NSString *)effectName;
 
+// don't call this
+- (void)tick;
+
 @end

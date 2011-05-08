@@ -1,0 +1,1 @@
+{|pitch| Pulse.ar(pitch)};

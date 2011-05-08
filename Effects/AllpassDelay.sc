@@ -1,0 +1,1 @@
+{|input| AllpassC.ar(input, 2, 0.2, 5, add:input)};

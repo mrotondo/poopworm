@@ -135,8 +135,8 @@
 {
     PWSplotch * splotch = [wormSplotches objectAtIndex:0];
   
-    float x = endPoint.x + splotch.center.x - startPoint.x;
-    float y = endPoint.y - startPoint.y + splotch.center.y;
+    float x = (endPoint.x - startPoint.x) + splotch.center.x;
+    float y = (endPoint.y - startPoint.y) + splotch.center.y;
     
     // oops i can't figure out fmodf
     if ( x < 0.0 ) x += 768.0;

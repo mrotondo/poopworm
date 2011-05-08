@@ -223,8 +223,6 @@ static EWTicker *g_ticker = nil;
         return [timeline objectAtIndex:tick];
     }
     
-    NSLog(@"wtf is this tick");
-    
     return nil;
 }
 

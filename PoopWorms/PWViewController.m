@@ -221,7 +221,7 @@
                     -[worm1.lastDate timeIntervalSinceNow] > 3 &&
                     -[worm2.lastDate timeIntervalSinceNow] > 3 )
                 {
-                    NSLog( @"I would mate %@ and %@", worm1, worm2 );
+//                    NSLog( @"I would mate %@ and %@", worm1, worm2 );
                     
                     PWWorm *baby = [self offspringOf:worm1 and:worm2];
                     

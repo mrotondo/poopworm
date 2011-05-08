@@ -97,7 +97,11 @@
 
 - (IBAction) clearStuff
 {
-    [self.currentWorm clearWorm];
+    for ( PWWorm * worm in self.worms )
+        [worm clearWorm];
+    
+    [self.worms removeAllObjects];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

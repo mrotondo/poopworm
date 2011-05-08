@@ -196,7 +196,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                     center:start size:CGSizeMake(wormSize,wormSize) 
-                                     color:[self getGreenColor] alpha:1.0 delegate:self]autorelease];
+                                     color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];
     startPoint = start;
@@ -219,7 +219,7 @@
 {
     PWSplotch * piece = [[[PWSplotch alloc] initWithImageNamed:@"caterscale.png" superview:view 
                                                         center:end size:CGSizeMake(wormSize,wormSize) 
-                                                         color:[self getGreenColor] alpha:1.0 delegate:self]autorelease];
+                                                         color:[UIColor redColor] alpha:1.0 delegate:self]autorelease];
     
     [wormSplotches addObject: piece];    
     endPoint = end;

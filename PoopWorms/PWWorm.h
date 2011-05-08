@@ -43,4 +43,7 @@
 - (void)eatEffect:(NSString *)effectName;
 - (void) updateDisplay;
 
+// don't call this
+- (void)tick;
+
 @end

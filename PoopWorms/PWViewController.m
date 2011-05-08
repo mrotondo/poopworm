@@ -152,6 +152,26 @@
     [splotchHandler handleWormPoint:head withWorm:worm];
 }
 
+- (PWWorm *)offspringOf:(PWWorm *)mother and:(PWWorm *)father
+{
+    if( arc4random() % 2 == 0 )
+        return nil;
+    
+    float angle = (arc4random() % 1000) / 1000.0 * M_PI * 2;
+    
+    PWWorm *worm = [[[PWWorm alloc] initWithView:self.view andAngle:angle] autorelease];
+    for( int i = 0; i < 32; i++ )
+    {
+        [worm.sequence tick];
+        [worm tick];
+        if( i % 4 == 0 )
+            [worm addNoteWithPitch:(arc4random() % 1000) / 1000.0];
+    }
+    [worm stopCreating];
+    
+    return worm;
+}
+
 - (void)tick
 {
     // remove the dead worms
@@ -182,8 +202,17 @@
                     -[worm2.lastDate timeIntervalSinceNow] > 3 )
                 {
                     NSLog( @"I would mate %@ and %@", worm1, worm2 );
-                    worm1.lastDate = [NSDate date];
-                    worm2.lastDate = [NSDate date];
+                    
+                    PWWorm *baby = [self offspringOf:worm1 and:worm2];
+                    
+                    if( baby )
+                    {
+                        [self.worms addObject:baby];
+                        [self.view.layer addSublayer:baby.layer];
+                        
+                        worm1.lastDate = [NSDate date];
+                        worm2.lastDate = [NSDate date];
+                    }
                 }
                 
                 worm1.mating = YES;

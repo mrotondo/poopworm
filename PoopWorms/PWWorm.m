@@ -13,6 +13,7 @@
 #import "PWViewController.h"
 #import "AKSCSynth.h"
 #import "VVOSC.h"
+#import "SoundFood.h"
 
 @interface PWWorm ()
 
@@ -27,7 +28,7 @@
 @implementation PWWorm
 @synthesize notes, durationInBeats, layer, creating, splotchWorm, beatsSinceLastNote, sequence, age, lastEvent, negativeStartOffset, mating, lastDate;
 // Synthesis stuffs
-@synthesize groupID, busID, outputNodeID;
+@synthesize groupID, busID, outputNodeID, effectInBelly;
 @synthesize foodInBelly, activeEffectID, volume;
 
 - (id) initWithView:(UIView*)view andAngle:(float)angle
@@ -74,6 +75,12 @@
                                                         andArguments:args 
                                                            addAction:AKAddBeforeAction 
                                                             targetID:self.outputNodeID];
+    }
+    
+    // update display here
+    for (PWSplotch* splotch in self.splotchWorm.wormSplotches)
+    {
+        if ( !splotch.active ) [splotch changeImageTo:[SoundFood imageForEffectId:self.effectInBelly] all:YES];
     }
 }
 
@@ -146,7 +153,7 @@
         self.volume = exp(-0.001 * age);
         
         UIView *lastSplotch = self.splotchWorm.wormSplotches.lastObject;
-        BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm extracted_method]) );
+        BOOL offScreen = !CGRectContainsPoint(self.splotchWorm.layer.superlayer.bounds, CGPointApplyAffineTransform(lastSplotch.center, [self.splotchWorm inverseTransformForSuperview]) );
         
         BOOL dead = [self dead];
         
@@ -192,7 +199,7 @@
 {
     for (PWSplotch* splotch in self.splotchWorm.wormSplotches)
     {
-        
+        [splotch changeImageTo:[SoundFood imageForFoodId:self.foodInBelly] all:NO];
     }
 }
 

@@ -147,12 +147,14 @@ const float density = 20.0;
         if (hit.isFood)
         {
             worm.foodInBelly = hit.itemId;
+            [worm updateDisplay];
         }
         else
         {
+            worm.effectInBelly = hit.itemId;
             [worm eatEffect:[SoundFood effectNameForEffectId:hit.itemId]];
         }
-        [worm updateDisplay];
+        
         [splotchArray removeObject:hit];
         [hit explodeMe];
     }

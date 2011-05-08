@@ -46,6 +46,7 @@ typedef enum {
 
 - (NSNumber *)bus;
 - (NSNumber *)group;
+- (void)freeAllInGroup:(NSNumber *)groupNodeID;
 - (NSNumber *)synthWithName:(NSString *)synthName 
                andArguments:(NSArray *)arguments;
 - (NSNumber *)synthWithName:(NSString *)synthName 

@@ -1,0 +1,1 @@
+{|input| CombN.ar(input, 1, delaytime:0.08, decaytime:2)}

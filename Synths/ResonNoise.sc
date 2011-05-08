@@ -1,0 +1,1 @@
+{|pitch| Mix(Resonz.ar(WhiteNoise.ar() * 10, [XLine.kr(pitch*2, pitch/2, 0.1), XLine.kr(pitch*2, pitch/2, 0.5)], 0.01))}

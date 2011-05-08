@@ -1,0 +1,7 @@
+*.o
+*.os
+options.cache*
+config.log
+.sconsign.dblite
+.sconf_temp
+*~
